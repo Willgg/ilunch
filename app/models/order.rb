@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
   belongs_to :user
-  has_many :line_items
+  belongs_to :company
+  has_many :line_items, dependent: :destroy
 end
