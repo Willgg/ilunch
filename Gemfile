@@ -9,9 +9,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'devise'
 gem 'redis'
 gem 'money-rails'
+gem 'cloudinary'
+gem "attachinary", github: "assembler/attachinary"
+gem "coffee-rails"
 
 gem 'sass-rails'
 gem 'jquery-rails'
+gem "jquery-fileupload-rails"
 gem 'uglifier'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
