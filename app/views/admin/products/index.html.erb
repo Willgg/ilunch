@@ -1,8 +1,11 @@
+<%= link_to 'Nouveau produit', new_admin_product_path %>
 <table>
   <% @products.each do |product| %>
     <tr>
       <td><%= product.name %></td>
       <td><%= product.description %></td>
+      <td><%= link_to 'modifier', edit_admin_product_path(product) %></td>
+      <td><%= link_to 'supprimer', admin_product_path(product), method: :delete %></td>
     </tr>
   <% end %>
 </table>
