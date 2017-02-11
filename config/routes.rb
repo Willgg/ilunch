@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   # end
   namespace :admin do
     get '', to: 'products#index', as: '/'
-    resources :products, only: [:show, :new, :create, :edit, :update, :destroy]
+    resources :products, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :users, only: [:index, :edit, :destroy]
   end
 end
