@@ -9,6 +9,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'devise'
 gem 'redis'
 gem 'money-rails'
+gem 'stripe'
 gem 'cloudinary'
 gem "attachinary", github: "assembler/attachinary"
 gem "coffee-rails"
