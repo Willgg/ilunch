@@ -1,8 +1,28 @@
 <div class="navbar-admin">
   <ul>
-    <li><%= link_to 'customers', admin_users_path %></li>
-    <li><%= link_to 'products', admin_products_path %></li>
-    <li><%= link_to 'orders', admin_orders_path %></li>
-    <li><%= link_to 'companies', admin_companies_path %></li>
+    <li>
+      <%= link_to admin_products_path do %>
+        <i class="fa fa-cutlery" aria-hidden="true"></i>
+        <br />products
+      <% end %>
+    </li>
+    <li>
+      <%= link_to admin_orders_path do %>
+        <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+        <br />orders
+      <% end %>
+    </li>
+    <li>
+      <%= link_to admin_users_path do %>
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <br />customers
+      <% end %>
+    </li>
+    <li>
+      <%= link_to admin_companies_path do %>
+        <i class="fa fa-building" aria-hidden="true"></i>
+        <br />companies
+      <% end %>
+    </li>
   </ul>
 </div>

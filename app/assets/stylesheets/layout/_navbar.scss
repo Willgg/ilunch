@@ -142,10 +142,15 @@
     list-style-type: none;
   }
   li {
-    padding: 10px;
     text-transform: capitalize;
+    color: #fff;
   }
   a {
+    display: block;
+    padding: 10px;
     color: #fff;
+    &:hover {
+      text-decoration: none;
+    }
   }
 }

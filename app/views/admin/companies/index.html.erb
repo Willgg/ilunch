@@ -5,6 +5,7 @@
     <thead>
       <tr>
         <th>Id</th>
+        <th>Name</th>
         <th>Street</th>
         <th>Post code</th>
         <th>Orders</th>
@@ -14,6 +15,7 @@
     <% @companies.each do |company| %>
       <tr>
         <td><%= company.id %></td>
+        <td><%= company.name %></td>
         <td><%= company.street %></td>
         <td><%= company.post_code %></td>
         <td><%= company.orders.count %> orders</td>
@@ -23,5 +25,5 @@
       </tr>
     <% end %>
   </table>
-  <%= will_paginate @orders %>
+  <%= will_paginate @companies %>
 </div>
