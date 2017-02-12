@@ -1,8 +1,31 @@
-<table>
-  <% @products.each do |product| %>
-    <tr>
-      <td><%= product.name %></td>
-      <td><%= product.description %></td>
-    </tr>
-  <% end %>
-</table>
+<div class="container admin-container">
+  <h2>Products</h2>
+  <%= link_to 'Nouveau produit', new_admin_product_path, class: 'btn btn-primary' %>
+  <table class="resource-list">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Photo</th>
+        <th>Description</th>
+        <th colspan="3">Created at</th>
+      </tr>
+    </thead>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.id %></td>
+        <td><%= product.name %></td>
+        <td>
+        <% if product.photo? %>
+          <%= cl_image_tag product.photo.path, width: 100, height: 50, crop: :fill %>
+        <% end %>
+        </td>
+        <td><%= product.description.truncate(50) %></td>
+        <td><%= product.created_at.strftime('%d/%m/%Y') %></td>
+        <td><%= link_to 'modifier', edit_admin_product_path(product) %></td>
+        <td><%= link_to 'supprimer', admin_product_path(product), method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @products %>
+</div>

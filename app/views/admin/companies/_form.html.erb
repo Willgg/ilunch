@@ -1,0 +1,9 @@
+<div class="container admin-container">
+  <%= simple_form_for @company, url: admin_companies_path do |f| %>
+    <%= f.input :name %>
+    <%= f.input :street %>
+    <%= f.input :post_code %>
+    <%= f.input :delivery_time, collection: Company::TIMESLOT %>
+    <%= f.submit %>
+  <% end %>
+</div>
