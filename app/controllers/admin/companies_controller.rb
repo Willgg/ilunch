@@ -19,7 +19,11 @@ class Admin::CompaniesController < ApplicationController
   end
 
   def destroy
-    @company.destroy
+    if @company.destroy
+      flash[:notice] = 'L\'entreprise a bien été supprimée'
+    else
+      flash[:alert] = 'L\'entreprise n\'a pas été supprimée'
+    end
     redirect_to admin_companies_path
   end
 
