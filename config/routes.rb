@@ -13,5 +13,7 @@ Rails.application.routes.draw do
     get '', to: 'products#index', as: '/'
     resources :products, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :users, only: [:index, :edit, :destroy]
+    resources :orders, only: [:index]
+    resources :companies, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 end

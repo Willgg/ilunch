@@ -1,9 +1,15 @@
 .resource-list {
   width: 100%;
   thead {
+    th {
+      border-color: #7b808c;
+    }
   }
   td, th {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #dfe0e1;
     padding: 10px;
+  }
+  tbody tr:hover {
+    background-color: $brand-color-very-light;
   }
 }

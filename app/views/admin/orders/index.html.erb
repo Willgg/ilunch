@@ -1,0 +1,27 @@
+<div class="container admin-container">
+  <h2>Orders</h2>
+  <table class="resource-list">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Created at</th>
+        <th>Customer</th>
+        <th>Delivery location</th>
+        <th>Status</th>
+        <th colspan="2">Items</th>
+      </tr>
+    </thead>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.created_at.strftime('%d/%m/%Y') %></td>
+        <td><%= order.user.email %></td>
+        <td><%= order.company.name %></td>
+        <td><%= order.status %></td>
+        <td><%= order.line_items.count %> line items</td>
+        <td><%= link_to 'supprimer', admin_product_path(order), method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @orders %>
+</div>

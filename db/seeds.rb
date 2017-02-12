@@ -9,16 +9,44 @@
 Product.destroy_all
 User.destroy_all
 Company.destroy_all
-product_1 = Product.create( photo: nil, name: 'Salade de crevette au garam massala',
-               description: 'Une salade exotique très parfumée au garam masala,'\
-               'un mélange d\'épices indien, avec des crevettes, des carottes' \
-               ' et de la coriandre fraîche')
-product_2 = Product.create( photo: nil, name: 'Pineapple pork pot',
-               description: 'Un effiloché de porc aux accents exotiques,' \
+
+url = 'https://cdn.shopify.com/s/files/1/0832/9391/products/unnamed-1.jpg?v=1484325256'
+product_1 = Product.create( name: 'Rigatoni alla romesco',
+              description: 'De grosses pâtes creuses avec une sauce tomates, ' \
+              'poivrons, paprika et amandes, pour un goût subtilement fumé. ')
+product_1.photo_url = url
+
+url = 'https://cdn.shopify.com/s/files/1/0832/9391/products/salade_de_boulghour_carottes_roties.jpg?v=1486029431'
+product_2 = Product.create( name: 'Salade de boulgour, carottes rôties aux épices et fêta',
+              description: 'Un effiloché de porc aux accents exotiques,' \
               'fondant à souhait, avec de gros morceaux d\'ananas juteux et une' \
               'sauce soja qui font honneur à cette référence du sucré-salé.' )
+product_2.photo_url = url
 
-user_1 = User.create( email: 'grenier.godard@gmail.com', password: 'billyboy' )
+url = 'https://cdn.shopify.com/s/files/1/0832/9391/products/saumon_et_semoule_a_l_orange.jpg?v=1484325437'
+product_3 = Product.create( name: 'Saumon mi-cuit et semoule aux épices',
+              description: 'Un pavé de saumon juste cuit avec une crème à ' \
+              'l\'orange doucement sucrée sur un lit de semoule aux épices,' \
+              ' parsemé de coriandre fraîche.' )
+product_3.photo_url = url
+
+
+19.times do
+  Company.create( name: Faker::Company.name, street: Faker::Address.street_address,
+                  post_code: Faker::Address.zip_code, delivery_time: Company::TIMESLOT.sample )
+end
+
+49.times do
+  user = User.create( first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
+               email: Faker::Internet.email, password: Faker::Internet.password(8),
+               optin: [true, false].sample )
+  order = Order.create( user: user, company: Company.all.sample )
+  LineItem.create(order: order, quantity: [1,2,3].sample, product: Product.all.sample)
+end
+
+user_1 = User.create( first_name: 'William', last_name: 'Grenier Godard',
+                      email: 'grenier.godard@gmail.com', password: 'billyboy',
+                      optin: true )
 
 company_1 = Company.create( name: 'Le Village', street: '55 rue de la boétie',
                             post_code: '75008', delivery_time: Company::TIMESLOT.sample )
@@ -27,3 +55,5 @@ order_1 = Order.create( user: user_1, company: company_1 )
 
 LineItem.create(order: order_1, quantity: 1, product: product_1)
 LineItem.create(order: order_1, quantity: 1, product: product_2)
+
+puts "Database has been populated with the seed !"
