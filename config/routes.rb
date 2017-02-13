@@ -2,13 +2,16 @@
 Rails.application.routes.draw do
   devise_for :users
   mount Attachinary::Engine => "/attachinary"
-  root to: 'pages#home'
+  root to: 'products#index'
 
-  resources :products, only: [:index]
+  resources :orders, only: [:show, :create] do
+    resources :payments, only: [:new, :create]
+  end
 
-  # namespace :admin do
-  #   get '', to: 'products#index', as: '/'
-  # end
+  resources :products, only: [:index] do
+    resources :line_items, only: [:create]
+  end
+
   namespace :admin do
     get '', to: 'products#index', as: '/'
     resources :products, only: [:index, :new, :create, :edit, :update, :destroy]

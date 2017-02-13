@@ -46,7 +46,7 @@ end
   product = Product.all.sample
   quantity = [1,2,3].sample
   LineItem.create(order: order, quantity: quantity, product: product,
-                  price_cents: product.price * quantity )
+                  price_cents: product.price_cents * quantity )
 end
 
 user_1 = User.create( first_name: 'William', last_name: 'Grenier Godard',
@@ -58,7 +58,7 @@ company_1 = Company.create( name: 'Le Village', street: '55 rue de la boétie',
 
 order_1 = Order.create( user: user_1, company: company_1 )
 
-LineItem.create(order: order_1, quantity: 1, product: product_1, price_cents: product_1.price)
-LineItem.create(order: order_1, quantity: 2, product: product_2, price_cents: product_2.price * 2)
+LineItem.create(order: order_1, quantity: 1, product: product_1, price_cents: product_1.price_cents)
+LineItem.create(order: order_1, quantity: 2, product: product_2, price_cents: product_2.price_cents * 2)
 
 puts "Database has been populated with the seed !"
