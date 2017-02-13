@@ -23,6 +23,7 @@ gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'autoprefixer-rails'
 gem 'will_paginate', '~> 3.1.1'
+gem 'faker'
 
 group :development, :test do
   gem 'binding_of_caller'
@@ -33,7 +34,6 @@ group :development, :test do
   gem 'spring'
   gem 'listen', '~> 3.0.5'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'faker'
 end
 
 
