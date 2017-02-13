@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  enum status: [ :ordered, :payed, :canceled ]
+  enum status: [ :pending, :payed, :canceled ]
   after_initialize :set_status
 
   belongs_to :user
@@ -15,6 +15,18 @@ class Order < ApplicationRecord
   end
 
   def subtotal
-    line_items.sum(&:price)
+    line_items.sum(&:total_price)
+  end
+
+  def vat
+    subtotal * 0.2
+  end
+
+  def total_price
+    subtotal
+  end
+
+  def total_price_cents
+    (total_price * 100).to_i
   end
 end

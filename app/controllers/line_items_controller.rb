@@ -3,11 +3,23 @@ class LineItemsController < ApplicationController
   before_action :set_order, only: [:create]
 
   def create
-    @line_item = @order.line_items.build(line_item_params.merge(product: @product))
-    if @line_item.save
-      redirect_to order_path(@order)
+    if @order.line_items.where(product: @product).exists?
+      @line_item = @order.line_items.where(product: @product).first
+      @line_item.quantity += params[:line_item][:quantity].to_i
     else
-      redirect_to products_path
+      @line_item = @order.line_items.build(line_item_params.merge(product: @product))
+    end
+
+    if @line_item.save
+      respond_to do |format|
+         format.html { redirect_to order_path(@order) }
+         format.js
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to products_path }
+        format.js
+      end
     end
   end
 
