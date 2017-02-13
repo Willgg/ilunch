@@ -4,11 +4,12 @@ Rails.application.routes.draw do
   mount Attachinary::Engine => "/attachinary"
   root to: 'pages#home'
 
-  resources :products, only: [:index]
+  resources :orders, only: [:show]
 
-  # namespace :admin do
-  #   get '', to: 'products#index', as: '/'
-  # end
+  resources :products, only: [:index] do
+    resources :line_items, only: [:create]
+  end
+
   namespace :admin do
     get '', to: 'products#index', as: '/'
     resources :products, only: [:index, :new, :create, :edit, :update, :destroy]

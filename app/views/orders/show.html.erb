@@ -1,0 +1,9 @@
+<table>
+  <% @order.line_items.each do |li| %>
+    <tr>
+      <td><%= cl_image_tag li.product.photo.path, width: 300, crop: :fill %></td>
+      <td><%= li.product.name %></td>
+      <td><%= humanized_money_with_symbol(li.price) %></td>
+    </tr>
+  <% end %>
+</table>
