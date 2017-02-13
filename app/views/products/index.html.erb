@@ -1,6 +1,21 @@
-<% @products.each do |product| %>
-<div>
-  <h2><%= product.name %></h2>
-  <a href="#" class="btn btn-primary">Ajouter</a>
+<div class="container">
+  <div class="row">
+    <% @products.each do |product| %>
+      <div class="col-xs-12 col-sm-4">
+        <div class="card">
+          <div class="card-bg" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(' <%= cl_image_path product.photo.path, height: 250, crop: :fill %>');"></div>
+          <div class="card-category">Popular</div>
+          <div class="card-details">
+            <div class="card-description">
+              <h2><%= product.name %></h2>
+              <p><%= product.description.truncate(100) %></p>
+            </div>
+            <a href="#" class="btn btn-primary">Ajouter</a>
+          </div>
+          <a class="card-link" href="#" ></a>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
-<% end %>
+
