@@ -13,4 +13,8 @@ class Order < ApplicationRecord
   def set_status
     self.status = 0 if self.status.nil?
   end
+
+  def price
+    line_items.sum(&:price)
+  end
 end
