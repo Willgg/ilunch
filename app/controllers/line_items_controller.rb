@@ -1,4 +1,6 @@
 class LineItemsController < ApplicationController
+  skip_before_action :authenticate_user!, only: [:create]
+
   before_action :set_product, only: [:create]
   before_action :set_order, only: [:create]
 
@@ -9,6 +11,7 @@ class LineItemsController < ApplicationController
     else
       @line_item = @order.line_items.build(line_item_params.merge(product: @product))
     end
+    authorize @line_item
 
     if @line_item.save
       respond_to do |format|

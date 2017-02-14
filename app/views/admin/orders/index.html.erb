@@ -8,7 +8,9 @@
         <th>Customer</th>
         <th>Delivery location</th>
         <th>Status</th>
-        <th colspan="2">Items</th>
+        <th>Items</th>
+        <th>Total</th>
+        <th></th>
       </tr>
     </thead>
     <% @orders.each do |order| %>
@@ -19,6 +21,7 @@
         <td><%= order.company.name %></td>
         <td><%= order.status %></td>
         <td><%= order.line_items.count %> line items</td>
+        <td><%= humanized_money_with_symbol(order.total_price) %></td>
         <td><%= link_to 'supprimer', admin_product_path(order), method: :delete %></td>
       </tr>
     <% end %>

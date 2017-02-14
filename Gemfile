@@ -13,6 +13,7 @@ gem 'stripe'
 gem 'cloudinary'
 gem "attachinary", github: "assembler/attachinary"
 gem "coffee-rails"
+gem 'pundit'
 
 gem 'sass-rails'
 gem 'jquery-rails'

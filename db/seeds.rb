@@ -9,6 +9,7 @@ require 'faker'
 
 Product.destroy_all
 User.destroy_all
+Order.destroy_all
 Company.destroy_all
 
 url = 'https://cdn.shopify.com/s/files/1/0832/9391/products/unnamed-1.jpg?v=1484325256'
@@ -42,7 +43,7 @@ end
 49.times do
   user = User.create( first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
                email: Faker::Internet.email, password: Faker::Internet.password(8),
-               optin: [true, false].sample )
+               optin: [true, false].sample, admin: false )
   order = Order.create( user: user, company: Company.all.sample )
   product = Product.all.sample
   quantity = [1,2,3].sample
@@ -52,11 +53,11 @@ end
 
 user_1 = User.create( first_name: 'William', last_name: 'Grenier Godard',
                       email: 'grenier.godard@gmail.com', password: 'billyboy',
-                      optin: true )
+                      optin: true, admin: true )
 
 user_2 = User.create( first_name: 'Victoria', last_name: 'Benhaim',
                       email: 'victoria.startup@gmail.com', password: 'ilunch',
-                      optin: true )
+                      optin: true, admin: true )
 
 company_1 = Company.create( name: 'Le Village', street: '55 rue de la boétie',
                             post_code: '75008', delivery_time: Company::TIMESLOT.sample )
