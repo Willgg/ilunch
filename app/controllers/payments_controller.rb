@@ -1,4 +1,7 @@
 class PaymentsController < ApplicationController
+
+  after_action :verify_authorized, except: [:new, :create], unless: :skip_pundit?
+
   before_action :set_order
 
   def new
