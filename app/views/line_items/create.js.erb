@@ -1,3 +1,4 @@
 <% if @line_item.errors.any? %>
 <% else %>
+  $('.navbar-wagon .badge').html(<%= @order.line_items.count %>);
 <% end %>

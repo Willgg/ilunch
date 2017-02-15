@@ -1,10 +1,12 @@
 class PaymentsController < ApplicationController
-
-  after_action :verify_authorized, except: [:new, :create], unless: :skip_pundit?
+  skip_before_action :authenticate_user!
 
   before_action :set_order
+  after_action :verify_authorized, except: [:new, :create], unless: :skip_pundit?
 
   def new
+    @user = user_signed_in? ? current_user : User.new
+    authorize session[:order_id]
   end
 
   def create
@@ -33,5 +35,11 @@ class PaymentsController < ApplicationController
 
   def set_order
     @order = Order.pending.find(params[:order_id])
+  end
+
+  def authorize(session)
+    unless PaymentPolicy.new(current_user, @order, session).new?
+      redirect_to products_path
+    end
   end
 end

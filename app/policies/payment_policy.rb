@@ -1,5 +1,4 @@
-class OrderPolicy < ApplicationPolicy
-  attr_reader :user, :record, :session
+class PaymentPolicy < ApplicationPolicy
 
   def initialize(user, record, session)
     @user = user
@@ -7,17 +6,13 @@ class OrderPolicy < ApplicationPolicy
     @session = session
   end
 
-  def show?
+  def new?
     @record.user ? ( @record.user == @user ) : ( @record.id == @session )
-  end
-
-  def update?
-    @record.user ? ( @record.user == user ) : ( @record.id == @session )
   end
 
   class Scope < Scope
     def resolve
-      user.admin? ? scope.all : scope.where(user: user)
+      scope
     end
   end
 end

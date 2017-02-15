@@ -17,7 +17,7 @@
 
     <!-- Notification -->
     <% unless session[:order_id].nil? %>
-      <%= link_to order_path(id: session[:order_id]),
+      <%= link_to new_order_payment_path(order_id: session[:order_id]),
           class: "navbar-wagon-item navbar-wagon-link" do %>
         <div class="badge-container">
           <i class="fa fa-shopping-basket"></i>
