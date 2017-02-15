@@ -35,25 +35,43 @@
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-6">
-      <h2>Livraison</h2>
-      <%= simple_form_for @order do |f| %>
-        <%= f.association :company %>
-        <%= f.submit 'Valider' %>
-      <% end %>
-      <h2>Création de compte</h2>
-      <%= simple_form_for(@user, url: registration_path(@user), remote: true) do |f| %>
-        <%= f.error_notification %>
+      <div class="row">
+        <div class="col-xs-12">
+          <h2>Livraison</h2>
+          <% unless @order.company.blank? %>
+            <div id="company-show">
+              <p>
+                <strong><%= @order.company.name %></strong> (<a href="#" id="edit-company-btn">modifier</a>)<br />
+                <%= @order.company.street %><br />
+                <%= @order.company.post_code %><br />
+              </p>
 
-        <div class="form-inputs">
-          <%= f.input :email, required: true, autofocus: true %>
-          <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-          <%= f.input :password_confirmation, required: true %>
+            </div>
+          <% end %>
+          <div id="company-form" style="display: none">
+            <%= simple_form_for @order, remote: true do |f| %>
+              <%= f.association :company %>
+              <%= f.submit 'Valider', class: 'btn btn-primary' %>
+            <% end %>
+          </div>
+          <!-- <a href="#" id="edit-company-btn" class="btn btn-primary">Modifier</a> -->
         </div>
-
-        <div class="form-actions">
-          <%= f.button :submit, "Sign up" %>
+        <div class="col-xs-12" id="user-form">
+          <% if @order.user.blank? %>
+            <%= render 'user_form' %>
+          <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>
+
+<% content_for(:after_js) do %>
+  <script>
+    $('#edit-company-btn').on('click', function (){
+      $('#company-form').show();
+      $('#company-show').hide();
+      $(this).hide();
+    });
+  </script>
+<% end %>

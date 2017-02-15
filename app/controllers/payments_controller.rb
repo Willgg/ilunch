@@ -6,10 +6,12 @@ class PaymentsController < ApplicationController
 
   def new
     @user = user_signed_in? ? current_user : User.new
-    authorize session[:order_id]
+    authorize(@order, session[:order_id], :new?)
   end
 
   def create
+    verify_authorized(@order, session[:order_id], :update?)
+
     customer = Stripe::Customer.create(
       source: params[:stripeToken],
       email:  params[:stripeEmail]
@@ -37,8 +39,8 @@ class PaymentsController < ApplicationController
     @order = Order.pending.find(params[:order_id])
   end
 
-  def authorize(session)
-    unless PaymentPolicy.new(current_user, @order, session).new?
+  def authorize(record, session, method)
+    unless PaymentPolicy.new(current_user, record, session).send(method)
       redirect_to products_path
     end
   end

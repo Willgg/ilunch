@@ -1,0 +1,6 @@
+<% if @order.errors.any? %>
+  $('#company-form').html("<div>Problem</div>");
+<% else %>
+  $('#company-form').show();
+  $('#company-show').hide();
+<% end %>
