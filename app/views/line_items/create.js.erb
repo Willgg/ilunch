@@ -1,4 +1,7 @@
 <% if @line_item.errors.any? %>
 <% else %>
+  console.log("start");
+  $('.navbar-wagon-right #item-counter').remove();
+  $('.navbar-wagon-right').prepend('<%= link_to new_order_payment_path(order_id: session[:order_id]), class: "navbar-wagon-item navbar-wagon-link", id: "item-counter" do %><div class="badge-container"><i class="fa fa-shopping-basket"></i><div class="badge badge-green"><%= @order.line_items.count %></div></div><% end %>');
   $('.navbar-wagon .badge').html(<%= @order.line_items.count %>);
 <% end %>
