@@ -43,26 +43,26 @@ end
 49.times do
   user = User.create( first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
                email: Faker::Internet.email, password: Faker::Internet.password(8),
-               optin: [true, false].sample, admin: false )
-  order = Order.create( user: user, company: Company.all.sample )
+               optin: [true, false].sample, admin: false, company: Company.all.sample )
+  order = Order.create( user: user )
   product = Product.all.sample
   quantity = [1,2,3].sample
   LineItem.create(order: order, quantity: quantity, product: product,
                   price_cents: product.price_cents * quantity )
 end
 
-user_1 = User.create( first_name: 'William', last_name: 'Grenier Godard',
-                      email: 'grenier.godard@gmail.com', password: 'billyboy',
-                      optin: true, admin: true )
-
-user_2 = User.create( first_name: 'Victoria', last_name: 'Benhaim',
-                      email: 'victoria.startup@gmail.com', password: 'ilunch',
-                      optin: true, admin: true )
-
 company_1 = Company.create( name: 'Le Village', street: '55 rue de la boétie',
                             post_code: '75008', delivery_time: Company::TIMESLOT.sample )
 
-order_1 = Order.create( user: user_1, company: company_1 )
+user_1 = User.create( first_name: 'William', last_name: 'Grenier Godard',
+                      email: 'grenier.godard@gmail.com', password: 'billyboy',
+                      optin: true, admin: true, company: company_1 )
+
+user_2 = User.create( first_name: 'Victoria', last_name: 'Benhaim',
+                      email: 'victoria.startup@gmail.com', password: 'ilunch',
+                      optin: true, admin: true, company: company_1 )
+
+order_1 = Order.create( user: user_1 )
 
 LineItem.create(order: order_1, quantity: 1, product: product_1, price_cents: product_1.price_cents)
 LineItem.create(order: order_1, quantity: 2, product: product_2, price_cents: product_2.price_cents * 2)

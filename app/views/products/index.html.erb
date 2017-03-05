@@ -10,7 +10,7 @@
               <h2><%= product.name %></h2>
               <p><%= product.description.truncate(100) %></p>
             </div>
-            <%= simple_form_for [product,@line_item], remote: true do |f| %>
+            <%= simple_form_for [product,@line_item] do |f| %>
               <%= f.hidden_field :quantity, value: 1 %>
               <%= f.submit 'Ajouter', class: 'btn btn-primary' %>
             <% end %>

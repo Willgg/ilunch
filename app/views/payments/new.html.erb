@@ -31,26 +31,18 @@
       <% end %>
     </div>
     <div class="col-xs-12 col-sm-6">
-      <div class="row">
-        <div class="col-xs-12">
-          <h2>Livraison</h2>
-          <% unless @order.company.blank? %>
-            <%= render 'companies/show' %>
-          <% end %>
-          <div id="company-form" style="display: none">
-            <%= simple_form_for @order, remote: true do |f| %>
-              <%= f.association :company %>
-              <%= f.submit 'Valider', class: 'btn btn-primary' %>
-            <% end %>
-          </div>
-          <!-- <a href="#" id="edit-company-btn" class="btn btn-primary">Modifier</a> -->
-        </div>
-        <div class="col-xs-12" id="user-form">
-          <% if @order.user.blank? %>
-            <%= render 'user_form' %>
-          <% end %>
-        </div>
-      </div>
+      <% if @order.user.blank? && !user_signed_in? %>
+        <%= render 'user_form' %>
+      <% else %>
+        <ul>
+          <li><%= current_user.first_name %></li>
+          <li><%= current_user.last_name %></li>
+          <li><%= current_user.email %></li>
+          <li><%= current_user.company.name %></li>
+          <li><%= current_user.company.street %></li>
+          <li><%= current_user.company.post_code %></li>
+        </ul>
+      <% end %>
     </div>
   </div>
 </div>
