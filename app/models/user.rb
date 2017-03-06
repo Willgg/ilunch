@@ -9,4 +9,5 @@ class User < ApplicationRecord
   has_attachment :photo
 
   validates :company, presence: true
+  validates :email, presence: true, allow_blank: false
 end

@@ -24,11 +24,9 @@
           </tr>
         </tfoot>
       </table>
-      <% if @order.company && @order.user %>
-        <div class="col-xs-12 text-center">
-          <%= render 'form' %>
-        </div>
-      <% end %>
+      <div class="text-center">
+        <%= render 'stripe_form' %>
+      </div>
     </div>
     <div class="col-xs-12 col-sm-6">
       <% if @order.user.blank? && !user_signed_in? %>

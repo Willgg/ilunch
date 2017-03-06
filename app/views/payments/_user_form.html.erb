@@ -6,9 +6,19 @@
     <%= f.input :email, required: true, autofocus: true %>
     <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
     <%= f.input :password_confirmation, required: true %>
+    <%= f.input :company_id, collection: Company.all %>
   </div>
 
   <div class="form-actions">
     <%= f.button :submit, "Sign up", class: 'btn btn-primary' %>
   </div>
+<% end %>
+
+<h2>Se connecter</h2>
+<%= simple_form_for(:user, url: session_path(:user)) do |f| %>
+  <%= f.input :email %>
+  <%= f.input :password %>
+  <%= f.input :remember_me, as: :boolean %>
+  <%= f.submit 'Sign in', class: 'btn btn-primary' %>
+  <%= link_to "Forgot your password?", new_password_path(:user) %>
 <% end %>

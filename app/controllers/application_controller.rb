@@ -28,4 +28,20 @@ class ApplicationController < ActionController::Base
       redirect_to root_path
     end
   end
+
+  def after_sign_in_path_for(resource)
+    if request.referer == new_order_payment_url(@order)
+      request.referer
+    else
+      root_path
+    end
+  end
+
+  def after_sign_up_path_for(resource)
+    if request.referer == new_order_payment_url(@order)
+      request.referer
+    else
+      root_path
+    end
+  end
 end
