@@ -6,18 +6,19 @@ class ApplicationController < ActionController::Base
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
+
+  private
+
   def set_order
     if session[:order_id]
       @order = Order.find(session[:order_id])
-    elsif current_user && current_user.orders.pending
-      @order = Order.where(user: current_user).pending.first
+    elsif current_user && current_user.orders.pending.exists?
+      @order = Order.where(user: current_user).pending.last
       session[:order_id] = @order.id
-    else
-      @order = nil
     end
-  end
 
-  private
+    update_order_with_user unless @order.nil?
+  end
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^pages$)/
@@ -30,11 +31,12 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if request.referer == new_order_payment_url(@order)
+    if @order && request.referer == new_order_payment_url(@order)
       request.referer
     else
       root_path
     end
+
   end
 
   def after_sign_up_path_for(resource)
@@ -43,5 +45,11 @@ class ApplicationController < ActionController::Base
     else
       root_path
     end
+  end
+
+  def update_order_with_user
+    return unless current_user && @order.user.nil?
+    @order.user = current_user
+    @order.save
   end
 end
