@@ -8,26 +8,28 @@
   <div class="navbar-wagon-right hidden-xs hidden-sm">
 
     <!-- Search form -->
+    <!--
     <form action="" class="navbar-wagon-search">
       <input type="text" class="navbar-wagon-search-input" placeholder="Search something">
       <button type="submit" class="navbar-wagon-search-btn">
         <i class="fa fa-search"></i>
       </button>
     </form>
+    -->
+
+    <!-- Notification -->
+    <% unless session[:order_id].nil? %>
+      <%= link_to new_order_payment_path(order_id: session[:order_id]),
+          class: "navbar-wagon-item navbar-wagon-link", id: 'item-counter' do %>
+        <div class="badge-container">
+          <i class="fa fa-shopping-basket"></i>
+          <div class="badge badge-green"><%= @order.line_items.count %></div>
+        </div>
+      <% end %>
+    <% end %>
 
     <!-- Different navigation if login or not -->
     <% if user_signed_in? %>
-
-      <!-- Notification -->
-      <% unless session[:order_id].nil? %>
-        <%= link_to order_path(id: session[:order_id]),
-            class: "navbar-wagon-item navbar-wagon-link" do %>
-          <div class="badge-container">
-            <i class="fa fa-shopping-basket"></i>
-            <div class="badge badge-green"><%= @order.line_items.count %></div>
-          </div>
-        <% end %>
-      <% end %>
 
       <!-- Profile picture and dropdown -->
       <div class="navbar-wagon-item">
@@ -60,8 +62,6 @@
 
     <% end %>
 
-    <!-- Button (call-to-action) -->
-    <%= link_to t(".top_call_to_action", default: "Post stuff"), "#", class: "navbar-wagon-item navbar-wagon-button btn" %>
   </div>
 
   <!-- Dropdown list appearing on mobile only -->

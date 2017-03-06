@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   mount Attachinary::Engine => "/attachinary"
   root to: 'products#index'
 
-  resources :orders, only: [:show, :create] do
+  resources :orders, only: [:show, :create, :update] do
     resources :payments, only: [:new, :create]
   end
 
@@ -16,7 +16,9 @@ Rails.application.routes.draw do
     get '', to: 'products#index', as: '/'
     resources :products, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :users, only: [:index, :edit, :destroy]
-    resources :orders, only: [:index]
+    resources :orders, only: [:index, :show]
+    resources :line_items, only: [:index]
     resources :companies, only: [:index, :new, :create, :edit, :update, :destroy]
   end
+
 end

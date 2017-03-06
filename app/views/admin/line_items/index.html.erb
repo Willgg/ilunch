@@ -1,0 +1,27 @@
+<div class="container admin-container">
+  <h2>Line Items</h2>
+  <table class="resource-list">
+    <thead>
+      <tr>
+        <th>Order id</th>
+        <th colspan="2">Product</th>
+        <th>Quantity</th>
+        <th>Total Price</th>
+      </tr>
+    </thead>
+    <% @line_items.each do |li| %>
+      <tr>
+        <td>order#<%= li.order.id %></td>
+        <td>
+          <% if li.product.photo? %>
+            <%= cl_image_tag li.product.photo.path, width: 100, height: 50, crop: :fill %>
+          <% end %>
+        </td>
+        <td><%= li.product.name %></td>
+        <td>X&nbsp;<%= li.quantity %></td>
+        <td><%= humanized_money_with_symbol(li.total_price) %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @line_items %>
+</div>

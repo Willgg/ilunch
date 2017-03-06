@@ -1,5 +1,6 @@
 class Company < ApplicationRecord
-  has_many :orders
+  has_many :orders, through: :users
+  has_many :users
 
   TIMESLOT = ['12h-12h30', '12h30-13h', '13h-13h30', '13h30-14h']
 

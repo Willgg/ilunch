@@ -1,0 +1,7 @@
+<% if @order.errors.any? %>
+  $('#company-form').html("<div>Problem</div>");
+<% else %>
+  $('#company-show').remove();
+  $('#company-form').before("<%= j render 'companies/show' %>");
+  $('#company-form').hide();
+<% end %>

@@ -1,6 +1,7 @@
 <div class="container admin-container">
-  <%= simple_form_for @product, url: admin_products_path(@product) do |f| %>
+  <%= simple_form_for [:admin, @product] do |f| %>
     <%= f.input :name %>
+    <%= f.input :price %>
     <%= f.input :photo, as: :attachinary %>
     <%= f.input :description %>
     <%= f.submit %>
