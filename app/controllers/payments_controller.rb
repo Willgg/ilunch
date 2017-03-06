@@ -36,7 +36,7 @@ class PaymentsController < ApplicationController
   private
 
   def set_order
-    @order = Order.pending.find(params[:order_id])
+    @order = Order.find(params[:order_id])
   end
 
   def authorize(record, session, method)

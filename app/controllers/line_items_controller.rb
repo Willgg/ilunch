@@ -37,9 +37,8 @@ class LineItemsController < ApplicationController
   end
 
   def set_order
-    begin
-      @order = Order.find(session[:order_id])
-    rescue ActiveRecord::RecordNotFound
+    super
+    if @order.nil?
       @order = Order.create
       session[:order_id] = @order.id
     end
