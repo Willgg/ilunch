@@ -2,15 +2,15 @@
   <div class="row">
     <table>
       <tbody>
-      <% @order.line_items.each do |li| %>
-        <tr>
-          <td><%= cl_image_tag li.product.photo.path, width: 200, crop: :fill %></td>
-          <td><%= li.product.name %></td>
-          <td><%= li.quantity %>&times;</td>
-          <td><%= humanized_money_with_symbol(li.price) %></td>
-          <td><%= humanized_money_with_symbol(li.total_price) %></td>
-        </tr>
-      <% end %>
+        <% @order.line_items.each do |li| %>
+          <tr>
+            <td><%= cl_image_tag li.product.photo.path, width: 200, crop: :fill %></td>
+            <td><%= li.product.name %></td>
+            <td><%= li.quantity %>&times;</td>
+            <td><%= humanized_money_with_symbol(li.price) %></td>
+            <td><%= humanized_money_with_symbol(li.total_price) %></td>
+          </tr>
+        <% end %>
       </tbody>
       <tfoot>
         <tr>
@@ -27,10 +27,5 @@
         </tr>
       </tfoot>
     </table>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 text-center">
-      <%= link_to 'Régler la commande', new_order_payment_path(@order), class: 'btn btn-primary' %>
-    </div>
   </div>
 </div>

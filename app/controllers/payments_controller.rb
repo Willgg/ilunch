@@ -10,27 +10,32 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    verify_authorized(@order, session[:order_id], :update?)
 
-    customer = Stripe::Customer.create(
-      source: params[:stripeToken],
-      email:  params[:stripeEmail]
-    )
+    if authorize(@order, session[:order_id], :update?)
+      begin
+        customer = Stripe::Customer.create(
+          source: params[:stripeToken],
+          email:  params[:stripeEmail]
+        )
 
-    charge = Stripe::Charge.create(
-      customer:     customer.id,   # You should store this customer id and re-use it.
-      amount:       @order.total_price_cents, # or amount_pennies
-      description:  "Payment for order#{@order.id}",
-      currency:     @order.total_price.currency
-    )
+        charge = Stripe::Charge.create(
+          customer:     customer.id,   # You should store this customer id and re-use it.
+          amount:       @order.total_price_cents, # or amount_pennies
+          description:  "Payment for order#{@order.id}",
+          currency:     @order.total_price.currency
+        )
 
-    @order.update(payment: charge.to_json, status: 1)
-    session.delete(:order_id)
-    redirect_to order_path(@order)
+        @order.update(payment: charge.to_json, status: 1)
+        session.delete(:order_id)
+        redirect_to order_path(@order)
 
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to new_order_payment_path(@order)
+      rescue Stripe::CardError => e
+        flash[:error] = e.message
+        redirect_to new_order_payment_path(@order)
+      end
+    else
+      redirect_to products_path
+    end
   end
 
   private
@@ -40,8 +45,6 @@ class PaymentsController < ApplicationController
   end
 
   def authorize(record, session, method)
-    unless PaymentPolicy.new(current_user, record, session).send(method)
-      redirect_to products_path
-    end
+    PaymentPolicy.new(current_user, record, session).send(method)
   end
 end

@@ -7,6 +7,7 @@ class PaymentPolicy < ApplicationPolicy
   end
 
   def new?
+    raise
     @record.user ? ( @record.user == @user ) : ( @record.id == @session )
   end
 
