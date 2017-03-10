@@ -23,7 +23,7 @@
           class: "navbar-wagon-item navbar-wagon-link", id: 'item-counter' do %>
         <div class="badge-container">
           <i class="fa fa-shopping-basket"></i>
-          <div class="badge badge-green"><%= @order.line_items.count %></div>
+          <div class="badge badge-green"><%= @order.line_items.sum(:quantity) %></div>
         </div>
       <% end %>
     <% end %>
@@ -56,10 +56,10 @@
       </div>
 
     <% else %>
-
       <!-- Login text link -->
-      <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
+      <%= link_to t(".sign_in", default: "Log in"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
 
+      <%= link_to t(".sign_up", default: "Sign up"), new_user_registration_path, class: "navbar-wagon-item navbar-wagon-link button" %>
     <% end %>
 
   </div>
