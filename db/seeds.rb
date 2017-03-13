@@ -15,7 +15,8 @@ Company.destroy_all
 url = 'https://cdn.shopify.com/s/files/1/0832/9391/products/unnamed-1.jpg?v=1484325256'
 product_1 = Product.create( name: 'Rigatoni alla romesco', price_cents: [500, 600, 700, 800, 900, 1000].sample,
               description: 'De grosses pâtes creuses avec une sauce tomates, ' \
-              'poivrons, paprika et amandes, pour un goût subtilement fumé. ')
+              'poivrons, paprika et amandes, pour un goût subtilement fumé.',
+              date: Date.today, stock: 100)
 product_1.photo_url = url
 
 url = 'https://cdn.shopify.com/s/files/1/0832/9391/products/salade_de_boulghour_carottes_roties.jpg?v=1486029431'
@@ -23,7 +24,8 @@ product_2 = Product.create( name: 'Salade de boulgour, carottes rôties aux épi
               price_cents: [500, 600, 700, 800, 900, 1000].sample,
               description: 'Un effiloché de porc aux accents exotiques,' \
               'fondant à souhait, avec de gros morceaux d\'ananas juteux et une' \
-              'sauce soja qui font honneur à cette référence du sucré-salé.' )
+              'sauce soja qui font honneur à cette référence du sucré-salé.',
+              date: Date.today, stock: 100 )
 product_2.photo_url = url
 
 url = 'https://cdn.shopify.com/s/files/1/0832/9391/products/saumon_et_semoule_a_l_orange.jpg?v=1484325437'
@@ -31,8 +33,22 @@ product_3 = Product.create( name: 'Saumon mi-cuit et semoule aux épices',
               price_cents: [500, 600, 700, 800, 900, 1000].sample,
               description: 'Un pavé de saumon juste cuit avec une crème à ' \
               'l\'orange doucement sucrée sur un lit de semoule aux épices,' \
-              ' parsemé de coriandre fraîche.' )
+              ' parsemé de coriandre fraîche.', date: Date.today + 1.day, stock: 100 )
 product_3.photo_url = url
+
+url = 'https://static.frichti.co/frichti/image/fetch/w_1310,h_880,c_fit/https://cdn.shopify.com/s/files/1/0832/9391/products/chou-rouge-a-la-japonaise.jpg?v=1484325243'
+product_4 = Product.create( name: 'Chou rouge à la japonaise',
+              price_cents: [390].sample,
+              description: 'Une salade de chou rouge, comme au restaurant japonais !',
+              date: Date.today, stock: 100 )
+product_4.photo_url = url
+
+url = 'https://static.frichti.co/frichti/image/fetch/w_1310,h_880,c_fit/https://cdn.shopify.com/s/files/1/0832/9391/products/salade_fraicheur_aux_citrons_confits.jpg?v=1486580814'
+product_5 = Product.create( name: 'Salade fraicheur aux citrons confits',
+              price_cents: [330].sample,
+              description: 'Une salade aux champignons pleine de fraîcheur, avec ses citrons confits et sa feta.',
+              date: Date.today + 1.day, stock: 100 )
+product_5.photo_url = url
 
 
 19.times do

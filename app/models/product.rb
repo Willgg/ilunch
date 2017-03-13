@@ -7,5 +7,10 @@ class Product < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :description, presence: true, uniqueness: { case_sensitive: false }
-  validates :price_cents, presence: true, numericality: { only_integer: true }
+  validates :price_cents, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :date, :stock, presence: true
+
+  scope :in_stock, -> { where('stock > 0') }
+  scope :of_the_day, -> { where('date = ?', Date.today) }
+  scope :of_the_week, -> { where('date > ?', 7.days.ago) }
 end
