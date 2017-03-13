@@ -3,6 +3,9 @@ class Admin::UsersController < ApplicationController
 
   def index
     @users = policy_scope(User).paginate(:page => params[:page], :per_page => 30)
+    users = User.all
+    @weekly_users = users.where('created_at > ?', Time.current - 1.week).count
+    @total_users = users.count
   end
 
   def destroy
