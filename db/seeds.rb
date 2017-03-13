@@ -43,7 +43,9 @@ end
 49.times do
   user = User.create( first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
                email: Faker::Internet.email, password: Faker::Internet.password(8),
-               optin: [true, false].sample, admin: false, company: Company.all.sample )
+               optin: [true, false].sample, admin: false, company: Company.all.sample,
+               street: Faker::Address.street_address, post_code: '75000',
+               city: 'Paris' )
   order = Order.create( user: user )
   product = Product.all.sample
   quantity = [1,2,3].sample

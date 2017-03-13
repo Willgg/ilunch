@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:company_id, :first_name, :last_name])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:company_id, :first_name, :last_name, :street, :post_code, :city])
+    devise_parameter_sanitizer.permit(:sign_up, keys: user_params_list)
+    devise_parameter_sanitizer.permit(:account_update, keys: user_params_list)
   end
 
   private
@@ -24,6 +24,12 @@ class ApplicationController < ActionController::Base
       session[:order_id] = @order.id
     end
     update_order_with_user unless @order.nil?
+  end
+
+  def update_order_with_user
+    return unless current_user && @order.user.nil?
+    @order.user = current_user
+    @order.save
   end
 
   def skip_pundit?
@@ -53,9 +59,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def update_order_with_user
-    return unless current_user && @order.user.nil?
-    @order.user = current_user
-    @order.save
+  def user_params_list
+    [:company_id, :first_name, :last_name, :street, :post_code, :city]
   end
+
 end
