@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
   end
 
   def update
-    authorize(@order, session[:order_id], :update?)
+    authorize(current_user, @order, session[:order_id])
     if @order.update(order_params)
       respond_to do |format|
         format.html { redirect_to new_order_payment_path(@order)}

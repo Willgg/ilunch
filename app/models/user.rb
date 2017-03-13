@@ -8,6 +8,8 @@ class User < ApplicationRecord
   belongs_to :company
   has_attachment :photo
 
-  validates :company, presence: true
+  validates :company, presence: true, allow_blank: false
   validates :email, presence: true, allow_blank: false
+  validates :first_name, presence: true, allow_blank: false
+  validates :last_name, presence: true, allow_blank: false
 end

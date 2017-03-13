@@ -6,31 +6,41 @@ class PaymentsController < ApplicationController
 
   def new
     @user = user_signed_in? ? current_user : User.new
-    authorize(@order, session[:order_id], :new?)
+    redirect_to products_path unless authorize(@order, session[:order_id], :new?)
   end
 
   def create
-    verify_authorized(@order, session[:order_id], :update?)
+    if authorize(@order, session[:order_id], :create?)
+      begin
 
-    customer = Stripe::Customer.create(
-      source: params[:stripeToken],
-      email:  params[:stripeEmail]
-    )
+        if current_user.stripe_id.nil?
+          customer = Stripe::Customer.create(
+            source: params[:stripeToken],
+            email:  params[:stripeEmail]
+          )
+          current_user.update(stripe_id: customer.id) if customer.id
+        else
+          current_user.stripe_id
+        end
 
-    charge = Stripe::Charge.create(
-      customer:     customer.id,   # You should store this customer id and re-use it.
-      amount:       @order.total_price_cents, # or amount_pennies
-      description:  "Payment for order#{@order.id}",
-      currency:     @order.total_price.currency
-    )
+        charge = Stripe::Charge.create(
+          customer:     current_user.stripe_id || customer.id, # You should store this customer id and re-use it.
+          amount:       @order.total_price_cents, # or amount_pennies
+          description:  "Payment for order#{@order.id}",
+          currency:     @order.total_price.currency
+        )
+        @order.update(payment: charge.to_json, status: 1)
+        session.delete(:order_id)
 
-    @order.update(payment: charge.to_json, status: 1)
-    session.delete(:order_id)
-    redirect_to order_path(@order)
+        redirect_to order_path(@order)
 
-  rescue Stripe::CardError => e
-    flash[:error] = e.message
-    redirect_to new_order_payment_path(@order)
+      rescue Stripe::CardError => e
+        flash[:error] = e.message
+        redirect_to new_order_payment_path(@order)
+      end
+    else
+      redirect_to products_path
+    end
   end
 
   private
@@ -40,8 +50,6 @@ class PaymentsController < ApplicationController
   end
 
   def authorize(record, session, method)
-    unless PaymentPolicy.new(current_user, record, session).send(method)
-      redirect_to products_path
-    end
+    PaymentPolicy.new(current_user, record, session).send(method)
   end
 end

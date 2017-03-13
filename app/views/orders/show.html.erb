@@ -1,36 +1,45 @@
 <div class="container">
   <div class="row">
-    <table>
-      <tbody>
-      <% @order.line_items.each do |li| %>
-        <tr>
-          <td><%= cl_image_tag li.product.photo.path, width: 200, crop: :fill %></td>
-          <td><%= li.product.name %></td>
-          <td><%= li.quantity %>&times;</td>
-          <td><%= humanized_money_with_symbol(li.price) %></td>
-          <td><%= humanized_money_with_symbol(li.total_price) %></td>
-        </tr>
-      <% end %>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colspan="4">Sous-total</td>
-          <td><%= humanized_money_with_symbol(@order.subtotal) %></td>
-        </tr>
-        <tr>
-          <td colspan="4">V.A.T.</td>
-          <td><%= humanized_money_with_symbol(@order.vat) %></td>
-        </tr>
-        <tr>
-          <td colspan="4">Total</td>
-          <td><%= humanized_money_with_symbol(@order.total_price) %></td>
-        </tr>
-      </tfoot>
-    </table>
+     <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <% if @order.payed? %>
+        <p>Votre commande a bien été enregistré et vous serez livré à <%= current_user.company.delivery_time %></p>
+        <p>
+          <strong>Adresse de livraison:</strong><br />
+          <%= current_user.company.name %><br />
+          <%= current_user.company.street %><br />
+        </p>
+        <% end %>
+     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12 text-center">
-      <%= link_to 'Régler la commande', new_order_payment_path(@order), class: 'btn btn-primary' %>
+    <div class="col-xs-12 col-md-8 col-md-offset-2">
+      <table>
+        <tbody>
+          <% @order.line_items.each do |li| %>
+            <tr>
+              <td><%= cl_image_tag li.product.photo.path, width: 200, crop: :fill %></td>
+              <td><%= li.product.name %></td>
+              <td><%= li.quantity %>&times;</td>
+              <td><%= humanized_money_with_symbol(li.price) %></td>
+              <td><%= humanized_money_with_symbol(li.total_price) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">Sous-total</td>
+            <td><%= humanized_money_with_symbol(@order.subtotal) %></td>
+          </tr>
+          <tr>
+            <td colspan="4">V.A.T.</td>
+            <td><%= humanized_money_with_symbol(@order.vat) %></td>
+          </tr>
+          <tr>
+            <td colspan="4">Total</td>
+            <td><%= humanized_money_with_symbol(@order.total_price) %></td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   </div>
 </div>

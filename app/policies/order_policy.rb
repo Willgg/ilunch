@@ -8,7 +8,7 @@ class OrderPolicy < ApplicationPolicy
   end
 
   def show?
-    @record.user ? ( @record.user == @user ) : ( @record.id == @session )
+    @record.payed? && ( @record.user ? ( @record.user == @user ) : ( @record.id == @session ) )
   end
 
   def update?

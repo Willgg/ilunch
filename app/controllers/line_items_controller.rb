@@ -42,5 +42,6 @@ class LineItemsController < ApplicationController
       @order = Order.create
       session[:order_id] = @order.id
     end
+    update_order_with_user
   end
 end

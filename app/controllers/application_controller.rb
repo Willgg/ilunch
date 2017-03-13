@@ -2,10 +2,16 @@ class ApplicationController < ActionController::Base
   include Pundit
   protect_from_forgery with: :exception
   before_action :authenticate_user!, :authenticate_admin!, :set_order
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:company_id, :first_name, :last_name])
+  end
 
   private
 
@@ -16,7 +22,6 @@ class ApplicationController < ActionController::Base
       @order = Order.where(user: current_user).pending.last
       session[:order_id] = @order.id
     end
-
     update_order_with_user unless @order.nil?
   end
 
