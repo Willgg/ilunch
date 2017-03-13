@@ -47,6 +47,7 @@ class PaymentsController < ApplicationController
 
   def set_order
     @order = Order.find(params[:order_id])
+     update_order_with_user unless @order.nil?
   end
 
   def authorize(record, session, method)
