@@ -58,11 +58,15 @@ company_1 = Company.create( name: 'Le Village', street: '55 rue de la boétie',
 
 user_1 = User.create( first_name: 'William', last_name: 'Grenier Godard',
                       email: 'grenier.godard@gmail.com', password: 'billyboy',
-                      optin: true, admin: true, company: company_1 )
+                      optin: true, admin: true, company: company_1,
+                      street: '19 rue Collange', post_code: '92300',
+                      city: 'Levallois-Perret' )
 
 user_2 = User.create( first_name: 'Victoria', last_name: 'Benhaim',
                       email: 'victoria.startup@gmail.com', password: 'ilunch',
-                      optin: true, admin: true, company: company_1 )
+                      optin: true, admin: true, company: company_1,
+                      street: '55 rue de la Boétie', post_code: '75008',
+                      city: 'Paris'  )
 
 order_1 = Order.create( user: user_1 )
 
