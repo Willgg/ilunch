@@ -9,7 +9,8 @@
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
-        <th colspan="3">Created at</th>
+        <th>Stock</th>
+        <th colspan="3">Date</th>
       </tr>
     </thead>
     <% @products.each do |product| %>
@@ -23,7 +24,8 @@
         <td><%= product.name %></td>
         <td><%= product.description.truncate(50) %></td>
         <td><%= humanized_money_with_symbol(product.price) %></td>
-        <td><%= product.created_at.strftime('%d/%m/%Y') %></td>
+        <td><%= product.stock %></td>
+        <td><%= product.date.strftime('%d/%m/%Y') %></td>
         <td><%= link_to 'modifier', edit_admin_product_path(product) %></td>
         <td><%= link_to 'supprimer', admin_product_path(product), method: :delete %></td>
       </tr>
