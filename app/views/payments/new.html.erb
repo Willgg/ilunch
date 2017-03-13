@@ -15,15 +15,16 @@
         </tbody>
         <tfoot>
           <tr>
+            <td colspan="4">TVA</td>
+            <td><%= humanized_money_with_symbol(@order.vat) %></td>
+          </tr>
+          <tr>
             <td colspan="4">Total</td>
             <td><%= humanized_money_with_symbol(@order.total_price) %></td>
           </tr>
-          <tr>
-            <td colspan="4">dont V.A.T.</td>
-            <td><%= humanized_money_with_symbol(@order.vat) %></td>
-          </tr>
         </tfoot>
       </table>
+      <% if user_signed_in? %>
       <div class="text-center">
         <%= form_tag order_payments_path(@order) do %>
           <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -34,8 +35,8 @@
             data-amount="<%= @order.total_price_cents %>"
             data-currency="<%= @order.total_price.currency %>"></script>
         <% end %>
-
       </div>
+      <% end %>
     </div>
     <div class="col-xs-12 col-sm-6">
       <% if @order.user.blank? && !user_signed_in? %>
