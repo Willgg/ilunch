@@ -12,6 +12,14 @@ User.destroy_all
 Order.destroy_all
 Company.destroy_all
 
+url = "https://thumb1.shutterstock.com/display_pic_with_logo/754414/309940103/stock-photo-a-illustration-of-hong-kong-style-food-set-teatime-cold-milk-tea-cold-lemon-tea-egg-with-309940103.jpg"
+menu_1 = Menu.create(title: 'Plat + boisson + dessert', price_cents: 650)
+menu_1.photo_url = url
+
+url = "http://st3.depositphotos.com/3213441/13066/v/450/depositphotos_130662144-stock-illustration-carrot-and-apple-juice-in.jpg"
+menu_2 = Menu.create(title: 'Plat + boisson', price_cents: 550)
+menu_2.photo_url = url
+
 url = 'https://cdn.shopify.com/s/files/1/0832/9391/products/unnamed-1.jpg?v=1484325256'
 product_1 = Product.create( name: 'Rigatoni alla romesco', price_cents: [500, 600, 700, 800, 900, 1000].sample,
               description: 'De grosses pâtes creuses avec une sauce tomates, ' \
