@@ -1,0 +1,29 @@
+<div class="container admin-container">
+  <h2>Menus</h2>
+  <%= link_to 'Nouveau menu', new_admin_menu_path, class: 'btn btn-primary' %>
+  <table class="resource-list">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Photo</th>
+        <th>Title</th>
+        <th colspan="3">Price</th>
+      </tr>
+    </thead>
+    <% @menus.each do |menu| %>
+      <tr>
+        <td><%= menu.id %></td>
+        <td>
+          <% if menu.photo? %>
+            <%= cl_image_tag menu.photo.path, width: 100, height: 50, crop: :fill %>
+          <% end %>
+        </td>
+        <td><%= menu.title.truncate(50) %></td>
+        <td><%= humanized_money_with_symbol(menu.price) %></td>
+        <td><%= link_to 'modifier', edit_admin_menu_path(menu) %></td>
+        <td><%= link_to 'supprimer', admin_menu_path(menu), method: :delete %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @menus %>
+</div>
