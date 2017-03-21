@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     resources :line_items, only: [:create]
   end
 
+  get '/menus/:menu_id/products/:id/menu_items/new', to: 'menu_items#new', as: 'new_menu_items'
+
   namespace :admin do
     get '', to: 'products#index', as: '/'
     resources :products, only: [:index, :new, :create, :edit, :update, :destroy]

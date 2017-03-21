@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :new, :update]
 
-  before_action :set_order, only: [:show, :update]
+  before_action :set_order, only: [:show, :new, :update]
   after_action :verify_authorized, except: [:show, :update]
 
   def show
@@ -31,7 +31,13 @@ class OrdersController < ApplicationController
   private
 
   def set_order
-    @order = Order.find(params[:id])
+    @order = Order.find(params[:id]) if params[:id]
+    super
+    if @order.nil?
+      @order = Order.create
+      session[:order_id] = @order.id
+    end
+    update_order_with_user
   end
 
   def order_params
