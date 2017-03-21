@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-bg" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(' <%= cl_image_path product.photo.path, height: 250, crop: :fill %>');"></div>
+  <div class="card-category"><%= humanized_money_with_symbol(product.price) %></div>
+  <div class="card-details">
+    <div class="card-description">
+      <h2><%= product.name %></h2>
+      <p><%= product.description.truncate(100) %></p>
+    </div>
+    <% if product.stock > 0 %>
+      <%= simple_form_for [product, line_item], remote: true do |f| %>
+        <%= f.hidden_field :quantity, value: 1 %>
+        <%= f.submit 'Ajouter', class: 'btn btn-primary' %>
+      <% end %>
+    <% end %>
+  </div>
+ <!--  <a class="card-link" href="#" ></a> -->
+</div>

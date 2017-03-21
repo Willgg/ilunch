@@ -1,5 +1,5 @@
 <div class="container">
-
+  <% if @products_of_day.present? %>
   <div class="row">
     <div class="col-xs-12">
       <h2 class="text-center">Products of the day</h2>
@@ -26,6 +26,7 @@
       </div>
     <% end %>
   </div>
+  <% end %>
 
   <div class="row">
     <div class="col-xs-12">

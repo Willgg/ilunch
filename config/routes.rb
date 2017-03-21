@@ -2,13 +2,13 @@
 Rails.application.routes.draw do
   devise_for :users
   mount Attachinary::Engine => "/attachinary"
-  root to: 'products#index'
+  root to: 'menus#index'
 
-  resources :orders, only: [:show, :create, :update] do
+  resources :orders, only: [:show, :new, :create, :update] do
     resources :payments, only: [:new, :create]
   end
 
-  resources :products, only: [:index] do
+  resources :menus, only: [:index] do
     resources :line_items, only: [:create]
   end
 
