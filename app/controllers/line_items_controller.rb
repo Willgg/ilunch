@@ -2,25 +2,26 @@ class LineItemsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:create]
 
   before_action :set_product, only: [:create]
+  before_action :set_menu, only: [:create]
   before_action :set_order, only: [:create]
 
   def create
-    if @order.line_items.where(product: @product).exists?
-      @line_item = @order.line_items.where(product: @product).first
+    if @order.line_items.where(menu: @menu).exists?
+      @line_item = @order.line_items.where(menu: @menu).first
       @line_item.quantity += params[:line_item][:quantity].to_i
     else
-      @line_item = @order.line_items.build(line_item_params.merge(product: @product))
+      @line_item = @order.line_items.build(line_item_params.merge(menu: @menu))
     end
     authorize @line_item
 
     if @line_item.save
       respond_to do |format|
-         format.html { redirect_to order_path(@order) }
+         format.html { redirect_to new_order_path(step: Product::CATEGORIES[0]) }
          format.js
       end
     else
       respond_to do |format|
-        format.html { redirect_to products_path }
+        format.html { redirect_to menus_path }
         format.js
       end
     end
@@ -29,7 +30,11 @@ class LineItemsController < ApplicationController
   private
 
   def set_product
-    @product = Product.find(params[:product_id])
+    @product = Product.find(params[:product_id]) if params[:product_id]
+  end
+
+  def set_menu
+    @menu = Menu.find(params[:menu_id]) if params[:menu_id]
   end
 
   def line_item_params

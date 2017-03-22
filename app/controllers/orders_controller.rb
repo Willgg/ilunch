@@ -1,11 +1,16 @@
 class OrdersController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:show, :update]
+  skip_before_action :authenticate_user!, only: [:show, :new, :update]
 
-  before_action :set_order, only: [:show, :update]
-  after_action :verify_authorized, except: [:show, :update]
+  before_action :set_order, only: [:show, :new, :update]
+  after_action :verify_authorized, except: [:show, :new, :update]
 
   def show
     authorize(@order, session[:order_id], :show?)
+  end
+
+  def new
+    @products = Product.category(params[:step])
+    @menu_item = MenuItem.new
   end
 
   def update
@@ -26,7 +31,13 @@ class OrdersController < ApplicationController
   private
 
   def set_order
-    @order = Order.find(params[:id])
+    @order = Order.find(params[:id]) if params[:id]
+    super
+    if @order.nil?
+      @order = Order.create
+      session[:order_id] = @order.id
+    end
+    update_order_with_user
   end
 
   def order_params
@@ -35,7 +46,7 @@ class OrdersController < ApplicationController
 
   def authorize(record, id, method)
     unless OrderPolicy.new(current_user, record, id).send(method.to_sym)
-      redirect_to products_path
+      redirect_to menus_path
     end
   end
 end

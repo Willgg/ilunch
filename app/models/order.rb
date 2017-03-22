@@ -1,9 +1,11 @@
 class Order < ApplicationRecord
-  enum status: [ :pending, :payed, :canceled ]
+  enum status: [ :pending, :payed, :failed, :canceled ]
   after_initialize :set_status
 
   belongs_to :user
   has_many :line_items, dependent: :destroy
+  has_many :menus, through: :line_items
+  has_many :products, through: :line_items
 
   # validates :user_id, presence: true
   # validates :company_id, presence: true
