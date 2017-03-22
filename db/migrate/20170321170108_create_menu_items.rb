@@ -4,7 +4,6 @@ class CreateMenuItems < ActiveRecord::Migration[5.0]
       t.references :product
       t.references :menu
       t.integer :quantity
-      t.integer :price_cents
 
       t.timestamps
     end

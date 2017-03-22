@@ -1,9 +1,27 @@
 <div class="navbar-admin">
   <ul>
+     <li>
+      <%= link_to admin_menus_path do %>
+        <i class="fa fa-map" aria-hidden="true"></i>
+        <br />menus
+      <% end %>
+    </li>
     <li>
       <%= link_to admin_products_path do %>
-        <i class="fa fa-cutlery" aria-hidden="true"></i>
+        <i class="fa fa-cube" aria-hidden="true"></i>
         <br />products
+      <% end %>
+    </li>
+    <li>
+      <%= link_to admin_line_items_path do %>
+        <i class="fa fa-cubes" aria-hidden="true"></i>
+        <br />line items
+      <% end %>
+    </li>
+    <li>
+      <%= link_to admin_orders_path do %>
+        <i class="fa fa-shopping-basket" aria-hidden="true"></i>
+        <br />orders
       <% end %>
     </li>
     <li>
@@ -14,20 +32,8 @@
     </li>
     <li>
       <%= link_to admin_companies_path do %>
-        <i class="fa fa-building" aria-hidden="true"></i>
+        <i class="fa fa-university" aria-hidden="true"></i>
         <br />companies
-      <% end %>
-    </li>
-    <li>
-      <%= link_to admin_orders_path do %>
-        <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-        <br />orders
-      <% end %>
-    </li>
-    <li>
-      <%= link_to admin_line_items_path do %>
-        <i class="fa fa-cubes" aria-hidden="true"></i>
-        <br />line items
       <% end %>
     </li>
   </ul>

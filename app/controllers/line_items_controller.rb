@@ -16,7 +16,7 @@ class LineItemsController < ApplicationController
 
     if @line_item.save
       respond_to do |format|
-         format.html { redirect_to new_order_path(step: '1') }
+         format.html { redirect_to new_order_path(step: Product::CATEGORIES[0]) }
          format.js
       end
     else

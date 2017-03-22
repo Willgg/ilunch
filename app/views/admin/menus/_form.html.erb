@@ -1,6 +1,9 @@
 <div class="container admin-container">
   <%= simple_form_for [:admin, @menu] do |f| %>
     <%= f.input :title %>
+    <%= f.input :main %>
+    <%= f.input :dessert %>
+    <%= f.input :drink %>
     <%= f.input :price %>
     <%= f.input :photo, as: :attachinary %>
     <%= f.submit %>

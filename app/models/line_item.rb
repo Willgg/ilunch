@@ -5,13 +5,12 @@ class LineItem < ApplicationRecord
 
   monetize :price_cents
 
-  validates :quantity, presence: true
   validates :order_id, presence: true
+  validates :quantity, presence: true, numericality: { only_integer: true }
   validates :product_id, uniqueness: { scope: :order_id,
             message: "should be created once per order" }, if: 'product_id.present?'
   validates :menu_id, uniqueness: { scope: :order_id,
             message: "should be created once per order" }, if: 'menu_id.present?'
-
 
   before_create :set_price
 

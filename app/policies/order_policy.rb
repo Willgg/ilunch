@@ -11,6 +11,10 @@ class OrderPolicy < ApplicationPolicy
     @record.payed? && ( @record.user ? ( @record.user == @user ) : ( @record.id == @session ) )
   end
 
+  def create?
+    true
+  end
+
   def update?
     @record.user ? ( @record.user == user ) : ( @record.id == @session )
   end

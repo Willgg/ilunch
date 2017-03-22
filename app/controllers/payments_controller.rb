@@ -19,18 +19,24 @@ class PaymentsController < ApplicationController
             email:  params[:stripeEmail]
           )
           current_user.update(stripe_id: customer.id) if customer.id
-        else
-          current_user.stripe_id
         end
 
         charge = Stripe::Charge.create(
-          customer:     current_user.stripe_id || customer.id, # You should store this customer id and re-use it.
+          customer:     current_user.stripe_id, # You should store this customer id and re-use it.
           amount:       @order.total_price_cents, # or amount_pennies
           description:  "Payment for order#{@order.id}",
           currency:     @order.total_price.currency
         )
-        @order.update(payment: charge.to_json, status: 1)
-        session.delete(:order_id)
+
+        case charge.status
+        when 'succeeded'
+          @order.update(payment: charge.to_json, status: 1)
+          session.delete(:order_id)
+        when 'pending'
+          @order.update(payment: charge.to_json, status: 0)
+        when 'failed'
+          @order.update(payment: charge.to_json, status: 2)
+        end
 
         redirect_to order_path(@order)
 

@@ -15,4 +15,10 @@ class Product < ApplicationRecord
   scope :in_stock, -> { where('stock > 0') }
   scope :of_the_day, -> { where('date = ?', Date.today) }
   scope :of_the_week, -> { where('date > ?', 7.days.ago) }
+
+  scope :category, ->(cat) { where(category: cat) }
+
+  def self.next_category(string)
+    CATEGORIES[CATEGORIES.index(string) + 1]
+  end
 end

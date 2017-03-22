@@ -1,5 +1,7 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
+  get 'menu_items/create'
+
   devise_for :users
   mount Attachinary::Engine => "/attachinary"
   root to: 'menus#index'
@@ -10,9 +12,10 @@ Rails.application.routes.draw do
 
   resources :menus, only: [:index] do
     resources :line_items, only: [:create]
+    resources :menu_items, only: [:create]
   end
 
-  get '/menus/:menu_id/products/:id/menu_items/new', to: 'menu_items#new', as: 'new_menu_items'
+  # post '/menus/:menu_id/products/:id/menu_items/new', to: 'menu_items#create', as: 'new_menu_items'
 
   namespace :admin do
     get '', to: 'products#index', as: '/'

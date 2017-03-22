@@ -4,13 +4,31 @@
       <table>
         <tbody>
         <% @order.line_items.each do |li| %>
-          <tr>
-            <td><%= cl_image_tag li.product.photo.path, width: 200, crop: :fill %></td>
-            <td><%= li.product.name %></td>
-            <td><%= li.quantity %>&times;</td>
-            <td><%= humanized_money_with_symbol(li.price) %></td>
-            <td><%= humanized_money_with_symbol(li.total_price) %></td>
-          </tr>
+          <% unless li.product_id.nil? %>
+            <tr>
+              <td><%= cl_image_tag li.product.photo.path, width: 200, crop: :fill %></td>
+              <td><%= li.product.name %></td>
+              <td><%= li.quantity %>&times;</td>
+              <td><%= humanized_money_with_symbol(li.price) %></td>
+              <td><%= humanized_money_with_symbol(li.total_price) %></td>
+            </tr>
+          <% end %>
+          <% unless li.menu_id.nil? %>
+            <tr>
+              <td><%= cl_image_tag li.menu.photo.path, width: 200, crop: :fill %></td>
+              <td><%= li.menu.title %></td>
+              <td><%= li.quantity %>&times;</td>
+              <td><%= humanized_money_with_symbol(li.price) %></td>
+              <td><%= humanized_money_with_symbol(li.total_price) %></td>
+            </tr>
+            <% li.menu.menu_items.each do |mi| %>
+              <tr>
+                <td><%= cl_image_tag mi.product.photo.path, width: 200, crop: :fill %></td>
+                <td><%= mi.product.name %></td>
+                <td colspan="3"><%= mi.quantity %>&times;</td>
+              </tr>
+            <% end %>
+          <% end %>
         <% end %>
         </tbody>
         <tfoot>
