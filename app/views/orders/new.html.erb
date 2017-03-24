@@ -2,7 +2,7 @@
   <div class="row">
     <% @products.each do |product| %>
       <div class="col-xs-12 col-sm-4">
-        <%= render 'products/show', product: product, menu_item: @menu_item %>
+        <%= render 'products/show', line_item: @line_item, product: product, menu_item: @menu_item %>
       </div>
     <% end %>
   </div>

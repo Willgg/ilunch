@@ -3,17 +3,14 @@ class MenuItemsController < ApplicationController
 
   def create
     @menu_item = MenuItem.new(menu_item_params)
-    @menu_item.menu = Menu.find(params[:menu_id])
+    @menu_item.line_item = LineItem.find(params[:line_item_id])
     authorize @menu_item
-
-    if @menu_item.save
-      if @menu_item.menu.full?
-        redirect_to new_order_payment_path(@order)
-      else
-        redirect_to new_order_path(step: @menu_item.menu.next_step)
-      end
+    @menu_item.save
+    line_item = LineItem.find(@menu_item.line_item_id)
+    if line_item.full?
+      redirect_to new_order_payment_path(@order)
     else
-      redirect_to new_order_path(step: params[:step])
+      redirect_to new_order_path(step: line_item.next_step)
     end
   end
 

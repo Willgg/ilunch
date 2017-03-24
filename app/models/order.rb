@@ -4,6 +4,7 @@ class Order < ApplicationRecord
 
   belongs_to :user
   has_many :line_items, dependent: :destroy
+  has_many :menu_items, through: :line_items
   has_many :menus, through: :line_items
   has_many :products, through: :line_items
 
