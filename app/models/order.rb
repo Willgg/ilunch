@@ -8,8 +8,6 @@ class Order < ApplicationRecord
   has_many :menus, through: :line_items
   has_many :products, through: :line_items
 
-  # validates :user_id, presence: true
-  # validates :company_id, presence: true
   validates :status, inclusion: { in: statuses }
 
   def set_status
@@ -30,5 +28,12 @@ class Order < ApplicationRecord
 
   def total_price_cents
     (total_price * 100).to_i
+  end
+
+  def substract_products_stocks
+    line_items.each do |li|
+      li.sub_product_stock if li.product.present?
+      li.menu_items.each { mi.sub_product_stock } if li.menu.present?
+    end
   end
 end

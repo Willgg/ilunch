@@ -87,7 +87,7 @@ end
                optin: [true, false].sample, admin: false, company: Company.all.sample,
                street: Faker::Address.street_address, post_code: '75000',
                city: 'Paris' )
-  order = Order.create( user: user )
+  order = Order.create( user: user, status: payed )
   li = LineItem.new(order: order, quantity: 1, menu: menu_1,
                     price_cents: menu_1.price_cents )
   li.save

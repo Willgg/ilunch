@@ -2,7 +2,7 @@ class LineItem < ApplicationRecord
   belongs_to :order
   belongs_to :product
   belongs_to :menu
-  has_many :menu_items
+  has_many :menu_items, dependent: :destroy
 
   monetize :price_cents
 
@@ -14,6 +14,7 @@ class LineItem < ApplicationRecord
   #           message: "should be created once per order" }, if: 'menu_id.present?'
 
   before_create :set_price
+  after_destroy :add_product_stock, if: :order_payed?
 
   def set_price
     if self.product_id
@@ -54,5 +55,17 @@ class LineItem < ApplicationRecord
       end
     end
     return inventory
+  end
+
+  def order_payed?
+    order.payed?
+  end
+
+  def add_product_stock
+    self.product.update(stock: product.stock + quantity) unless self.product.nil?
+  end
+
+  def sub_product_stock
+    self.product.update(stock: product.stock - quantity) unless self.product.nil?
   end
 end
