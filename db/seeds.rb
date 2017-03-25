@@ -76,22 +76,24 @@ product_7 = Product.create( name: 'Jus d\'orange pressée',
 product_7.photo_url = url
 
 
-19.times do
+9.times do
   Company.create( name: Faker::Company.name, street: Faker::Address.street_address,
                   post_code: Faker::Address.zip_code, delivery_time: Company::TIMESLOT.sample )
 end
 
-49.times do
+29.times do
   user = User.create( first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
                email: Faker::Internet.email, password: Faker::Internet.password(8),
                optin: [true, false].sample, admin: false, company: Company.all.sample,
                street: Faker::Address.street_address, post_code: '75000',
                city: 'Paris' )
-  order = Order.create( user: user )
-  product = Product.all.sample
-  quantity = [1,2,3].sample
-  LineItem.create(order: order, quantity: quantity, product: product,
-                  price_cents: product.price_cents * quantity )
+  order = Order.create( user: user, status: payed )
+  li = LineItem.new(order: order, quantity: 1, menu: menu_1,
+                    price_cents: menu_1.price_cents )
+  li.save
+  MenuItem.create(product: Product.category('main').sample, line_item: li, quantity: 1)
+  MenuItem.create(product: Product.category('dessert').sample, line_item: li, quantity: 1)
+  MenuItem.create(product: Product.category('drink').sample, line_item: li, quantity: 1)
 end
 
 company_1 = Company.create( name: 'Le Village', street: '55 rue de la boétie',
@@ -111,7 +113,6 @@ user_2 = User.create( first_name: 'Victoria', last_name: 'Benhaim',
 
 order_1 = Order.create( user: user_1 )
 
-LineItem.create(order: order_1, quantity: 1, product: product_1, price_cents: product_1.price_cents)
-LineItem.create(order: order_1, quantity: 2, product: product_2, price_cents: product_2.price_cents * 2)
+LineItem.create(order: order_1, quantity: 1, menu: menu_1, price_cents: product_1.price_cents)
 
 puts "Database has been populated with the seed !"

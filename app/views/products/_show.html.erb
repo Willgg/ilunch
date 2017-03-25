@@ -7,7 +7,7 @@
       <p><%= product.description.truncate(100) %></p>
     </div>
     <% if product.stock > 0 %>
-      <%= simple_form_for menu_item, url: menu_menu_items_path(@order.menus.first, menu_item, step: Product.next_category(params[:step])) do |f| %>
+      <%= simple_form_for menu_item, url: line_item_menu_items_path(line_item, menu_item, step: params[:step]) do |f| %>
         <%= f.hidden_field :quantity, value: 1 %>
         <%= f.hidden_field :product_id, value: product.id %>
         <%= f.submit 'Ajouter', class: 'btn btn-primary' %>

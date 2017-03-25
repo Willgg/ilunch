@@ -10,6 +10,7 @@ class OrdersController < ApplicationController
 
   def new
     @products = Product.category(params[:step])
+    @line_item = @order.line_items.select{ |e| !e.menu_id.nil? }.last
     @menu_item = MenuItem.new
   end
 

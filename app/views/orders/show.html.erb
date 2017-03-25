@@ -17,12 +17,23 @@
         <tbody>
           <% @order.line_items.each do |li| %>
             <tr>
-              <td><%= cl_image_tag li.product.photo.path, width: 200, crop: :fill %></td>
-              <td><%= li.product.name %></td>
-              <td><%= li.quantity %>&times;</td>
+              <% if li.product.present? %>
+                <td><%= cl_image_tag li.product.photo.path, width: 200, crop: :fill %></td>
+                <td><%= li.product.name %>&times;<%= li.quantity %></td>
+              <% elsif li.menu.present? %>
+                <td><%= cl_image_tag li.menu.photo.path, width: 200, crop: :fill %></td>
+                <td><%= li.menu.title %>&times;<%= li.quantity %></td>
+              <% end %>
               <td><%= humanized_money_with_symbol(li.price) %></td>
               <td><%= humanized_money_with_symbol(li.total_price) %></td>
             </tr>
+            <% li.menu_items.present? %>
+              <% li.menu_items.each do |mi| %>
+              <tr>
+                <td><%= cl_image_tag mi.product.photo.path, width: 200, crop: :fill %></td>
+                <td colspan="4"><%= mi.product.name %>&nbsp;&times;&nbsp;<%= mi.quantity %></td>
+              </tr>
+            <% end %>
           <% end %>
         </tbody>
         <tfoot>

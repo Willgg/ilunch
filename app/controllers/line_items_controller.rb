@@ -6,12 +6,12 @@ class LineItemsController < ApplicationController
   before_action :set_order, only: [:create]
 
   def create
-    if @order.line_items.where(menu: @menu).exists?
-      @line_item = @order.line_items.where(menu: @menu).first
-      @line_item.quantity += params[:line_item][:quantity].to_i
-    else
-      @line_item = @order.line_items.build(line_item_params.merge(menu: @menu))
-    end
+    # if @order.line_items.where(menu: @menu).exists?
+    #   @line_item = @order.line_items.where(menu: @menu).first
+    #   @line_item.quantity += params[:line_item][:quantity].to_i
+    # else
+    @line_item = @order.line_items.build(line_item_params.merge(menu: @menu))
+    # end
     authorize @line_item
 
     if @line_item.save
