@@ -6,19 +6,26 @@
         <th>Order id</th>
         <th colspan="2">Product</th>
         <th>Quantity</th>
+        <th>Menu Items</th>
         <th>Total Price</th>
       </tr>
     </thead>
     <% @line_items.each do |li| %>
       <tr>
         <td>order#<%= li.order.id %></td>
-        <td>
-          <% if li.product.photo? %>
-            <%= cl_image_tag li.product.photo.path, width: 100, height: 50, crop: :fill %>
-          <% end %>
-        </td>
-        <td><%= li.product.name %></td>
+        <% if li.product.present? %>
+          <td>
+            <% if li.product.photo? %>
+              <%= cl_image_tag li.product.photo.path, width: 100, height: 50, crop: :fill %>
+            <% end %>
+          </td>
+          <td><%= li.product.name %></td>
+        <% elsif %>
+          <td><%= cl_image_tag li.menu.photo.path, width: 100, height: 50, crop: :fill %></td>
+          <td><%= li.menu.title %></td>
+        <% end %>
         <td>X&nbsp;<%= li.quantity %></td>
+        <td><%= li.menu_items.count %> menu items</td>
         <td><%= humanized_money_with_symbol(li.total_price) %></td>
       </tr>
     <% end %>
