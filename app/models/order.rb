@@ -33,7 +33,7 @@ class Order < ApplicationRecord
   def substract_products_stocks
     line_items.each do |li|
       li.sub_product_stock if li.product.present?
-      li.menu_items.each { mi.sub_product_stock } if li.menu.present?
+      li.menu_items.each { |mi| mi.sub_product_stock } if li.menu.present?
     end
   end
 end

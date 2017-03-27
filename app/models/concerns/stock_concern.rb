@@ -2,7 +2,7 @@ module StockConcern
   extend ActiveSupport::Concern
 
   included do
-    action_destroy :add_product_stock, if: :order_payed?
+    after_destroy :add_product_stock, if: :order_payed?
   end
 
   module ClassMethods
