@@ -15,15 +15,15 @@ class Order < ApplicationRecord
   end
 
   def subtotal
-    line_items.sum(&:total_price)
+    total_price / (1 + 0.2)
   end
 
   def vat
-    subtotal * 0.2
+    total_price - subtotal
   end
 
   def total_price
-    subtotal
+    line_items.sum(&:total_price)
   end
 
   def total_price_cents
