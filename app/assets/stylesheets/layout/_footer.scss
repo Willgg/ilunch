@@ -1,4 +1,17 @@
 #footer {
-  background: #AAA;
+  display: flex;
+  background: #1a1c23;
   padding: 50px 0;
+  ul {
+    list-style-type: none;
+    text-align: left;
+  }
+
+  a {
+    color: rgba(204, 204, 204, 0.7);
+    &:hover {
+      text-decoration: none;
+      color: rgba(204, 204, 204, 1);
+    }
+  }
 }
