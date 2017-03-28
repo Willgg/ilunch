@@ -5,7 +5,7 @@ ul.menu-week {
   margin-bottom: 30px;
   li {
     &:hover {
-      border-bottom: 3px solid lighten($brand-color, 55%);
+      border-bottom: 3px solid lighten($brand-color, 50%);
     }
     &.selected {
       border-bottom: 3px solid $brand-color;
