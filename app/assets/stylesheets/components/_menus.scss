@@ -28,3 +28,23 @@ ul.menu-week {
     }
   }
 }
+
+.trail-menu-steps {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0;
+  margin-bottom: 50px;
+  li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    opacity: 0.5;
+    &.selected {
+      opacity: 1;
+    }
+    .big-badge {
+      margin-right: 6px;
+    }
+  }
+}
