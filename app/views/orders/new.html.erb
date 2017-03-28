@@ -1,5 +1,27 @@
 <div class="container">
   <div class="row">
+    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+      <ul class="trail-menu-steps">
+        <% @line_item.menu.components.keys.each_with_index do |cat, i| %>
+          <% if params[:step] == cat.to_s %>
+            <li class="selected">
+          <% else %>
+            <li>
+          <% end %>
+              <span class="big-badge badge-primary"><%= i + 1 %></span>
+              Ajouter un <%= cat %>
+            </li>
+          <% if i == @line_item.menu.components.keys.count - 1 %>
+            <li>
+              <span class="big-badge badge-primary"><%= i + 2 %></span>
+              Régler la commande
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
     <% @products.each do |product| %>
       <div class="col-xs-12 col-sm-4">
         <%= render 'products/show', line_item: @line_item, product: product, menu_item: @menu_item %>
