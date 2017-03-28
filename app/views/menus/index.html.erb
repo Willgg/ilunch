@@ -11,8 +11,8 @@
         <% day_of_week.each do |d| %>
           <li>
             <%= link_to menus_path(date: d.strftime('%d-%m-%Y')), remote: true do %>
-              <span><%= d.strftime('%A') %></span>
-              <span><%= d.strftime('%d') %></span>
+              <span class="w-day"><%= d.strftime('%A') %></span>
+              <span class="n-day"><%= d.strftime('%d') %></span>
             <% end %>
           </li>
         <% end %>
@@ -26,16 +26,16 @@
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="row" id="menus">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <h2 class="text-center">Menus of the day</h2>
+      <h2 class="text-center">Menus du jour</h2>
       <% @menus.each do |menu| %>
       <div class="col-xs-12 col-sm-6">
         <div class="menu-card">
           <div class="card-bg" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(' <%= cl_image_path menu.photo.path, height: 250, crop: :fill %>');"></div>
           <div class="card-category"><%= humanized_money_with_symbol(menu.price) %></div>
           <div class="card-description">
-            <h2 class="text-center"><%= menu.title %></h2>
+            <h3 class="text-center"><%= menu.title %></h3>
             <%= simple_form_for [menu, @line_item] do |f| %>
               <%= f.hidden_field :quantity, value: 1 %>
               <%= f.submit 'Commander', class: 'btn btn-primary' %>
@@ -47,6 +47,7 @@
     </div>
   </div>
 </div>
+
 <div class="test">
   <div class="banner-second"></div>
   <div class="encart">
@@ -55,3 +56,25 @@
     <p>Zdcjdlj sjclqjc jqs lcjqlksq jqjqlj lqj qlkj lkj qlkq </p>
   </div>
 </div>
+
+<div class="container">
+  <div class="row" id="products-week">
+    <div class="col-xs-12">
+      <h2 class="text-center">Au menu cette semaine</h2>
+    </div>
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+      <div class="row">
+        <%= render 'products/index', products: @products_of_week %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% content_for :after_js do %>
+  <script>
+    $( '.menu-week' ).on( 'click','li', function() {
+      $('.menu-week li.selected' ).removeClass( 'selected' );
+      $( this ).addClass( "selected" );
+    });
+  </script>
+<% end %>
