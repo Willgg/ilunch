@@ -2,3 +2,61 @@
  * CSS code specific to home page
  * (margin/padding adjustments)
  * ------------------------------------- */
+.menus-index .content{
+  padding: 0;
+}
+
+.banner {
+  background-image: image-url("banner-home.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 78vh;
+  position: relative;
+  .shadow-bg {
+    height: 78vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 70px;
+    font-weight: bold;
+    position: absolute;
+    left: 4%;
+    top: 38%;
+  }
+  p {
+    position: absolute;
+    left: 4%;
+    bottom: 16%;
+    font-size: 26px;
+    color: #fff;
+    width: 46%;
+    line-height: 1.3em;
+  }
+}
+
+.test {
+  display: flex;
+  flex-directin: row;
+  .banner-second {
+    background-image: image-url("banner-home.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 60vh;
+    position: relative;
+    width: 67%;
+    .shadow-bg {
+      height: 60vh;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  .encart {
+    width: 33%;
+    height: 60vh;
+    padding: 10px 30px;
+    background-color: #eae4ea;
+  }
+}
