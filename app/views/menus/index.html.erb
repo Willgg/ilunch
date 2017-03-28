@@ -8,8 +8,8 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
       <ul class="menu-week">
-        <% day_of_week.each do |d| %>
-          <li>
+        <% next_days(5).each do |d| %>
+          <li class="<%= 'selected' if d == Date.today %>">
             <%= link_to menus_path(date: d.strftime('%d-%m-%Y')), remote: true do %>
               <span class="w-day"><%= d.strftime('%A') %></span>
               <span class="n-day"><%= d.strftime('%d') %></span>

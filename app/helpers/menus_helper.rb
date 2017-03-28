@@ -1,11 +1,11 @@
 module MenusHelper
-  def day_of_week
+  def next_days(number)
     week = []
-    date = Date.today.beginning_of_week
-    Date::DAYNAMES.first(5).each do |d|
-      week << date
+    date = Date.today
+    until week.count == number do
+      week << date if ( date.wday != 6 && date.wday != 0 )
       date += 1.day
     end
-    return week
+    return week.first(number)
   end
 end
