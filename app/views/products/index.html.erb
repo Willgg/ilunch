@@ -11,7 +11,7 @@
           <div class="card-category"><%= humanized_money_with_symbol(product.price) %></div>
           <div class="card-details">
             <div class="card-description">
-              <h2><%= product.name %></h2>
+              <h3><%= product.name %></h3>
               <p><%= product.description.truncate(100) %></p>
             </div>
             <% if product.stock > 0 %>

@@ -23,7 +23,7 @@
           class: "navbar-wagon-item navbar-wagon-link", id: 'item-counter' do %>
         <div class="badge-container">
           <i class="fa fa-shopping-basket"></i>
-          <div class="badge badge-green"><%= @order.line_items.sum(:quantity) %></div>
+          <div class="badge badge-primary"><%= @order.line_items.sum(:quantity) %></div>
         </div>
       <% end %>
     <% end %>
