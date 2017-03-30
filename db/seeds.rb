@@ -77,7 +77,7 @@ product_7.photo_url = url
 
 
 9.times do
-  Company.create( name: Faker::Company.name, street: Faker::Address.street_address,
+  Company.create( name: Faker::Company.name, street: Faker::Address.street_address, city: 'Paris',
                   post_code: Faker::Address.zip_code, delivery_time: Company::TIMESLOT.sample )
 end
 

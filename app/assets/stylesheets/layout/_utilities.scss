@@ -31,3 +31,30 @@
 .content {
   padding: 50px 0;
 }
+// Forms
+label abbr {
+  display:none;
+}
+.payment-form {
+  .stripe-button-el {
+    box-shadow: unset;
+    padding: 0;
+    span {
+      border-radius: 3px;
+      padding: 0px 20px;
+      min-height: 40px;
+      height: 40px;
+      line-height: 40px;
+      background: $brand-color;
+      font-size: 14px;
+      text-shadow: unset;
+      text-transform: uppercase;
+      &:hover {
+        background: darken($brand-color, 10%);
+      }
+      &:active {
+        background: darken($brand-color, 10%);
+      }
+    }
+  }
+}

@@ -1,29 +1,34 @@
-<h2>Création de compte</h2>
-<%= simple_form_for(@user, url: registration_path(@user)) do |f| %>
-  <%= f.error_notification %>
+<div id="sign-up">
+  <%= simple_form_for(@user, url: registration_path(@user)) do |f| %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :first_name, required: true, autofocus: true %>
-    <%= f.input :last_name, required: true, autofocus: true %>
-    <%= f.input :company_id, collection: Company.all %>
-    <%= f.input :street, required: true, autofocus: true %>
-    <%= f.input :post_code, required: true, autofocus: true %>
-    <%= f.input :city, required: true, autofocus: true %>
-    <%= f.input :email, required: true, autofocus: true %>
-    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-    <%= f.input :password_confirmation, required: true %>
-  </div>
+    <div class="form-inputs">
+      <div class="row">
+        <div class="col-xs-6">
+          <%= f.input :first_name, required: true, autofocus: true %>
+        </div>
+        <div class="col-xs-6">
+          <%= f.input :last_name, required: true, autofocus: true %>
+        </div>
+      </div>
+      <%= f.input :company_id, collection: Company.all %>
+      <%= f.input :email, required: true, autofocus: true %>
+      <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+      <%= f.input :password_confirmation, required: true %>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign up", class: 'btn btn-primary' %>
-  </div>
-<% end %>
+    <div class="form-actions">
+      <%= f.button :submit, "Compléter mes infos", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
 
-<h2>Se connecter</h2>
-<%= simple_form_for(:user, url: session_path(:user)) do |f| %>
-  <%= f.input :email %>
-  <%= f.input :password %>
-  <%= f.input :remember_me, as: :boolean %>
-  <%= f.submit 'Sign in', class: 'btn btn-primary' %>
-  <%= link_to "Forgot your password?", new_password_path(:user) %>
-<% end %>
+<div id="sign-in">
+  <%= simple_form_for(:user, url: session_path(:user)) do |f| %>
+    <%= f.input :email %>
+    <%= f.input :password %>
+    <%= f.input :remember_me, as: :boolean %>
+    <%= f.submit 'Sign in', class: 'btn btn-primary' %>
+    <%= link_to "Forgot your password?", new_password_path(:user) %>
+  <% end %>
+</div>
