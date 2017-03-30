@@ -29,72 +29,100 @@
   <% end %>
 
   <div class="row">
-    <div class="col-xs-12 col-sm-7">
-      <table>
+    <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+      <table class="line-items">
         <tbody>
         <% @order.line_items.each do |li| %>
           <% unless li.product_id.nil? %>
-            <tr>
-              <td><%= cl_image_tag li.product.photo.path, width: 150, crop: :fill %></td>
+            <tr class="line-item-product">
+              <td><%= cl_image_tag li.product.photo.path, width: 100, height: 70, crop: :fill %></td>
               <td><%= li.product.name %>&nbsp;&times;<%= li.quantity %></td>
-              <td><%= humanized_money_with_symbol(li.price) %></td>
               <td><%= humanized_money_with_symbol(li.total_price) %></td>
             </tr>
           <% end %>
           <% unless li.menu_id.nil? %>
-            <tr>
-              <td><%= cl_image_tag li.menu.photo.path, width: 150, crop: :fill %></td>
-              <td colspan="2"><%= li.menu.title %>&nbsp;&times;<%= li.quantity %></td>
+            <tr class="line-item-menu">
+              <td colspan="2"><strong><%= li.menu.title %>&nbsp;&times;<%= li.quantity %></strong></td>
               <td><%= humanized_money_with_symbol(li.total_price) %></td>
             </tr>
             <% li.menu_items.each do |mi| %>
-              <tr>
-                <td><%= cl_image_tag mi.product.photo.path, width: 100, crop: :fill %></td>
-                <td><%= mi.product.name %>&nbsp;&times;<%= mi.quantity %></td>
-                <td colspan="2"></td>
+              <tr class="menu-item">
+                <td colspan="2">
+                  <table>
+                    <tr>
+                      <td><div>
+                          <i class="fa fa-angle-right" aria-hidden="true"></i>
+                          <%= cl_image_tag mi.product.photo.path, width: 100, height: 70, crop: :fill %>
+                      </div></td>
+                      <td><%= mi.product.name %>&nbsp;&times;<%= mi.quantity %></td>
+                    </tr>
+                  </table>
+                </td>
+                <td></td>
               </tr>
             <% end %>
           <% end %>
         <% end %>
         </tbody>
         <tfoot>
-          <tr>
-            <td colspan="3">TVA</td>
+<!--           <tr>
+            <td colspan="2" class="text-right">TVA</td>
             <td><%= humanized_money_with_symbol(@order.vat) %></td>
-          </tr>
-          <tr>
-            <td colspan="3">Total</td>
+          </tr> -->
+          <tr class="total-price">
+            <td colspan="2" class="text-right">Total</td>
             <td><%= humanized_money_with_symbol(@order.total_price) %></td>
           </tr>
         </tfoot>
       </table>
-      <% if user_signed_in? %>
-      <div class="text-center">
-        <%= form_tag order_payments_path(@order) do %>
-          <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-            data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-            data-name="ilunch"
-            data-email="<%= @order.user.email if @order.user %>"
-            data-description="Commande #<%= @order.id %>"
-            data-amount="<%= @order.total_price_cents %>"
-            data-currency="<%= @order.total_price.currency %>"></script>
-        <% end %>
-      </div>
-      <% end %>
     </div>
     <div class="col-xs-12 col-sm-5">
-      <% if @order.user.blank? && !user_signed_in? %>
-        <%= render 'user_form' %>
-      <% else %>
-        <ul>
-          <li><%= current_user.first_name %></li>
-          <li><%= current_user.last_name %></li>
-          <li><%= current_user.email %></li>
-          <li><%= current_user.company.name %></li>
-          <li><%= current_user.company.street %></li>
-          <li><%= current_user.company.post_code %></li>
-        </ul>
-      <% end %>
+      <div class="delivery">
+        <div class="menu-user-form">
+          <span href="#" id="sign-up-link" class="selected">Compléter mes infos</span>
+          <span href="#" id="sign-in-link">Connectez-vous</span>
+        </div>
+        <div>
+          <% if @order.user.blank? && !user_signed_in? %>
+            <%= render 'user_form' %>
+          <% else %>
+            <div class="row">
+              <div class="col-xs-12">
+                <p>Bienvenu <%= current_user.first_name %></p>
+                <p>En passant commande, vous serez livré à:</p>
+                <div class="delivery-info">
+                  <div class="delivery-details">
+                    <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                    <ul>
+                      <li><strong><%= current_user.company.name %></strong></li>
+                      <li><%= current_user.company.street %><br />
+                        <%= current_user.company.city %></li>
+                    </ul>
+                  </div>
+                  <div class="delivery-details">
+                    <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                    <p><strong><%= current_user.company.delivery_time %></strong></p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 text-right">
+                <div class="payment-form">
+                  <%= form_tag order_payments_path(@order) do %>
+                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                      data-name="ilunch"
+                      data-label="Passer commande"
+                      data-email="<%= @order.user.email if @order.user %>"
+                      data-description="Commande #<%= @order.id %>"
+                      data-amount="<%= @order.total_price_cents %>"
+                      data-currency="<%= @order.total_price.currency %>"></script>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -105,6 +133,30 @@
       $('.container').on('click','#edit-company-btn', function (){
         console.log('start hidding');
         $('#company-form').show();
+      });
+
+      // Toggle des form inscription/connection
+      $('#sign-in').hide();
+
+      $(".menu-user-form span").hover(
+        function() {
+          $( ".menu-user-form span" ).each(function() {
+            $( this ).removeClass( "selected" );
+          });
+          $( this ).addClass( "selected" );
+        },
+        function(){
+          $(this).removeClass(".selected")
+        }
+      );
+
+      $('#sign-in-link').on('click', function(){
+        $('#sign-in').show();
+        $('#sign-up').hide();
+      });
+      $('#sign-up-link').on('click', function(){
+        $('#sign-up').show();
+        $('#sign-in').hide();
       });
     });
   </script>

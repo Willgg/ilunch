@@ -1,5 +1,45 @@
-#user-form {
-  padding-top: 20px;
-  margin-top: 20px;
-  border-top: 1px solid #E0E0E0;
+.delivery {
+  background-color: #efefef;
+  padding: 30px
+}
+.delivery-info {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+.delivery-details {
+  width: 40%;
+  display: flex;
+  justify-content: flex-start;
+  &:first-child {
+    padding-right: 10px;
+    width: 60%;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  .fa {
+    font-size: 20px;
+    color: $brand-color;
+    margin-right: 10px;
+  }
+}
+
+.menu-user-form {
+  margin: 0 0 20px 0;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 15px;
+  color: #555;
+  span {
+    cursor: pointer;
+    padding: 0 0 15px 0;
+  }
+  .selected {
+    box-shadow:inset 0px -4px 0px 0px $brand-color;
+  }
 }

@@ -6,7 +6,7 @@ class PaymentsController < ApplicationController
 
   def new
     @user = user_signed_in? ? current_user : User.new
-    redirect_to products_path unless authorize(@order, session[:order_id], :new?)
+    redirect_to root_path unless authorize(@order, session[:order_id], :new?)
   end
 
   def create

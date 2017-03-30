@@ -11,7 +11,7 @@ class PaymentPolicy < ApplicationPolicy
   end
 
   def create?
-    @record.user ? ( @record.user == @user ) : ( @record.id == @session )
+    @record.user.present? ? ( @record.user == @user ) : ( @record.id == @session )
   end
 
   class Scope < Scope
