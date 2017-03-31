@@ -10,7 +10,7 @@ class MenuItemsController < ApplicationController
 
     line_item = LineItem.find(@menu_item.line_item_id)
     if line_item.full?
-      redirect_to new_order_payment_path(@order)
+      redirect_to new_order_path(step: 'extra')
     else
       redirect_to new_order_path(step: line_item.next_step)
     end

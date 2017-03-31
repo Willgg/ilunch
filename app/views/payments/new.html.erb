@@ -1,34 +1,11 @@
+<% if @order.menus.present? %>
+  <%= render 'shared/trails/order', order: @order %>
+<% end %>
 <div class="container">
-  <% if @order.menus.present? %>
   <div class="row">
-    <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-      <ul class="trail-menu-steps">
-        <% @order.menus.last.components.keys.each_with_index do |cat, i| %>
-          <% if params[:step] == cat.to_s %>
-            <li class="selected">
-          <% else %>
-            <li>
-          <% end %>
-              <span class="big-badge badge-primary"><%= i + 1 %></span>
-              Ajouter un <%= cat %>
-            </li>
-          <% if i == @order.menus.last.components.keys.count - 1 %>
-            <% if params[:step].nil? %>
-              <li class="selected">
-            <% else %>
-              <li>
-            <% end %>
-              <span class="big-badge badge-primary"><%= i + 2 %></span>
-              Régler la commande
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
+    <div class="col-xs-12">
+      <h2 class="text-center">Finaliser votre commande</h2>
     </div>
-  </div>
-  <% end %>
-
-  <div class="row">
     <div class="col-xs-12 col-sm-5 col-sm-offset-1">
       <table class="line-items">
         <tbody>

@@ -17,6 +17,14 @@ class LineItem < ApplicationRecord
 
   before_create :set_price
 
+  def is_a_product?
+    !product_id.nil?
+  end
+
+  def is_a_menu?
+    !menu_id.nil?
+  end
+
   def set_price
     if self.product_id
       self.price = product.price

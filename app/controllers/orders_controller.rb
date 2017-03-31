@@ -9,9 +9,10 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @products = Product.category(params[:step])
+    @products = Product.category(params[:step]).of_the_day(Date.today)
     @line_item = @order.line_items.select{ |e| !e.menu_id.nil? }.last
     @menu_item = MenuItem.new
+    @line_item = LineItem.new if params[:step] == 'extra'
   end
 
   def update
