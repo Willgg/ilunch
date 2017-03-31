@@ -1,5 +1,5 @@
 class Admin::CompaniesController < ApplicationController
-  before_action :set_company, only: [:edit, :destroy]
+  before_action :set_company, only: [:edit, :update, :destroy]
 
   def index
     @companies = policy_scope(Company).paginate(:page => params[:page], :per_page => 30)
@@ -43,7 +43,7 @@ class Admin::CompaniesController < ApplicationController
   private
 
   def company_params
-    params.require(:company).permit(:name, :street, :post_code, :delivery_time)
+    params.require(:company).permit(:name, :street, :post_code, :city, :delivery_time)
   end
 
   def set_company

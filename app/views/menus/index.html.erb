@@ -11,7 +11,7 @@
         <% next_days(5).each do |d| %>
           <li class="<%= 'selected' if d == Date.today %>">
             <%= link_to menus_path(date: d.strftime('%d-%m-%Y')), remote: true do %>
-              <span class="w-day"><%= d.strftime('%A') %></span>
+              <span class="w-day"><%= l(d, format: '%A').capitalize %></span>
               <span class="n-day"><%= d.strftime('%d') %></span>
             <% end %>
           </li>
@@ -33,7 +33,7 @@
   <div class="encart">
     <h3>Le goût de manger sain</h3>
     <hr>
-    <p>Zdcjdlj sjclqjc jqs lcjqlksq jqjqlj lqj qlkj lkj qlkq </p>
+    <p><%= t('hello') %></p>
   </div>
 </div>
 
