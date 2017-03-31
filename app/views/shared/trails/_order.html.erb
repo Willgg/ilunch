@@ -13,7 +13,11 @@
             Ajouter un <%= cat %>
           </li>
         <% end %>
-        <li>
+          <% if params[:step] == 'extra' %>
+          <li class="selected">
+          <% else %>
+          <li>
+          <% end %>
           <span class="big-badge badge-primary"><%= order.menus.last.components.keys.count + 2 %></span>
           Ajouter un extra
         </li>

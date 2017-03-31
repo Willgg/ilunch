@@ -1,8 +1,9 @@
 <div class="container">
   <div class="row">
-     <div class="col-xs-12 col-md-8 col-md-offset-2">
+     <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <h2>Merci <%= @order.user.first_name %></h2>
         <% if @order.payed? %>
-        <p>Votre commande a bien été enregistré et vous serez livré à <%= current_user.company.delivery_time %></p>
+        <p>Votre commande a bien été enregistré et vous serez livré entre <%= current_user.company.delivery_time %></p>
         <p>
           <strong>Adresse de livraison:</strong><br />
           <%= current_user.company.name %><br />
@@ -12,41 +13,48 @@
      </div>
   </div>
   <div class="row">
-    <div class="col-xs-12 col-md-8 col-md-offset-2">
-      <table>
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+      <table class="line-items">
         <tbody>
-          <% @order.line_items.each do |li| %>
-            <tr>
-              <% if li.product.present? %>
-                <td><%= cl_image_tag li.product.photo.path, width: 200, crop: :fill %></td>
-                <td><%= li.product.name %>&times;<%= li.quantity %></td>
-              <% elsif li.menu.present? %>
-                <td><%= cl_image_tag li.menu.photo.path, width: 200, crop: :fill %></td>
-                <td><%= li.menu.title %>&times;<%= li.quantity %></td>
-              <% end %>
-              <td><%= humanized_money_with_symbol(li.price) %></td>
+        <% @order.line_items.each do |li| %>
+          <% unless li.product_id.nil? %>
+            <tr class="line-item-product">
+              <td><%= cl_image_tag li.product.photo.path, width: 100, height: 70, crop: :fill %></td>
+              <td><%= li.product.name %>&nbsp;&times;<%= li.quantity %></td>
               <td><%= humanized_money_with_symbol(li.total_price) %></td>
             </tr>
-            <% li.menu_items.present? %>
-              <% li.menu_items.each do |mi| %>
-              <tr>
-                <td><%= cl_image_tag mi.product.photo.path, width: 200, crop: :fill %></td>
-                <td colspan="4"><%= mi.product.name %>&nbsp;&times;&nbsp;<%= mi.quantity %></td>
+          <% end %>
+          <% unless li.menu_id.nil? %>
+            <tr class="line-item-menu">
+              <td colspan="2"><strong><%= li.menu.title %>&nbsp;&times;<%= li.quantity %></strong></td>
+              <td><%= humanized_money_with_symbol(li.total_price) %></td>
+            </tr>
+            <% li.menu_items.each do |mi| %>
+              <tr class="menu-item">
+                <td colspan="2">
+                  <table>
+                    <tr>
+                      <td><div>
+                          <i class="fa fa-angle-right" aria-hidden="true"></i>
+                          <%= cl_image_tag mi.product.photo.path, width: 100, height: 70, crop: :fill %>
+                      </div></td>
+                      <td><%= mi.product.name %>&nbsp;&times;<%= mi.quantity %></td>
+                    </tr>
+                  </table>
+                </td>
+                <td></td>
               </tr>
             <% end %>
           <% end %>
+        <% end %>
         </tbody>
         <tfoot>
-          <tr>
-            <td colspan="4">Sous-total</td>
-            <td><%= humanized_money_with_symbol(@order.subtotal) %></td>
-          </tr>
-          <tr>
-            <td colspan="4">TVA</td>
+<!--       <tr>
+            <td colspan="2" class="text-right">TVA</td>
             <td><%= humanized_money_with_symbol(@order.vat) %></td>
-          </tr>
-          <tr>
-            <td colspan="4">Total</td>
+          </tr> -->
+          <tr class="total-price">
+            <td colspan="2" class="text-right">Total</td>
             <td><%= humanized_money_with_symbol(@order.total_price) %></td>
           </tr>
         </tfoot>
