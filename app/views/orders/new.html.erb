@@ -1,12 +1,40 @@
-<% if @order.menus.present? %>
-  <%= render 'shared/trails/order', order: @order %>
-<% end %>
-<div class="container">
-  <div class="row">
-    <% @products.each do |product| %>
-      <div class="col-xs-12 col-sm-4">
-        <%= render 'products/show', line_item: @line_item, product: product, menu_item: @menu_item %>
+<%= render 'shared/trails/order', order: @order %>
+
+<% if params[:step] == 'menu' %>
+  <div class="container">
+    <div class="row" id="menus">
+      <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+        <h2 class="text-center">Choisissez votre formule</h2>
+        <% @menus.each do |menu| %>
+        <div class="col-xs-12 col-sm-6">
+          <div class="menu-card">
+            <div class="card-bg" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(' <%= cl_image_path menu.photo.path, height: 250, crop: :fill %>');"></div>
+            <div class="card-category"></div>
+            <div class="card-description">
+              <h3 class="text-center"><%= menu.title %><br />
+                <%= humanized_money_with_symbol(menu.price) %></h3>
+              <%= simple_form_for [menu, @line_item], html: { class: 'text-center' } do |f| %>
+                <%= f.hidden_field :quantity, value: 1 %>
+                <%= f.submit 'Commander', class: 'btn btn-primary' %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
-</div>
+<% else %>
+  <div class="container">
+    <div class="row" id="products">
+      <div class="col-xs-12">
+        <h2 class="text-center">Choisissez un plat</h2>
+      </div>
+      <% @products.each do |product| %>
+        <div class="col-xs-12 col-sm-4">
+          <%= render 'products/show', line_item: @line_item, product: product, menu_item: @menu_item %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

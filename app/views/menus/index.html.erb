@@ -26,7 +26,7 @@
       </div>
     </div>
   </div>
-  <div class="row" id="menus">
+  <!-- <div class="row" id="menus">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
       <h2 class="text-center">Menus du jour</h2>
       <% @menus.each do |menu| %>
@@ -45,7 +45,7 @@
       </div>
       <% end %>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <div class="test">
@@ -64,7 +64,11 @@
     </div>
     <div class="col-xs-12 col-sm-10 col-sm-offset-1">
       <div class="row">
-        <%= render 'products/index', products: @products_of_week %>
+        <% @products_of_week.each do |p| %>
+        <div class="col-xs-12 col-sm-4">
+          <%= cl_image_tag p.photo.path, width: 300, height: 300, crop: :fill %>
+        </div>
+        <% end %>
       </div>
     </div>
   </div>

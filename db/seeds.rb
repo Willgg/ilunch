@@ -97,7 +97,8 @@ end
 end
 
 company_1 = Company.create( name: 'Le Village', street: '55 rue de la boétie',
-                            post_code: '75008', delivery_time: Company::TIMESLOT.sample )
+                            post_code: '75008', city: 'Paris',
+                            delivery_time: Company::TIMESLOT.sample )
 
 user_1 = User.create( first_name: 'William', last_name: 'Grenier Godard',
                       email: 'grenier.godard@gmail.com', password: 'billyboy',

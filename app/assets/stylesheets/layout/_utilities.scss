@@ -35,6 +35,10 @@
 label abbr {
   display:none;
 }
+.checkbox {
+  margin: 0;
+}
+
 .payment-form {
   .stripe-button-el {
     box-shadow: unset;
