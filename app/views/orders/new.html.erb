@@ -28,8 +28,18 @@
   <div class="container">
     <div class="row" id="products">
       <div class="col-xs-12">
-        <h2 class="text-center">Choisissez un plat</h2>
+        <h2 class="text-center">Choisissez un <%= params[:step] %></h2>
       </div>
+      <% if params[:step] == 'extra' %>
+      <div class="col-xs-12 col-sm-4">
+        <div class="card-no">
+          <div class="card-bg">
+            <h3>Non merci !</h3><p>Je ne veux pas d'extra.</p>
+            <%= link_to 'Passer', new_order_payment_path(@order), class: 'btn btn-primary' %>
+          </div>
+        </div>
+      </div>
+      <% end %>
       <% @products.each do |product| %>
         <div class="col-xs-12 col-sm-4">
           <%= render 'products/show', line_item: @line_item, product: product, menu_item: @menu_item %>

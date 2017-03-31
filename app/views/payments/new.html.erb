@@ -7,6 +7,11 @@
       <h2 class="text-center">Finaliser votre commande</h2>
     </div>
     <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+      <% unless @order.full? %>
+        <div class="alert alert-danger" role="alert">
+          Votre menu est incomplet
+        </div>
+      <% end %>
       <table class="line-items">
         <tbody>
         <% @order.line_items.each do |li| %>
@@ -19,7 +24,9 @@
           <% end %>
           <% unless li.menu_id.nil? %>
             <tr class="line-item-menu">
-              <td colspan="2"><strong><%= li.menu.title %>&nbsp;&times;<%= li.quantity %></strong></td>
+              <td colspan="2" <%= 'class="error"'.html_safe unless li.full? %>>
+                <strong><%= li.menu.title %>&nbsp;&times;<%= li.quantity %></strong>
+              </td>
               <td><%= humanized_money_with_symbol(li.total_price) %></td>
             </tr>
             <% li.menu_items.each do |mi| %>
