@@ -21,6 +21,10 @@
 
 fr:
   hello: "Bonjour"
+  select-main: "Choissez votre plat"
+  select-dessert: "Choissez votre dessert"
+  select-drink: "Choissez votre boisson"
+  select-extra: "Choissez un extra"
   activerecord:
     models:
       product: "produit"
@@ -54,8 +58,9 @@ fr:
         updated_at: "Modifié le"
         price: "Prix"
       user:
-        first_name:
-        last_name:
-        street:
-        post_code:
-        city:
+        first_name: "Prénom"
+        last_name: "Nom"
+        company_id: "Entreprise"
+        street: "Adresse"
+        post_code: "Code postal"
+        city: "Ville"
