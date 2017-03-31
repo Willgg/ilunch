@@ -36,4 +36,9 @@ class Order < ApplicationRecord
       li.menu_items.each { |mi| mi.sub_product_stock } if li.menu.present?
     end
   end
+
+  def full?
+    line_items_menu = line_items.select { |li| li.is_a_menu? }
+    line_items_menu.all? { |li| li.full? }
+  end
 end
