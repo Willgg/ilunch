@@ -1,0 +1,6 @@
+<p>Bonjour @user.first_name,</p>
+<p>Merci d’avoir commandé chez i-lunch.</p>
+<p>Votre repas sera livré à <strong><%= @user.company.name %></strong>, <strong><%= @user.company.street %></strong>, <strong><%= @user.company.city %></strong> entre <%= @user.company.delivery_time %>.</p>
+
+<p>Vous recevrez un SMS au XXXXXXXXXX peu avant l’arrivée de votre commande à votre bureau.</p>
+<p>Voici le récapitulatif de votre commande :</p>

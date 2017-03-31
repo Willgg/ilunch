@@ -15,4 +15,8 @@ class User < ApplicationRecord
   # validates :street, presence: true, allow_blank: false
   # validates :post_code, presence: true, allow_blank: false
   # validates :city, presence: true, allow_blank: false
+
+  def full_name
+    first_name + ' ' + last_name
+  end
 end
