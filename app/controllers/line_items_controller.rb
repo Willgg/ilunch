@@ -11,7 +11,13 @@ class LineItemsController < ApplicationController
     #   @line_item.quantity += params[:line_item][:quantity].to_i
     # else
     if params[:line_item].has_key?(:product_id)
-      @line_item = @order.line_items.build(line_item_params)
+
+      if @order.line_items.where(product_id: params[:line_item][:product_id]).present?
+        @line_item = @order.line_items.find_by(product_id: params[:line_item][:product_id].to_i)
+        @line_item.quantity += params[:line_item][:quantity].to_i
+      else
+        @line_item = @order.line_items.build(line_item_params)
+      end
     else
       @line_item = @order.line_items.build(line_item_params.merge(menu: @menu))
     end

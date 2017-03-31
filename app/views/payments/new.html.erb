@@ -2,7 +2,7 @@
   <%= render 'shared/trails/order', order: @order %>
 <% end %>
 <div class="container">
-  <div class="row">
+  <div class="row" id="payment">
     <div class="col-xs-12">
       <h2 class="text-center">Finaliser votre commande</h2>
     </div>
@@ -55,48 +55,47 @@
     </div>
     <div class="col-xs-12 col-sm-5">
       <div class="delivery">
-        <div class="menu-user-form">
-          <span href="#" id="sign-up-link" class="selected">Compléter mes infos</span>
-          <span href="#" id="sign-in-link">Connectez-vous</span>
-        </div>
-        <div>
-          <% if @order.user.blank? && !user_signed_in? %>
-            <%= render 'user_form' %>
-          <% else %>
-            <div class="row">
-              <div class="col-xs-12">
-                <p>Bienvenu <%= current_user.first_name %></p>
-                <p>En passant commande, vous serez livré à:</p>
-                <div class="delivery-info">
-                  <div class="delivery-details">
-                    <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-                    <ul>
-                      <li><strong><%= current_user.company.name %></strong></li>
-                      <li><%= current_user.company.street %><br />
-                        <%= current_user.company.city %></li>
-                    </ul>
-                  </div>
-                  <div class="delivery-details">
-                    <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                    <p><strong><%= current_user.company.delivery_time %></strong></p>
-                  </div>
+        <% if @order.user.blank? && !user_signed_in? %>
+          <div class="menu-user-form">
+            <span href="#" id="sign-up-link" class="selected">Compléter mes infos</span>
+            <span href="#" id="sign-in-link">Connectez-vous</span>
+          </div>
+          <%= render 'user_form' %>
+        <% else %>
+          <div class="row">
+            <div class="col-xs-12">
+              <p>Bonjour <%= current_user.first_name %></p>
+              <p>En passant commande, vous serez livré à:</p>
+              <div class="delivery-info">
+                <div class="delivery-details">
+                  <span><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                  <ul>
+                    <li><strong><%= current_user.company.name %></strong></li>
+                    <li><%= current_user.company.street %><br />
+                      <%= current_user.company.city %></li>
+                  </ul>
                 </div>
-              </div>
-              <div class="col-xs-12 text-right">
-                <div class="payment-form">
-                  <%= form_tag order_payments_path(@order) do %>
-                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-                      data-name="ilunch"
-                      data-label="Passer commande"
-                      data-email="<%= @order.user.email if @order.user %>"
-                      data-description="Commande #<%= @order.id %>"
-                      data-amount="<%= @order.total_price_cents %>"
-                      data-currency="<%= @order.total_price.currency %>"></script>
-                  <% end %>
+                <div class="delivery-details">
+                  <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
+                  <p><strong><%= current_user.company.delivery_time %></strong></p>
                 </div>
               </div>
             </div>
+            <div class="col-xs-12 text-right">
+              <div class="payment-form">
+                <%= form_tag order_payments_path(@order) do %>
+                  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+                    data-name="ilunch"
+                    data-label="Passer commande"
+                    data-email="<%= @order.user.email if @order.user %>"
+                    data-description="Commande #<%= @order.id %>"
+                    data-amount="<%= @order.total_price_cents %>"
+                    data-currency="<%= @order.total_price.currency %>"></script>
+                <% end %>
+              </div>
+            </div>
+          </div>
           <% end %>
         </div>
       </div>
