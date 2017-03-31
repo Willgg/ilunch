@@ -22,4 +22,8 @@ class Product < ApplicationRecord
   def self.next_category(string)
     CATEGORIES[CATEGORIES.index(string) + 1]
   end
+
+  def has_stock?
+    stock > 0
+  end
 end

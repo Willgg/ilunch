@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+
+      <ul class="trail-menu-steps">
+        <% order.menus.last.components.keys.each_with_index do |cat, i| %>
+          <% if params[:step] == cat.to_s %>
+            <li class="selected">
+          <% else %>
+            <li>
+          <% end %>
+            <span class="big-badge badge-primary"><%= i + 1 %></span>
+            Ajouter un <%= cat %>
+          </li>
+        <% end %>
+        <li>
+          <span class="big-badge badge-primary"><%= order.menus.last.components.keys.count + 2 %></span>
+          Ajouter un extra
+        </li>
+        <% if params[:controller] == 'payments' && params[:action] == 'new' %>
+          <li class="selected">
+        <% else %>
+          <li>
+        <% end %>
+          <span class="big-badge badge-primary"><%= order.menus.last.components.keys.count + 3 %></span>
+          Régler la commande
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>

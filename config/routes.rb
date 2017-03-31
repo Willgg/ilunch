@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :line_items, only: [] do
     resources :menu_items, only: [:create]
   end
+
+  resources :line_items, only: [:create]
   # post '/menus/:menu_id/products/:id/menu_items/new', to: 'menu_items#create', as: 'new_menu_items'
 
   namespace :admin do

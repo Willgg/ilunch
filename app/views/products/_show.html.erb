@@ -6,12 +6,29 @@
       <h3><%= product.name %></h3>
       <p><%= product.description.truncate(100) %></p>
     </div>
-    <% if product.stock > 0 && local_assigns[:menu_item] && local_assigns[:line_item] %>
-      <%= simple_form_for menu_item, url: line_item_menu_items_path(line_item, menu_item, step: params[:step]) do |f| %>
-        <%= f.hidden_field :quantity, value: 1 %>
-        <%= f.hidden_field :product_id, value: product.id %>
-        <%= f.submit 'Ajouter', class: 'btn btn-primary' %>
+
+    <% if !product.has_stock? %>
+
+      <p>victime de son succès</p>
+
+    <% elsif product.has_stock? && local_assigns[:menu_item] && local_assigns[:line_item] %>
+
+      <% if params[:step] == 'extra' %>
+        <%= simple_form_for line_item,
+            url: line_items_path(line_item, step: params[:step]) do |f| %>
+          <%= f.hidden_field :quantity, value: 1 %>
+          <%= f.hidden_field :product_id, value: product.id %>
+          <%= f.submit 'Ajouter', class: 'btn btn-primary' %>
+        <% end %>
+      <% else %>
+        <%= simple_form_for menu_item,
+            url: line_item_menu_items_path(line_item, menu_item, step: params[:step]) do |f| %>
+          <%= f.hidden_field :quantity, value: 1 %>
+          <%= f.hidden_field :product_id, value: product.id %>
+          <%= f.submit 'Ajouter', class: 'btn btn-primary' %>
+        <% end %>
       <% end %>
+
     <% end %>
   </div>
  <!--  <a class="card-link" href="#" ></a> -->
