@@ -6,8 +6,15 @@
       /* Email styles need to be inline */
     </style>
   </head>
-
   <body>
-    <%= yield %>
+    <table width="100%" cellspacing="0" cellpadding="0" border="0" bgcolor="#EFEFEF" style="background-color: #EFEFEF">
+      <tr>
+        <td valign="top" align="center" bgcolor="#EFEFEF" style="padding-left: 20px; padding-right: 20px;">
+          <%= yield %>
+        </td>
+      </tr>
+   </table>
   </body>
 </html>
+
+

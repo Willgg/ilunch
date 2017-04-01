@@ -16,7 +16,15 @@ class User < ApplicationRecord
   # validates :post_code, presence: true, allow_blank: false
   # validates :city, presence: true, allow_blank: false
 
+  after_create :send_welcome_email
+
   def full_name
     first_name + ' ' + last_name
+  end
+
+  private
+
+  def send_welcome_email
+    UserMailer.welcome(self).deliver_now
   end
 end
