@@ -65,15 +65,22 @@ url = 'https://cdn.shopify.com/s/files/1/0832/9391/products/cookie-1.jpg?v=14843
 product_6 = Product.create( name: 'Crazy Cookie',
               price_cents: [330].sample,
               description: 'Un gros cookie aux pépites de chocolat, bien croquant sur les bords et moelleux au centre.',
-              date: Date.today + 1.day, stock: 100, category: 'dessert' )
+              date: Date.today , stock: 100, category: 'dessert' )
 product_6.photo_url = url
 
 url = 'http://www.ecotraiteur.fr/jus-d-orange-ultra-frais-ig-39.jpg'
 product_7 = Product.create( name: 'Jus d\'orange pressée',
               price_cents: [330].sample,
               description: 'Jus frais d\'oranges d\'Avignon labelisées bio',
-              date: Date.today + 1.day, stock: 100, category: 'drink' )
+              date: Date.today, stock: 100, category: 'drink' )
 product_7.photo_url = url
+
+url = 'http://media.paperblog.fr/i/87/879554/style-hollywood-chewing-gum-L-2.jpeg'
+product_8 = Product.create( name: 'Chewing gum',
+              price_cents: 200,
+              description: 'Boite de 10 chewing gum Hollywood goût menthe',
+              date: Date.today, stock: 100, category: 'extra' )
+product_8.photo_url = url
 
 
 9.times do
@@ -102,9 +109,8 @@ company_1 = Company.create( name: 'Le Village', street: '55 rue de la boétie',
 
 user_1 = User.create( first_name: 'William', last_name: 'Grenier Godard',
                       email: 'grenier.godard@gmail.com', password: 'billyboy',
-                      optin: true, admin: true, company: company_1,
-                      street: '19 rue Collange', post_code: '92300',
-                      city: 'Levallois-Perret' )
+                      optin: true, admin: true, company: company_1, phone: '0618000453',
+                      street: '19 rue Collange', post_code: '92300', city: 'Levallois-Perret' )
 
 user_2 = User.create( first_name: 'Victoria', last_name: 'Benhaim',
                       email: 'victoria.startup@gmail.com', password: 'ilunch',

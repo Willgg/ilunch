@@ -32,6 +32,7 @@ class PaymentsController < ApplicationController
         when 'succeeded'
           @order.update(payment: charge.to_json, status: 1)
           @order.substract_products_stocks
+          @order.send_confirmation_email
           session.delete(:order_id)
         when 'pending'
           @order.update(payment: charge.to_json, status: 0)

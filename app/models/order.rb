@@ -41,4 +41,8 @@ class Order < ApplicationRecord
     line_items_menu = line_items.select { |li| li.is_a_menu? }
     line_items_menu.all? { |li| li.full? }
   end
+
+  def send_confirmation_email
+    OrderMailer.confirmation(self).deliver_now
+  end
 end
