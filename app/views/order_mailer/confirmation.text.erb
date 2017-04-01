@@ -1,0 +1,25 @@
+Bonjour <%= @user.first_name %>,
+
+Merci d’avoir commandé chez i-lunch.
+Votre repas sera livré entre <%= @user.company.delivery_time %> à :
+<%= @user.company.name %>, <%= @user.company.street %> à <%= @user.company.city %>
+
+Vous recevrez un SMS au <%= @user.phone %> peu avant l’arrivée de votre commande à votre bureau.
+
+Voici le récapitulatif de votre commande :
+
+-----------------------------------------
+<% @order.line_items.each do |li| %>
+  <% unless li.product_id.nil? %>
+# <%= li.product.name %> x <%= li.quantity %> : <%= humanized_money_with_symbol(li.total_price) %>
+  <% end %>
+  <% unless li.menu_id.nil? %>
+# <%= li.menu.title %> x <%= li.quantity %> : <%= humanized_money_with_symbol(li.total_price) %>
+    <% li.menu_items.each do |mi| %>
+  - <%= mi.product.name %> x <%= mi.quantity %>
+    <% end %>
+  <% end %>
+<% end %>
+-----------------------------------------
+Total: <%= humanized_money_with_symbol(@order.total_price) %>
+-----------------------------------------
