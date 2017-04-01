@@ -1,7 +1,79 @@
-<h1>Le repas sain au travail</h1>
+<table cellspacing="0" cellpadding="0" border="0">
+  <!-- margin-top -->
+  <tr>
+    <td width="600" height="20"></td>
+  </tr>
+  <tr>
+    <td width="600" height="40" bgcolor="#FFFFFF" style="background-color: #FFFFFF"></td>
+  </tr>
+  <!-- Logo zone -->
+  <tr>
+    <td width="600" bgcolor="#FFFFFF">
+      <table cellspacing="0" cellpadding="0" width="100" border="0" bgcolor="#FFFFFF" align="center">
+        <tr>
+          <td width="100" valign="middle">
+            <%= link_to root_url, style: "display: block; text-align: center;" do %>
+              <%= image_tag("logo-ilunch.jpg", style: "width: 150px; text-decoration: none; display: block; color:#476688; font-size:30px;", alt: "iLunch", width: "150") %>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td width="600" height="15" bgcolor="#ffffff" style="background-color: #ffffff"></td>
+  </tr>
+  <!-- Content Zone -->
+  <tr>
+    <td width="600" bgcolor="#FFFFFF">
+      <table cellspacing="0" cellpadding="0" border="0" bgcolor="#FFFFFF" width="600" style="font-family: 'Lato', 'Helvetica', 'sans-serif'; font-size: 16px; line-height: 24px; color: #555555; width: 600px">
+        <tr>
+          <td width="80"></td>
+          <td width="440">
+            <div>
+              <p style="text-align: center; font-weight: bold">Le repas sain au travail</p>
+              <p>Bonjour <%= @user.first_name %>,</p>
+              <p>
+              Toute l’équipe i-lunch est heureuse de vous accueillir dans la communauté du bien manger. Désormais, plus d’excuse et vous pouvez manger du bon et du sain même au bureau ! Votre compte a été créé.
+              </p>
+              <p>N’hésitez pas à nous remonter vos impressions sur les plats et le service <a href="mailto:contact@i-lunch.fr", style="color: #8f2f88">contact@i-lunch.fr</a></p>
+            </div>
+          </td>
+          <td width="80"></td>
+        <tr>
+          <td width="80"></td>
+          <td width="440">
+            <table style="text-align: center; width: 180px; margin-top: 5px; margin-bottom: 5px" width="180" border="0" cellpadding="0" cellspacing="0" align="center">
+              <tbody>
+                <tr>
+                  <td width="180" style="font-size: 14px; font-family: 'Lato', 'Helvetica', 'sans-serif'; font-weight: normal; color: #ffffff; text-decoration: none; border-radius: 3px; display: block; text-align: center; background: #8f2f88;">
+                  <%= link_to 'Je commande', root_url, style: "font-family: 'Lato', 'Helvetica', 'sans-serif'; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 3px; -webkit-border-radius: 3px; -webkit-border-radius: 3px; font-weight: bold; font-size: 18px; line-height: 48px", target: 'blank' %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td width="80"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <!-- padding bottom -->
+  <tr>
+    <td width="600" height="40" bgcolor="#FFFFFF" style="background-color: #FFFFFF"></td>
+  </tr>
+  <!-- margin bottom -->
+  <tr>
+    <td width="600" height="40"></td>
+  </tr>
+</table>
 
-<p><%= @user.first_name %>,</p>
-<p>
-  Toute l’équipe i-lunch est heureuse de vous accueillir dans la communauté du bien manger. Désormais, plus d’excuse et vous pouvez manger du bon et du sain même au bureau ! Votre compte a été créé.
-</p>
-<p>N’hésitez pas à nous remonter vos impressions sur les plats et le service <a href="mailto:contact@i-lunch.fr">contact@i-lunch.fr</a></p>
+
+
+
+
+
+
+
+
+
