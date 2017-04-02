@@ -9,7 +9,7 @@
     <!-- <a href="#" class="navbar-wagon-item navbar-wagon-link">Entreprise</a> -->
 
     <!-- Notification -->
-    <% unless session[:order_id].nil? %>
+    <% unless session[:order_id].nil? || @order.line_items.count <= 0 %>
       <%= link_to new_order_payment_path(order_id: session[:order_id]),
           class: "navbar-wagon-item navbar-wagon-link", id: 'item-counter' do %>
         <div class="badge-container">

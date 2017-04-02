@@ -1,18 +1,23 @@
 <div class="card" id="product-<%= product.id %>">
   <div class="card-bg" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(' <%= cl_image_path product.photo.path, height: 250, crop: :fill %>');">
-  <% unless product.has_stock? %>
+  <% if !product.has_stock? %>
     <p class="no-stock">Victime de son succès<br /><small></small></p>
+  <% elsif Ilunch.open? %>
+    <p class="no-stock">Service terminé</p>
   <% end %>
   </div>
+
+
   <!-- <div class="card-category"><%= humanized_money_with_symbol(product.price) %></div> -->
     <% if !(params[:controller] == 'menus' && params[:action] == 'index') %>
+
       <div class="card-details">
         <div class="card-description">
           <h3><%= product.name %></h3>
           <p><%= product.description.truncate(100) %></p>
         </div>
 
-        <% if product.has_stock? && local_assigns[:menu_item] && local_assigns[:line_item] %>
+        <% if Ilunch.open? && product.has_stock? && local_assigns[:menu_item] && local_assigns[:line_item] %>
           <% if params[:step] == 'extra' %>
             <%= simple_form_for line_item,
                 url: line_items_path(line_item, step: params[:step]) do |f| %>
@@ -29,19 +34,21 @@
             <% end %>
           <% end %>
         <% end %>
-
       </div>
 
     <% else %>
+
       <div class="card-details">
         <div class="card-description">
           <h3><%= product.name %></h3>
           <p><%= product.description.truncate(100) %></p>
         </div>
       </div>
+      <% if Ilunch.open? %>
       <div class="text-center">
         <%= link_to 'Je commande', new_order_path(step: 'menu'), class: 'btn btn-primary' %>
       </div>
+      <% end %>
     <% end %>
  <!--  <a class="card-link" href="#" ></a> -->
 </div>

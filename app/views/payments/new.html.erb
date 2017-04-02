@@ -9,7 +9,7 @@
     <div class="col-xs-12 col-sm-5 col-sm-offset-1">
       <% unless @order.full? %>
         <div class="alert alert-danger" role="alert">
-          Votre menu est incomplet
+          <strong>Attention!</strong> un menu est incomplet
         </div>
       <% end %>
       <table class="line-items">
@@ -88,6 +88,7 @@
                 </div>
               </div>
             </div>
+            <% if @order.full? && @order.total_price > 0 %>
             <div class="col-xs-12 text-right">
               <div class="payment-form">
                 <%= form_tag order_payments_path(@order) do %>
@@ -102,6 +103,7 @@
                 <% end %>
               </div>
             </div>
+            <% end %>
           </div>
           <% end %>
         </div>
