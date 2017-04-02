@@ -3,7 +3,12 @@
  * These are examples of utilities classes
  * Feel free to change them and create your own
  * ------------------------------------- */
-
+a {
+  color: $brand-color;
+}
+a:hover, a:active, a:focus {
+  color: darken($brand-color, 10%);
+}
 // Paddings
 .padded {
   padding-top: 5em;
@@ -37,6 +42,14 @@ label abbr {
 }
 .checkbox {
   margin: 0;
+}
+.help-block {
+  font-size: 13px;
+  color: #888;
+  a {
+    color: #888;
+    text-decoration: underline;
+  }
 }
 
 .payment-form {

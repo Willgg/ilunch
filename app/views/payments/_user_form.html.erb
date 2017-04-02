@@ -11,7 +11,11 @@
           <%= f.input :last_name, required: true, autofocus: true %>
         </div>
       </div>
-      <%= f.input :company_id, collection: Company.all %>
+      <%= f.input :company_id, collection: Company.all,
+                               hint: ('Si votre entreprise n\'est pas listée,
+                               <a href="mailto:victoria@ilunch.fr">contactez-nous</a>').html_safe %>
+      <%= f.input :phone, required: true, autofocus: true,
+                          hint: 'Vous recevrez un sms à l\'arrivée du livreur.' %>
       <%= f.input :email, required: true, autofocus: true %>
       <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
       <%= f.input :password_confirmation, required: true %>
@@ -26,18 +30,21 @@
 <div id="sign-in">
   <%= simple_form_for(:user, url: session_path(:user)) do |f| %>
     <%= f.input :email %>
-    <%= f.input :password %>
+    <%= f.input :password, label: 'Mot de passe' %>
     <div class="row">
       <div class="col-xs-6">
-        <%= f.input :remember_me, label: 'Conserver la session', as: :boolean %>
+        <%= f.input :remember_me, label: 'Rester connecté', as: :boolean %>
       </div>
       <div class="col-xs-6">
-        <div class="form-group">
+        <div class="form-group text-right">
           <%= link_to "Mot de passe oublié ?", new_password_path(:user) %>
         </div>
       </div>
     </div>
-    <%= f.submit 'Se connecter', class: 'btn btn-primary' %>
-
+    <div class="row">
+      <div class="col-xs-12">
+        <%= f.submit 'Se connecter', class: 'btn btn-primary' %>
+      </div>
+    </div>
   <% end %>
 </div>

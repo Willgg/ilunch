@@ -1,9 +1,9 @@
 <div class="card" id="product-<%= product.id %>">
   <div class="card-bg" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(' <%= cl_image_path product.photo.path, height: 250, crop: :fill %>');">
-  <% if !product.has_stock? %>
-    <p class="no-stock">Victime de son succès<br /><small></small></p>
-  <% elsif Ilunch.open? %>
+  <% if Ilunch.closed? %>
     <p class="no-stock">Service terminé</p>
+  <% elsif !product.has_stock? %>
+    <p class="no-stock">Victime de son succès<br /><small></small></p>
   <% end %>
   </div>
 

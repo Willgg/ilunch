@@ -11,8 +11,11 @@ module Ilunch
   end
 
   def self.open?
-    # true
-    DateTime.current <= Date.today.to_datetime + 12.hours
+    if ENV['RAILS_ENV'] == 'production'
+      DateTime.current <= Date.today.to_datetime + 12.hours
+    else
+      true
+    end
   end
 
   def self.closed?

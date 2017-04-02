@@ -64,3 +64,5 @@ fr:
         street: "Adresse"
         post_code: "Code postal"
         city: "Ville"
+        phone: "Téléphone"
+        password: "Mot de passe"
