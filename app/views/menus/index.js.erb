@@ -1,7 +1,1 @@
-<% if @products.count > 0 %>
-  $('#products').replaceWith("<%= j render 'products/index', products: @products %>");
-<% else %>
-  $('#products').replaceWith("<div id='products' style='height: 411px; width: 100%; \
-    background-color: #efefef; display: flex; justify-content: center; align-items: center;'> \
-    Désolé, le service iLunch n'est encore pas disponible à cette date.</div>");
-<% end %>
+$('#products').replaceWith("<%= j render 'products/index', products: @products %>");
