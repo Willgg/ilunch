@@ -8,16 +8,22 @@
         <% @menus.each do |menu| %>
           <div class="col-xs-12 col-sm-6">
             <div class="menu-card">
-              <div class="card-bg" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(' <%= cl_image_path menu.photo.path, height: 250, crop: :fill %>');"></div>
+              <div class="card-bg" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(' <%= cl_image_path menu.photo.path, height: 250, crop: :fill %>');">
+              <% unless Ilunch.open? %>
+                <p class="no-stock">Fin du service<br /><small>Revenez le <%= l(Ilunch.next_active_days(1).first, format: ('%d %B')) %> avant 12h</small></p>
+              <% end %>
+              </div>
               <div class="card-category"></div>
               <div class="card-description">
                 <h3 class="text-center">
                   <%= menu.title %><br />
                   <%= humanized_money_with_symbol(menu.price) %>
                 </h3>
-                <%= simple_form_for [menu, @line_item], html: { class: 'text-center' } do |f| %>
-                  <%= f.hidden_field :quantity, value: 1 %>
-                  <%= f.submit 'Commander', class: 'btn btn-primary' %>
+                <% if Ilunch.open? %>
+                  <%= simple_form_for [menu, @line_item], html: { class: 'text-center' } do |f| %>
+                    <%= f.hidden_field :quantity, value: 1 %>
+                    <%= f.submit 'Commander', class: 'btn btn-primary' %>
+                  <% end %>
                 <% end %>
               </div>
             </div>
