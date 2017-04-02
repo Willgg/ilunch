@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  include DateConcern
+
   CATEGORIES = ['main', 'dessert', 'drink', 'extra']
   has_many :line_items
   has_many :orders, through: :line_items
