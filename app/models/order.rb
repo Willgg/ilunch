@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  enum status: [ :pending, :payed, :failed, :canceled ]
+  enum status: [ :pending, :payed, :ready, :delivered, :failed, :canceled ]
   after_initialize :set_status
 
   belongs_to :user

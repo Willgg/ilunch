@@ -3,6 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  enum role: [:client, :chef, :admin]
+
   has_many :orders, dependent: :destroy
   has_many :line_items, through: :orders
   belongs_to :company

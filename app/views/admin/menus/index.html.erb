@@ -1,6 +1,8 @@
 <div class="container admin-container">
   <h2>Menus</h2>
-  <%= link_to 'Ajouter un menu', new_admin_menu_path, class: 'btn btn-primary' %>
+  <% if policy(Menu.new).create? %>
+    <%= link_to 'Ajouter un menu', new_admin_menu_path, class: 'btn btn-primary' %>
+  <% end %>
   <table class="resource-list">
     <thead>
       <tr>
@@ -20,8 +22,16 @@
         </td>
         <td><%= menu.title.truncate(50) %></td>
         <td><%= humanized_money_with_symbol(menu.price) %></td>
-        <td><%= link_to 'modifier', edit_admin_menu_path(menu) %></td>
-        <td><%= link_to 'supprimer', admin_menu_path(menu), method: :delete %></td>
+        <td>
+          <% if policy(menu).update? %>
+            <%= link_to 'modifier', edit_admin_menu_path(menu) %>
+          <% end %>
+        </td>
+        <td>
+          <% if policy(menu).destroy? %>
+            <%= link_to 'supprimer', admin_menu_path(menu), method: :delete %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>

@@ -28,6 +28,28 @@ fr:
   will_paginate:
     previous_label: "Précédent"
     next_label: "Suivant"
+  admin:
+    customers: "clients"
+    companies: "entreprises"
+    orders: "commandes"
+    line_items: "items"
+    menu_items: "menu items"
+    menus: "menus"
+    products: "produits"
+    product:
+      category:
+        main: "plat"
+        dessert: "dessert"
+        drink: "boisson"
+        extra: "extra"
+    order:
+      status:
+        pending: "en attente"
+        payed: "payé"
+        ready: "prêt"
+        delivered: "livré"
+        failed: "échoué"
+        canceled: "annulé"
   activerecord:
     models:
       product: "produit"

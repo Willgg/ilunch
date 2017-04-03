@@ -25,7 +25,13 @@
           <td><%= li.menu.title %></td>
         <% end %>
         <td>X&nbsp;<%= li.quantity %></td>
-        <td><%= link_to "#{li.menu_items.count} menu items", admin_menu_items_path(line_item: li.id) %></td>
+        <td>
+          <% if li.menu_items.present? %>
+            <%= link_to "#{li.menu_items.count} menu items", admin_menu_items_path(line_item: li.id) %>
+          <% else %>
+            aucun
+          <% end %>
+        </td>
         <td><%= humanized_money_with_symbol(li.total_price) %></td>
       </tr>
     <% end %>

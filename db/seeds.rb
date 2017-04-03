@@ -29,7 +29,7 @@ product_1 = Product.create( name: 'Rigatoni alla romesco', price_cents: [500, 60
               date: Date.today, stock: 100, category: 'main')
 product_1.photo_url = url
 
-url = 'https://cdn.shopify.com/s/files/1/0832/9391/products/salade_de_boulghour_carottes_roties.jpg?v=1486029431'
+url = 'https://static.frichti.co/frichti/image/fetch/w_1310,h_880,c_fit/https://cdn.shopify.com/s/files/1/0832/9391/products/salade_de_boulghour_carottes_roties.jpg?v=1486029431'
 product_2 = Product.create( name: 'Salade de boulgour, carottes rôties aux épices et fêta',
               price_cents: [500, 600, 700, 800, 900, 1000].sample,
               description: 'Un effiloché de porc aux accents exotiques,' \
@@ -83,15 +83,15 @@ product_8 = Product.create( name: 'Chewing gum',
 product_8.photo_url = url
 
 
-9.times do
+4.times do
   Company.create( name: Faker::Company.name, street: Faker::Address.street_address, city: 'Paris',
                   post_code: Faker::Address.zip_code, delivery_time: Company::TIMESLOT.sample )
 end
 
-29.times do
+9.times do
   user = User.create( first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
                email: Faker::Internet.email, password: Faker::Internet.password(8),
-               optin: [true, false].sample, admin: false, company: Company.all.sample,
+               optin: [true, false].sample, company: Company.all.sample,
                street: Faker::Address.street_address, post_code: '75000',
                city: 'Paris' )
   order = Order.create( user: user, status: 1 )
@@ -109,12 +109,12 @@ company_1 = Company.create( name: 'Le Village', street: '55 rue de la boétie',
 
 user_1 = User.create( first_name: 'William', last_name: 'Grenier Godard',
                       email: 'grenier.godard@gmail.com', password: 'billyboy',
-                      optin: true, admin: true, company: company_1, phone: '0618000453',
+                      optin: true, role: 'admin', company: company_1, phone: '0618000453',
                       street: '19 rue Collange', post_code: '92300', city: 'Levallois-Perret' )
 
 user_2 = User.create( first_name: 'Victoria', last_name: 'Benhaim',
-                      email: 'victoria.startup@gmail.com', password: 'ilunch',
-                      optin: true, admin: true, company: company_1,
+                      email: 'victoria@ilunch.fr', password: 'ilunch',
+                      optin: true, role: 'chef', company: company_1,
                       street: '55 rue de la Boétie', post_code: '75008',
                       city: 'Paris'  )
 

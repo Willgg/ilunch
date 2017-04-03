@@ -1,4 +1,9 @@
 class ProductPolicy < ApplicationPolicy
+
+  def index?
+    user.admin? || user.chef?
+  end
+
   def create?
     user.admin?
   end

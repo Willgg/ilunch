@@ -9,20 +9,11 @@
         <th>Delivery location</th>
         <th>Status</th>
         <th>Items</th>
-        <th>Total</th>
+        <th colspan="2">Total</th>
       </tr>
     </thead>
     <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.id %></td>
-        <td><%= order.created_at.strftime('%d/%m/%Y') %></td>
-        <td><%= order.user.email if order.user %></td>
-        <td><%= order.user.company.name if order.user %></td>
-        <td><%= order.status %></td>
-        <td><%= link_to "#{order.line_items.count} line items",
-                        admin_line_items_path(order: order.id) %></td>
-        <td><%= humanized_money_with_symbol(order.total_price) %></td>
-      </tr>
+      <%= render 'show', order: order %>
     <% end %>
   </table>
   <%= will_paginate @orders %>
