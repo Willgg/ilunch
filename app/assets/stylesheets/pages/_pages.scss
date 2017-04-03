@@ -1,6 +1,6 @@
 .pages-show {
   h1 {
-    font-size: 30px;
+    font-size: 34px;
   }
   h2 {
     font-size: 20px;
@@ -13,6 +13,13 @@
   }
   .header {
     margin: 0 0 30px 0;
+  }
+  .section-title {
+    font-size: 26px;
+    color: darken($brand-color, 10%);
+    margin: 40px 0 30px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid lighten($brand-color, 45%);
   }
 }
 .menu-static-pages {

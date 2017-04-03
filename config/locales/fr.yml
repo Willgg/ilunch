@@ -25,6 +25,9 @@ fr:
   select-dessert: "Choissez votre dessert"
   select-drink: "Choissez votre boisson"
   select-extra: "Choissez un extra"
+  will_paginate:
+    previous_label: "Précédent"
+    next_label: "Suivant"
   activerecord:
     models:
       product: "produit"

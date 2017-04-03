@@ -6,7 +6,7 @@ class MenuItemPolicy < ApplicationPolicy
 
   class Scope < Scope
     def resolve
-      scope
+      ( user.admin? ? scope.all : scope.where(user: user) )
     end
   end
 end

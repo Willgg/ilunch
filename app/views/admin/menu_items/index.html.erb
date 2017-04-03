@@ -1,0 +1,29 @@
+<div class="container admin-container">
+  <h2>Menu Items</h2>
+  <table class="resource-list">
+    <thead>
+      <tr>
+        <th>Order id</th>
+        <th>User</th>
+        <th colspan="2">Product</th>
+        <th>Quantity</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <% @menu_items.each do |mi| %>
+      <tr>
+        <td>order#<%= mi.order.id %></td>
+        <td><%= mi.order.user.full_name %></td>
+        <td>
+          <% if mi.product.photo? %>
+            <%= cl_image_tag mi.product.photo.path, width: 100, height: 50, crop: :fill %>
+          <% end %>
+        </td>
+        <td><%= mi.product.name %></td>
+        <td>X&nbsp;<%= mi.quantity %></td>
+        <td><%= l(mi.product.date, format: '%d/%m/%Y') %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= will_paginate @menu_items %>
+</div>

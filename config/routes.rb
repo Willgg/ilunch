@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :edit, :destroy]
     resources :orders, only: [:index, :show]
     resources :line_items, only: [:index]
+    resources :menu_items, only: [:index]
     resources :companies, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 
