@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     resources :products, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :menus, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :users, only: [:index, :edit, :destroy]
-    resources :orders, only: [:index, :show]
+    resources :orders, only: [:index, :show, :update]
     resources :line_items, only: [:index]
     resources :menu_items, only: [:index]
     resources :companies, only: [:index, :new, :create, :edit, :update, :destroy]

@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 20170401135929) do
     t.string   "first_name"
     t.string   "last_name"
     t.boolean  "optin",                  default: false
-    t.boolean  "admin",                  default: false
+    t.integer  "role",                   default: 0
     t.integer  "company_id"
     t.string   "stripe_id"
     t.string   "street"

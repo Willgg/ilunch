@@ -1,6 +1,8 @@
 <div class="container admin-container">
   <h2>Products</h2>
-  <%= link_to 'Ajouter un produit', new_admin_product_path, class: 'btn btn-primary' %>
+  <% if policy(Product.new).create? %>
+    <%= link_to 'Ajouter un produit', new_admin_product_path, class: 'btn btn-primary' %>
+  <% end %>
   <table class="resource-list">
     <thead>
       <tr>
@@ -22,12 +24,20 @@
           <% end %>
         </td>
         <td><%= product.name %></td>
-        <td><%= product.category.capitalize %></td>
+        <td><%= t("admin.product.category.#{product.category}").capitalize %></td>
         <td><%= humanized_money_with_symbol(product.price) %></td>
         <td><%= product.stock %></td>
         <td><%= product.date.strftime('%d/%m/%Y') %></td>
-        <td><%= link_to 'modifier', edit_admin_product_path(product) %></td>
-        <td><%= link_to 'supprimer', admin_product_path(product), method: :delete %></td>
+        <td>
+          <% if policy(product).update? %>
+            <%= link_to 'modifier', edit_admin_product_path(product) %>
+          <% end %>
+        </td>
+        <td>
+          <% if policy(product).destroy? %>
+            <%= link_to 'supprimer', admin_product_path(product), method: :delete %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>

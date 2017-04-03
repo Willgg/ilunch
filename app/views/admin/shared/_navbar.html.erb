@@ -1,46 +1,67 @@
 <div class="navbar-admin">
   <ul>
+
+    <% if policy(Menu.new).index? %>
      <li>
       <%= link_to admin_menus_path do %>
         <i class="fa fa-map" aria-hidden="true"></i>
-        <br />menus
+        <br /><%= t('admin.menus') %>
       <% end %>
     </li>
+    <% end %>
+
+    <% if policy(Product.new).index? %>
     <li>
       <%= link_to admin_products_path do %>
         <i class="fa fa-cube" aria-hidden="true"></i>
-        <br />products
+        <br /><%= t('admin.products') %>
       <% end %>
     </li>
+    <% end %>
+
+    <% if policy(LineItem.new).index? %>
     <li>
       <%= link_to admin_line_items_path do %>
         <i class="fa fa-cubes" aria-hidden="true"></i>
-        <br />line items
+        <br /><%= t('admin.line_items') %>
       <% end %>
     </li>
+    <% end %>
+
+    <% if policy(MenuItem.new).index? %>
     <li>
       <%= link_to admin_menu_items_path do %>
         <i class="fa fa-cubes" aria-hidden="true"></i>
-        <br />menu items
+        <br /><%= t('admin.menu_items') %>
       <% end %>
     </li>
+    <% end %>
+
+    <% if OrderPolicy.new(current_user, Order.new, nil).index? %>
     <li>
       <%= link_to admin_orders_path do %>
         <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-        <br />orders
+        <br /><%= t('admin.orders') %>
       <% end %>
     </li>
+    <% end %>
+
+    <% if policy(User.new).index? %>
     <li>
       <%= link_to admin_users_path do %>
         <i class="fa fa-users" aria-hidden="true"></i>
-        <br />customers
+        <br /><%= t('admin.customers') %>
       <% end %>
     </li>
+    <% end %>
+
+    <% if policy(Company.new).index? %>
     <li>
       <%= link_to admin_companies_path do %>
         <i class="fa fa-university" aria-hidden="true"></i>
-        <br />companies
+        <br /><%= t('admin.companies') %>
       <% end %>
     </li>
+    <% end %>
   </ul>
 </div>

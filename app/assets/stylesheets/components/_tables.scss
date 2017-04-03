@@ -10,7 +10,7 @@
     padding: 10px;
   }
   tbody tr:hover {
-    background-color: $brand-color-very-light;
+    background-color: lighten($brand-color, 55%);
   }
 }
 
