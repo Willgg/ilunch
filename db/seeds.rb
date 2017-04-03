@@ -116,7 +116,7 @@ user_2 = User.create( first_name: 'Victoria', last_name: 'Benhaim',
                       email: 'victoria@ilunch.fr', password: 'ilunchVictoria12',
                       optin: true, role: 'admin', company: company_1,
                       street: '55 rue de la Boétie', post_code: '75008',
-                      city: 'Paris'  )
+                      city: 'Paris' )
 
 user_3 = User.create( first_name: 'Soukayna', last_name: 'Benhaim',
                       email: 'soukayna@ilunch.fr', password: 'ilunchSoukayna98',
