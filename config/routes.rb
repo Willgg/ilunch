@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   resources :line_items, only: [:create]
   # post '/menus/:menu_id/products/:id/menu_items/new', to: 'menu_items#create', as: 'new_menu_items'
-  get 'pages/:page' => 'pages#show'
+  get 'pages/:page' => 'pages#show', as: 'pages'
 
   namespace :admin do
     get '', to: 'products#index', as: '/'
