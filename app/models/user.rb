@@ -19,7 +19,7 @@ class User < ApplicationRecord
   # validates :post_code, presence: true, allow_blank: false
   # validates :city, presence: true, allow_blank: false
 
-  after_create :send_welcome_email
+  after_commit :send_welcome_email, on: :create
 
   def full_name
     first_name + ' ' + last_name
