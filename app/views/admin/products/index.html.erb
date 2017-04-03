@@ -1,5 +1,5 @@
 <div class="container admin-container">
-  <h2>Products</h2>
+  <h2>Produits</h2>
   <% if policy(Product.new).create? %>
     <%= link_to 'Ajouter un produit', new_admin_product_path, class: 'btn btn-primary' %>
   <% end %>
