@@ -32,10 +32,10 @@ class Admin::CompaniesController < ApplicationController
 
   def destroy
     authorize @company
-    if @company.destroy
+    if @company.users.blank? && @company.destroy
       flash[:notice] = 'L\'entreprise a bien été supprimée'
     else
-      flash[:alert] = 'L\'entreprise n\'a pas été supprimée'
+      flash[:alert] = 'L\'entreprise n\'a pas été supprimée. Elle peut-être encore attachés à des utilisateurs.'
     end
     redirect_to admin_companies_path
   end
