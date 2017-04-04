@@ -11,11 +11,11 @@ module Ilunch
   end
 
   def self.open?
-    if ENV['RAILS_ENV'] == 'production'
-      DateTime.current <= Date.current.to_datetime + 12.hours
-    else
+    # if ENV['RAILS_ENV'] == 'production'
+    #   DateTime.current <= DateTime.current.beginning_of_day + 12.hours
+    # else
       true
-    end
+    # end
   end
 
   def self.closed?
