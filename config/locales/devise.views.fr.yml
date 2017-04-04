@@ -80,7 +80,7 @@ fr:
         update: Modifier
         we_need_your_current_password_to_confirm_your_changes: nous avons besoin de votre mot de passe actuel pour valider ces modifications
       new:
-        sign_up: Inscription
+        sign_up: Création de compte
       signed_up: ""
       signed_up_but_inactive: Vous vous êtes enregistré(e) avec succès. Cependant, nous n’avons pas pu vous connecter car votre compte n’a pas encore été activé.
       signed_up_but_locked: Vous vous êtes enregistré(e) avec succès. Cependant, nous n’avons pas pu vous connecter car votre compte est verrouillé.
@@ -99,7 +99,7 @@ fr:
         didn_t_receive_confirmation_instructions: Vous n'avez pas reçu l'email de confirmation ?
         didn_t_receive_unlock_instructions: Vous n'avez pas reçu l'email de déblocage ?
         forgot_your_password: Mot de passe oublié ?
-        sign_in: Connexion
+        sign_in: Se connecter
         sign_in_with_provider: Connexion avec %{provider}
         sign_up: Inscription
     unlocks:
