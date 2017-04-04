@@ -4,6 +4,6 @@ ActionMailer::Base.smtp_settings = {
   address: ENV['POSTMARK_SMTP_SERVER'],
   port: '25',
   domain: 'www.ilunch.fr',
-  authentication: 'plain',
+  authentication: :cram_md5,
   enable_starttls_auto: true
 }
