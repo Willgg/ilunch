@@ -53,6 +53,13 @@ fr:
   shared:
     navbar:
       sign_out: "Déconnexion"
+  devise:
+    registrations:
+      new:
+        confirm_pwd: "Confirmation du mot de passe"
+        company: "Votre entreprise"
+        sign_up-btn: "Inscription"
+        sign_in: "Se connecter"
   activerecord:
     models:
       product: "produit"

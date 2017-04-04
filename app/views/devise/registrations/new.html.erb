@@ -1,21 +1,70 @@
-<h2><%= t(".sign_up") %></h2>
+<% title 'Créer son compte' %>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= f.error_notification %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+          <h2><%= t(".sign_up") %></h2>
+        </div>
+      </div>
+      <div class="row">
+        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+         <!--  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+            <%= f.error_notification %>
+          </div> -->
+          <div class="form-inputs">
+            <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+              <%= f.input :first_name, label: false, required: true, autofocus: true,
+                          placeholder: User.human_attribute_name(:first_name) %>
+            </div>
+            <div class="col-xs-12 col-sm-5">
+              <%= f.input :last_name, label: false, required: true, autofocus: true,
+                          placeholder: User.human_attribute_name(:last_name) %>
+            </div>
+            <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+              <%= f.input :company_id, label: false, required: true,
+                          collection: Company.all, prompt: t('.company'),
+                          hint: 'Vos commandes seront livrée à l\'adresse de cette entreprise' %>
+            </div>
+            <div class="col-xs-12 col-sm-5">
+              <%= f.input :phone, label: false, required: true, autofocus: true,
+                          placeholder: User.human_attribute_name(:phone),
+                          hint: 'Un sms vous sera envoyé à l\'expédition de vos commandes'  %>
+            </div>
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+              <%= f.input :email, label: false, required: true, autofocus: true,
+                          placeholder: User.human_attribute_name(:email) %>
+            </div>
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+              <%= f.input :password, label: false, required: true,
+                          placeholder: User.human_attribute_name(:password) %>
+            </div>
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+              <%= f.input :password_confirmation, label: false, required: true,
+                          placeholder: t('.confirm_pwd') %>
+            </div>
+          </div>
 
-  <div class="form-inputs">
-    <%= f.input :first_name, required: true, autofocus: true %>
-    <%= f.input :last_name, required: true, autofocus: true %>
-    <%= f.input :company_id, required: true, collection: Company.all %>
-    <%= f.input :phone, required: true, autofocus: true %>
-    <%= f.input :email, required: true, autofocus: true %>
-    <%= f.input :password, required: true %>
-    <%= f.input :password_confirmation, required: true %>
+          <div class="form-actions">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+              <div class="form-group">
+                En cliquant sur « <%= t(".sign_up-btn") %> », vous confirmez accepter les <%= link_to 'conditions générales d\'utilisation', pages_path(:cgv) %> d'ilunch.
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+              <div class="form-group">
+                <%= f.button :submit, t(".sign_up-btn"), class: 'btn btn-primary' %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+          <%- if controller_name != 'sessions' %>
+            Déjà membre d'ilunch ? <%= link_to t(".sign_in"), new_session_path(resource_name) %><br />
+          <% end -%>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, t(".sign_up") %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>

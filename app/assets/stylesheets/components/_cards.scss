@@ -3,8 +3,11 @@
   margin-bottom: 15px;
 }
 .card-no {
-  border: 1px solid #ddd;
+    border: 1px solid #e4e4e4;
+    height: 422px;
+    border-radius: 3px;
   .card-bg {
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

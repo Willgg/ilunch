@@ -20,6 +20,10 @@
       <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
       <%= f.input :password_confirmation, required: true %>
     </div>
+    <div class="form-group">
+      En créant un compte, vous acceptez les
+      <%= link_to 'conditions générales d\'utilisation', pages_path(:cgv) %> de Ilunch
+    </div>
 
     <div class="form-actions">
       <%= f.button :submit, "Compléter mes infos", class: 'btn btn-primary' %>
