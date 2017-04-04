@@ -1,5 +1,6 @@
 .card, .card-no {
   position: relative;
+  margin-bottom: 15px;
 }
 .card-no {
   border: 1px solid #ddd;
@@ -14,6 +15,7 @@
   height: 250px;
   background-size: cover !important;
   background-position: center;
+  border-radius: 3px 3px 0 0;
   h3 {
     margin: 0;
   }
@@ -41,21 +43,34 @@
   color: white;
 }
 .card-details {
-  padding: 10px 0 0 0;
+  padding: 10px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  border: 1px solid #e4e4e4;
+  border-top: none;
+  border-radius: 0 0 3px 3px;
 }
 .card-description {
   height: 115px;
-  margin-right: 10px;
   h3 {
     margin: 0 0 10px 0;
     font-size: 18px;
   }
   p {
     font-size: 13px;
+  }
+}
+.card-cta {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .price {
+    font-size: 24px;
+    margin: 0;
   }
 }
 
