@@ -50,6 +50,9 @@ fr:
         delivered: "livré"
         failed: "échoué"
         canceled: "annulé"
+  shared:
+    navbar:
+      sign_out: "Déconnexion"
   activerecord:
     models:
       product: "produit"
