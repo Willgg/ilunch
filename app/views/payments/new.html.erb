@@ -19,6 +19,7 @@
         <% @order.line_items.each do |li| %>
           <% unless li.product_id.nil? %>
             <tr class="line-item-product">
+              <td><%= link_to "-", line_item_path(li), method: :delete, class: 'circle' %></td>
               <td><%= cl_image_tag li.product.photo.path, width: 100, height: 70, crop: :fill %></td>
               <td><%= li.product.name %>&nbsp;&times;<%= li.quantity %></td>
               <td><%= humanized_money_with_symbol(li.total_price) %></td>
@@ -26,6 +27,7 @@
           <% end %>
           <% unless li.menu_id.nil? %>
             <tr class="line-item-menu">
+              <td><%= link_to "-", line_item_path(li), method: :delete, class: 'circle' %></td>
               <td colspan="2" <%= 'class="error"'.html_safe unless li.full? %>>
                 <strong><%= li.menu.title %>&nbsp;&times;<%= li.quantity %></strong>
               </td>
@@ -33,6 +35,7 @@
             </tr>
             <% li.menu_items.each do |mi| %>
               <tr class="menu-item">
+                <td></td>
                 <td colspan="2">
                   <table>
                     <tr>
@@ -47,6 +50,15 @@
                 <td></td>
               </tr>
             <% end %>
+            <% unless li.full? %>
+              <tr class="menu-item">
+                <td></td>
+                <td colspan="2" class="missing-item">
+                  <%= link_to "Compléter le menu", new_order_path(step: li.next_step), class: 'error-link' %>
+                </td>
+                <td></td>
+              </tr>
+            <% end %>
           <% end %>
         <% end %>
         </tbody>
@@ -56,7 +68,7 @@
             <td><%= humanized_money_with_symbol(@order.vat) %></td>
           </tr> -->
           <tr class="total-price">
-            <td colspan="2" class="text-right">Total</td>
+            <td colspan="3" class="text-right">Total</td>
             <td><%= humanized_money_with_symbol(@order.total_price) %></td>
           </tr>
         </tfoot>

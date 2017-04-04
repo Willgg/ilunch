@@ -16,6 +16,7 @@
 
 .line-items {
   width: 100%;
+  font-size: 14px;
   tbody {
     tr td {
       border-bottom: 1px solid #ddd;
@@ -25,15 +26,26 @@
       border: none;
       padding: 0 10px;
       &:first-child {
-        padding: 0 0px 0 10px;
+        padding: 0;
       }
     }
-    .line-item-product {}
+    .line-item-product {
+      font-size: 16px;
+      td:first-child {
+        padding-left: 0
+      }
+      td:nth-child(2) {
+        padding-right: 0;
+      }
+    }
     .line-item-menu {
-      font-size: 18px;
+      font-size: 16px;
       td {
         padding-top: 20px;
         padding-bottom: 20px;
+        &:first-child {
+          padding-left: 0px;
+        }
         &:last-child {
           text-align: right;
         }
