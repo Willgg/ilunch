@@ -12,7 +12,7 @@ module Ilunch
 
   def self.open?
     if ENV['RAILS_ENV'] == 'production'
-      DateTime.current <= Date.today.to_datetime + 12.hours
+      DateTime.current <= Date.current.to_datetime + 12.hours
     else
       true
     end
