@@ -21,3 +21,10 @@
 .error {
   color: #a94442 ;
 }
+.error-link {
+  color: #a94442 ;
+  &:hover{
+      color: #a94442 ;
+      text-decoration: none;
+  }
+}

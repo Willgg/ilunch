@@ -1,9 +1,10 @@
 class LineItemsController < ApplicationController
-  skip_before_action :authenticate_user!, only: [:create]
+  skip_before_action :authenticate_user!, only: [:create, :destroy]
 
   before_action :set_product, only: [:create]
   before_action :set_menu, only: [:create]
   before_action :set_order, only: [:create]
+  before_action :set_line_item, only: [:destroy]
 
   def create
     # if @order.line_items.where(menu: @menu).exists?
@@ -41,6 +42,19 @@ class LineItemsController < ApplicationController
     end
   end
 
+  def destroy
+    authorize @line_item
+    if @line_item.destroy
+      if @line_item.order.line_items.count <= 0
+        redirect_to root_path
+      else
+        redirect_to(:back)
+      end
+    else
+      flash[:error] = 'Le produit n\'a pas pu être supprimé'
+    end
+  end
+
   private
 
   def set_product
@@ -49,6 +63,14 @@ class LineItemsController < ApplicationController
 
   def set_menu
     @menu = Menu.find(params[:menu_id]) if params[:menu_id]
+  end
+
+  def set_line_item
+    begin
+      @line_item = LineItem.find(params[:id])
+    rescue
+      redirect_to root_path
+    end
   end
 
   def line_item_params

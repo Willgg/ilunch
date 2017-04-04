@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     resources :menu_items, only: [:create]
   end
 
-  resources :line_items, only: [:create]
+  resources :line_items, only: [:create, :destroy]
   # post '/menus/:menu_id/products/:id/menu_items/new', to: 'menu_items#create', as: 'new_menu_items'
   get 'pages/:page' => 'pages#show', as: 'pages'
 
