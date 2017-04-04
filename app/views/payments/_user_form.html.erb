@@ -15,7 +15,7 @@
                                hint: ('Si votre entreprise n\'est pas listée,
                                <a href="mailto:victoria@ilunch.fr">contactez-nous</a>').html_safe %>
       <%= f.input :phone, required: true, autofocus: true,
-                          hint: 'Vous recevrez un sms à l\'arrivée du livreur.' %>
+                          hint: 'Vous recevrez un sms à l\'envoi de votre commande.' %>
       <%= f.input :email, required: true, autofocus: true %>
       <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
       <%= f.input :password_confirmation, required: true %>

@@ -9,11 +9,15 @@
 }
 .alert-info {
   background: $green;
+  color: #fff;
 }
 .alert-warning {
   background: $red;
+  color: #fff;
 }
-
+.alert {
+  margin: 0;
+}
 .error {
   color: #a94442 ;
 }
