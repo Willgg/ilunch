@@ -1,5 +1,5 @@
 <div class="card" id="product-<%= product.id %>">
-  <div class="card-bg" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(' <%= cl_image_path product.photo.path, height: 250, crop: :fill %>');">
+  <div class="card-bg" style="background-image: url(' <%= cl_image_path product.photo.path, height: 250, crop: :fill %>');">
   <% if Ilunch.closed? %>
     <p class="no-stock">Fin du service<br /><small>Revenez le <%= l(Ilunch.next_active_days(1).first, format: ('%d %B')) %> avant 12h</small></p>
   <% elsif !product.has_stock? %>
@@ -16,7 +16,10 @@
           <h3><%= product.name %></h3>
           <p><%= product.description.truncate(100) %></p>
         </div>
-
+        <div class="card-cta">
+        <% if params[:step] == 'extra' %>
+          <p class="price">3,5&euro;</p>
+        <% end %>
         <% if Ilunch.open? && product.has_stock? && local_assigns[:menu_item] && local_assigns[:line_item] %>
           <% if params[:step] == 'extra' %>
             <%= simple_form_for line_item,
@@ -34,6 +37,7 @@
             <% end %>
           <% end %>
         <% end %>
+        </div>
       </div>
 
     <% else %>
@@ -43,12 +47,13 @@
           <h3><%= product.name %></h3>
           <p><%= product.description.truncate(100) %></p>
         </div>
+
+        <% if Ilunch.open? %>
+          <div class="text-center" style="width: 100%">
+            <%= link_to 'Je commande', new_order_path(step: 'menu'), class: 'btn btn-primary' %>
+          </div>
+        <% end %>
       </div>
-      <% if Ilunch.open? %>
-      <div class="text-center">
-        <%= link_to 'Je commande', new_order_path(step: 'menu'), class: 'btn btn-primary' %>
-      </div>
-      <% end %>
     <% end %>
  <!--  <a class="card-link" href="#" ></a> -->
 </div>
