@@ -108,20 +108,20 @@ company_1 = Company.create( name: 'Le Village', street: '55 rue de la boétie',
                             post_code: '75008', city: 'Paris',
                             delivery_time: Company::TIMESLOT.sample )
 
-user_1 = User.create( gender: 'homme', dob: Date.new(1985, 07, 16),
+user_1 = User.create( gender: 'male', dob: Date.new(1985, 07, 16),
                       first_name: 'William', last_name: 'Grenier Godard',
                       email: 'grenier.godard@gmail.com', password: 'billyboy',
                       optin: true, role: 'admin', company: company_1, phone: '0618000453',
                       street: '19 rue Collange', post_code: '92300', city: 'Levallois-Perret' )
 
-user_2 = User.create( gender: 'femme', dob: Date.new(1987, 07, 16),
+user_2 = User.create( gender: 'female', dob: Date.new(1987, 07, 16),
                       first_name: 'Victoria', last_name: 'Benhaim',
                       email: 'victoria@ilunch.fr', password: 'ilunchVictoria12',
                       optin: true, role: 'admin', company: company_1,
                       street: '55 rue de la Boétie', post_code: '75008',
                       city: 'Paris' )
 
-user_3 = User.create( gender: 'femme', dob: Date.new(1989, 07, 16),
+user_3 = User.create( gender: 'female', dob: Date.new(1989, 07, 16),
                       first_name: 'Soukayna', last_name: 'Benhaim',
                       email: 'soukayna@ilunch.fr', password: 'ilunchSoukayna98',
                       optin: true, role: 'chef', company: company_1,

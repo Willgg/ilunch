@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true, allow_blank: false
   validates :last_name, presence: true, allow_blank: false
   validates :gender, presence: true, inclusion: { in: GENDERS }
+  validates :phone, presence: true
 
   after_commit :send_welcome_email, on: :create
 
