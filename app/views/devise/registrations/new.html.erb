@@ -35,18 +35,17 @@
                           placeholder: User.human_attribute_name(:phone),
                           hint: 'Un sms vous sera envoyé à l\'expédition de vos commandes'  %>
             </div>
-            <div class="col-xs-12 col-sm-7 col-sm-offset-1">
+            <div class="col-xs-12 col-sm-5 col-sm-offset-1">
               <%= f.input :dob, start_year: Date.current.year - 90,
                                 end_year:   Date.current.year - 18,
                                 order:      [:day, :month, :year],
                                 default:    30.years.ago,
                                 label: false,
                                 as: :string,
-                                input_html: { data: {provide:'datepicker'} },
                                 placeholder: User.human_attribute_name(:dob),
                                 required: true, autofocus: true %>
             </div>
-            <div class="col-xs-12 col-sm-3">
+            <div class="col-xs-12 col-sm-5">
               <%= f.input :gender, collection:  t_select_option_genders,
                                    label: false,
                                    prompt: User.human_attribute_name(:gender),
@@ -91,3 +90,15 @@
     </div>
   </div>
 </div>
+
+<% content_for :after_js do %>
+  <script>
+  $(document).ready(function(){
+        $('#user_dob').datepicker({
+          format: "dd/mm/yyyy",
+          orientation: "bottom auto",
+          language: "fr"
+        });
+  });
+  </script>
+<% end %>

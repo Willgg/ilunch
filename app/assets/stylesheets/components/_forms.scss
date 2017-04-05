@@ -31,6 +31,9 @@ input[type]:-moz-placeholder { /* Firefox 18- */
 }
 .select, .date{
   color: #888;
+  label {
+    color: #000;
+  }
   option {
     color: black;
     &:first-child{

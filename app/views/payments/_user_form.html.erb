@@ -13,17 +13,19 @@
           <%= f.input :last_name, label: false, required: true, autofocus: true,
                       placeholder: User.human_attribute_name(:last_name) %>
         </div>
-        <div class="col-xs-12 col-sm-3">
+        <div class="col-xs-12 col-sm-6">
           <%= f.input :gender, collection: t_select_option_genders,
                                label: false, required: true, autofocus: true,
                                prompt: User.human_attribute_name(:gender) %>
         </div>
-        <div class="col-xs-12 col-sm-9">
+        <div class="col-xs-12 col-sm-6">
           <%= f.input :dob, start_year: Date.current.year - 90,
                             end_year:   Date.current.year - 18,
                             order:      [:day, :month, :year],
                             default:    30.years.ago,
                             label: false,
+                            as: :string,
+                            placeholder: User.human_attribute_name(:dob),
                             required: true, autofocus: true %>
         </div>
       </div>
