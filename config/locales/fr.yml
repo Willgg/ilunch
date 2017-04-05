@@ -24,7 +24,7 @@ fr:
   select-main: "Choissez votre plat"
   select-dessert: "Choissez votre dessert"
   select-drink: "Choissez votre boisson"
-  select-extra: "Choissez un extra"
+  select-extra: "Choissez un supplément"
   will_paginate:
     previous_label: "Précédent"
     next_label: "Suivant"
@@ -60,6 +60,10 @@ fr:
         company: "Votre entreprise"
         sign_up-btn: "Inscription"
         sign_in: "Se connecter"
+    sessions:
+      new:
+        forgot_your_password: "Mot de passe oublié ?"
+        sign_up: "Inscrivez-vous"
   activerecord:
     models:
       product: "produit"

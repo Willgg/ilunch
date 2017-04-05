@@ -34,43 +34,9 @@ a:hover, a:active, a:focus {
   margin: 20px auto;
 }
 
+// Layout
 .content {
   padding: 50px 0;
-}
-// Forms
-select option:first-child {
-  color: #aaa;
-}
-label abbr {
-  display:none;
-}
-.checkbox {
-  margin: 0;
-}
-.form-group {
-  margin-bottom: 20px;
-}
-.form-control {
-  height: 40px;
-}
-.has-error .form-control {
-  border-color: $brand-danger;
-}
-.help-block, .has-error .help-block:nth-child(3) {
-  font-size: 13px;
-  color: #888;
-  a {
-    color: #888;
-    text-decoration: underline;
-  }
-}
-
-.has-error .help-block, .has-error .control-label, .has-error .radio,
-.has-error .checkbox, .has-error .radio-inline, .has-error .checkbox-inline,
-.has-error.radio label, .has-error.checkbox label, .has-error.radio-inline label,
-.has-error.checkbox-inline label {
-  // color: #d01b18
-  color: $brand-danger;
 }
 
 // Links
