@@ -25,6 +25,7 @@ fr:
   select-dessert: "Choissez votre dessert"
   select-drink: "Choissez votre boisson"
   select-extra: "Choissez un supplément"
+  confirm_pwd: "Confirmation du mot de passe"
   will_paginate:
     previous_label: "Précédent"
     next_label: "Suivant"
@@ -56,7 +57,6 @@ fr:
   devise:
     registrations:
       new:
-        confirm_pwd: "Confirmation du mot de passe"
         company: "Votre entreprise"
         sign_up-btn: "Inscription"
         sign_in: "Se connecter"
@@ -99,9 +99,15 @@ fr:
       user:
         first_name: "Prénom"
         last_name: "Nom"
+        company: "Entreprise"
         company_id: "Entreprise"
         street: "Adresse"
         post_code: "Code postal"
         city: "Ville"
         phone: "Téléphone"
         password: "Mot de passe"
+        dob: "Date de naissance"
+        gender: "Sexe"
+        sexe_option:
+          male: "Homme"
+          female: "Femme"

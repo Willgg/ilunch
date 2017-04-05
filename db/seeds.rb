@@ -89,7 +89,8 @@ product_8.photo_url = url
 end
 
 9.times do
-  user = User.create( first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
+  user = User.create( gender: User::GENDERS.sample, dob: Faker::Date.between(50.years.ago, 18.years.ago),
+              first_name: Faker::Name.first_name, last_name: Faker::Name.last_name,
                email: Faker::Internet.email, password: Faker::Internet.password(8),
                optin: [true, false].sample, company: Company.all.sample,
                street: Faker::Address.street_address, post_code: '75000',
@@ -107,18 +108,21 @@ company_1 = Company.create( name: 'Le Village', street: '55 rue de la boétie',
                             post_code: '75008', city: 'Paris',
                             delivery_time: Company::TIMESLOT.sample )
 
-user_1 = User.create( first_name: 'William', last_name: 'Grenier Godard',
+user_1 = User.create( gender: 'homme', dob: Date.new(1985, 07, 16),
+                      first_name: 'William', last_name: 'Grenier Godard',
                       email: 'grenier.godard@gmail.com', password: 'billyboy',
                       optin: true, role: 'admin', company: company_1, phone: '0618000453',
                       street: '19 rue Collange', post_code: '92300', city: 'Levallois-Perret' )
 
-user_2 = User.create( first_name: 'Victoria', last_name: 'Benhaim',
+user_2 = User.create( gender: 'femme', dob: Date.new(1987, 07, 16),
+                      first_name: 'Victoria', last_name: 'Benhaim',
                       email: 'victoria@ilunch.fr', password: 'ilunchVictoria12',
                       optin: true, role: 'admin', company: company_1,
                       street: '55 rue de la Boétie', post_code: '75008',
                       city: 'Paris' )
 
-user_3 = User.create( first_name: 'Soukayna', last_name: 'Benhaim',
+user_3 = User.create( gender: 'femme', dob: Date.new(1989, 07, 16),
+                      first_name: 'Soukayna', last_name: 'Benhaim',
                       email: 'soukayna@ilunch.fr', password: 'ilunchSoukayna98',
                       optin: true, role: 'chef', company: company_1,
                       street: '55 rue de la Boétie', post_code: '75008',
