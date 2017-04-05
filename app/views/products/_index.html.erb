@@ -7,7 +7,9 @@
     <% end %>
   </div>
 <% else %>
-  <div id="products" style='height: 411px; width: 100%; background-color: #efefef; display: flex; justify-content: center; align-items: center;'>
-    Désolé, le service iLunch n'est encore pas disponible à cette date.
+  <div id="products" style="position: relative; height: 411px; width: 100%; background-image: url(<%= image_path('no-product') %>); background-size: cover; display: flex; justify-content: center; align-items: center;">
+    <p style="position: relative;font-size: 18px;padding: 20px 60px; background: rgba(255, 255, 255, 0.4);text-align: center">
+      Notre chef cuisine et vous prépare de bons petits plats.<br />Revenez demain pour passer commande…
+</p>
   </div>
 <% end %>
