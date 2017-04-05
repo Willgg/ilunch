@@ -41,6 +41,9 @@
                                 order:      [:day, :month, :year],
                                 default:    30.years.ago,
                                 label: false,
+                                as: :string,
+                                input_html: { data: {provide:'datepicker'} },
+                                placeholder: User.human_attribute_name(:dob),
                                 required: true, autofocus: true %>
             </div>
             <div class="col-xs-12 col-sm-3">

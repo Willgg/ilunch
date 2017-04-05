@@ -22,6 +22,7 @@ gem 'jquery-rails'
 gem "jquery-fileupload-rails"
 gem 'uglifier'
 gem 'bootstrap-sass'
+gem 'bootstrap-datepicker-rails'
 gem 'font-awesome-sass'
 gem 'simple_form'
 gem 'autoprefixer-rails'
