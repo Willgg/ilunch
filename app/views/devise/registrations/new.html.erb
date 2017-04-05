@@ -8,12 +8,13 @@
           <h2><%= t(".sign_up") %></h2>
         </div>
       </div>
-      <div class="row">
-        <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-         <!--  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-            <%= f.error_notification %>
-          </div> -->
-          <div class="form-inputs">
+
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+       <!--  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+          <%= f.error_notification %>
+        </div> -->
+        <div class="form-inputs">
+          <div class="row">
             <div class="col-xs-12 col-sm-5 col-sm-offset-1">
               <%= f.input :first_name, label: false, required: true, autofocus: true,
                           placeholder: User.human_attribute_name(:first_name) %>
@@ -44,27 +45,28 @@
               <%= f.input :password_confirmation, label: false, required: true,
                           placeholder: t('.confirm_pwd') %>
             </div>
-          </div>
-
-          <div class="form-actions">
             <div class="col-xs-12 col-sm-10 col-sm-offset-1">
               <div class="form-group">
-                En cliquant sur « <%= t(".sign_up-btn") %> », vous confirmez accepter les <%= link_to 'conditions générales d\'utilisation', pages_path(:cgv) %> d'ilunch.
-              </div>
-            </div>
-            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-              <div class="form-group">
-                <%= f.button :submit, t(".sign_up-btn"), class: 'btn btn-primary' %>
+                En cliquant sur « <%= t(".sign_up-btn") %> », vous confirmez accepter<br />
+                 les <%= link_to 'conditions générales d\'utilisation', pages_path(:cgv) %> d'i-lunch.
               </div>
             </div>
           </div>
-        <% end %>
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1">
-          <%- if controller_name != 'sessions' %>
-            Déjà membre d'ilunch ? <%= link_to t(".sign_in"), new_session_path(resource_name) %><br />
-          <% end -%>
         </div>
-      </div>
+
+        <div class="form-actions">
+          <div class="row">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+              <div class="form-group">
+                <%= f.button :submit, t(".sign_up-btn"), class: 'btn btn-block btn-primary' %>
+                <%- if controller_name != 'sessions' %>
+                  <p>Déjà membre d'i-lunch ? <%= link_to t(".sign_in"), new_session_path(resource_name) %></p>
+                <% end -%>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

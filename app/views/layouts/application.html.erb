@@ -7,9 +7,9 @@
     <%= favicon_link_tag 'favicon' %>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
   </head>
-  <body class="<%= params[:controller] + '-' + params[:action] %>">
+  <body class="<%= ( params[:controller] + '-' + params[:action] ).gsub( '/', '-' ) %>">
     <%= render 'shared/navbar' unless admin_view?(params[:controller]) %>
     <%= render 'shared/flashes' %>
     <%= render 'admin/shared/navbar' if admin_view?(params[:controller]) %>
