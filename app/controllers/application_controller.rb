@@ -48,7 +48,6 @@ class ApplicationController < ActionController::Base
     else
       root_path
     end
-
   end
 
   def after_sign_up_path_for(resource)
