@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_params_list
-    [:company_id, :first_name, :last_name, :street, :post_code, :city, :phone]
+    [:dob, :gender, :company_id, :first_name, :last_name, :street, :post_code, :city, :phone]
   end
 
 end
