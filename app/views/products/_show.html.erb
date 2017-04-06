@@ -50,7 +50,9 @@
 
         <% if Ilunch.open? %>
           <div class="text-center" style="width: 100%">
-            <%= link_to 'Je commande', new_order_path(step: 'menu'), class: 'btn btn-primary' %>
+            <%= link_to 'Je commande',
+                        new_order_path(step: 'menu', date: product.date),
+                        class: 'btn btn-primary' %>
           </div>
         <% end %>
       </div>
