@@ -1,6 +1,10 @@
 <div class="navbar-admin">
   <ul>
-
+    <li>
+      <%= link_to root_path do %>
+        <%= t('admin.site') %>
+      <% end %>
+    </li>
     <% if policy(Menu.new).index? %>
      <li>
       <%= link_to admin_menus_path do %>
@@ -63,5 +67,10 @@
       <% end %>
     </li>
     <% end %>
+    <li>
+      <%= link_to destroy_user_session_path, method: :delete do %>
+        <i class="fa fa-power-off" aria-hidden="true" style="font-size: 26px"></i>
+      <% end %>
+    </li>
   </ul>
 </div>
