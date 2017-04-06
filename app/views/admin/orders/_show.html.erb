@@ -1,8 +1,10 @@
 <tr id="order-<%= order.id %>">
   <td><%= order.id %></td>
   <td><%= order.created_at.strftime('%d/%m/%Y') %></td>
-  <td><%= order.user.email if order.user %></td>
-  <td><%= order.user.company.name if order.user %></td>
+  <td><%= order.user.full_name if order.user %></td>
+  <td>
+    <%= order.user.company.full_address if order.user %>
+  </td>
   <td><%= t("admin.order.status.#{order.status}") %></td>
   <td><%= link_to "#{order.line_items.count} line items",
                   admin_line_items_path(order: order.id) %></td>

@@ -7,4 +7,8 @@ class Company < ApplicationRecord
   validates :delivery_time, presence: true, inclusion: { in: TIMESLOT,
     message: "%{value} is not a valid timeslot" }
   validates :name, presence: true, uniqueness: { case_sensitive: false }
+
+  def full_address
+    self.name + ', ' + self.street + ' ' + self.city
+  end
 end
