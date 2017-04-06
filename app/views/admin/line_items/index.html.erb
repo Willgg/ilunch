@@ -12,7 +12,7 @@
     </thead>
     <% @line_items.each do |li| %>
       <tr>
-        <td>order#<%= li.order.id %></td>
+        <td>#<%= li.order.id %></td>
         <% if li.product.present? %>
           <td>
             <% if li.product.photo? %>

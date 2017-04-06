@@ -12,7 +12,7 @@
     </thead>
     <% @menu_items.each do |mi| %>
       <tr>
-        <td>order#<%= mi.order.id %></td>
+        <td>#<%= mi.order.id %></td>
         <td>
           <%= mi.order.user ? mi.order.user.full_name : 'Aucun' %>
         </td>
