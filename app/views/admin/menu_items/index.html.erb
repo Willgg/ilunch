@@ -13,7 +13,9 @@
     <% @menu_items.each do |mi| %>
       <tr>
         <td>order#<%= mi.order.id %></td>
-        <td><%= mi.order.user.full_name %></td>
+        <td>
+          <%= mi.order.user ? mi.order.user.full_name : 'Aucun' %>
+        </td>
         <td>
           <% if mi.product.photo? %>
             <%= cl_image_tag mi.product.photo.path, width: 100, height: 50, crop: :fill %>

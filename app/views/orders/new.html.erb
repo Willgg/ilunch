@@ -5,10 +5,10 @@
 <% if params[:step] == 'menu' %>
   <div class="container">
     <div class="row" id="menus">
-      <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <div class="col-xs-12 col-sm-10 col-sm-offset-1">
         <h2 class="text-center">Choisissez votre formule</h2>
         <% @menus.each do |menu| %>
-          <div class="col-xs-12 col-sm-6">
+          <div class="col-xs-12 col-sm-4">
             <div class="menu-card">
               <div class="card-bg" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(' <%= cl_image_path menu.photo.path, height: 250, crop: :fill %>');">
               <% unless Ilunch.open? %>
