@@ -15,6 +15,7 @@ namespace :products do
       new_product.valid?
       puts
       if new_product.save
+        new_product.photo_url = "http://res.cloudinary.com/ilunch-fr/image/upload/#{product.photo.path}"
         puts "Product##{product.id} has been created"
       else
         @result = 0
