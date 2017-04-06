@@ -23,12 +23,17 @@ class ApplicationController < ActionController::Base
       @order = Order.where(user: current_user).pending.last
       session[:order_id] = @order.id
     end
-    update_order_with_user unless @order.nil?
+    update_order(user: current_user) unless @order.nil?
   end
 
-  def update_order_with_user
-    return unless current_user && @order.user.nil?
-    @order.user = current_user
+  def create_order(attributes=nil)
+    @order = Order.create(attributes)
+    session[:order_id] = @order.id
+  end
+
+  def update_order(attributes=nil)
+    @order.user = attributes[:user] if @order.user.nil?
+    @order.date = attributes[:date] if attributes.key? :date
     @order.save
   end
 
