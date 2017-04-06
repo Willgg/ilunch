@@ -1,3 +1,5 @@
+<% title 'Admin' + ' - ' + Company.model_name.human.capitalize %>
+
 <div class="container admin-container">
   <h2>Entreprises</h2>
   <%= link_to 'Ajouter une entreprise', new_admin_company_path, class: 'btn btn-primary' %>
