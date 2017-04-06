@@ -94,7 +94,7 @@ end
                email: Faker::Internet.email, password: Faker::Internet.password(8),
                optin: [true, false].sample, company: Company.all.sample,
                street: Faker::Address.street_address, post_code: '75000',
-               city: 'Paris' )
+               city: 'Paris', phone: '0621321285' )
   order = Order.create( user: user, status: 1 )
   li = LineItem.new(order: order, quantity: 1, menu: menu_1,
                     price_cents: menu_1.price_cents )
