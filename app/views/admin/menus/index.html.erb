@@ -1,3 +1,5 @@
+<% title  'Admin' + ' - ' + Menu.model_name.human.capitalize %>
+
 <div class="container admin-container">
   <h2>Menus</h2>
   <% if policy(Menu.new).create? %>
