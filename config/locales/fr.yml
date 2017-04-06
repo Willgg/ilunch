@@ -30,6 +30,7 @@ fr:
     previous_label: "Précédent"
     next_label: "Suivant"
   admin:
+    site: "site"
     customers: "clients"
     companies: "entreprises"
     orders: "commandes"
