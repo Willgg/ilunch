@@ -45,7 +45,6 @@ class OrdersController < ApplicationController
 
   def attributes
     a = {}
-    a = a.merge( date: params[:date] ) if params[:date]
     a = a.merge( user: current_user ) if current_user
     return a
   end
