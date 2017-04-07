@@ -34,13 +34,11 @@ class OrdersController < ApplicationController
   private
 
   def set_order
+    attributes = { date: params[:date] } if params[:date]
     @order = Order.find(params[:id]) if params[:id]
     super
-    if @order.nil?
-      @order = Order.create
-      session[:order_id] = @order.id
-    end
-    update_order_with_user
+    create_order(attributes) if @order.nil?
+    update_order(attributes) unless @order.nil?
   end
 
   def order_params

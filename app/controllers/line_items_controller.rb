@@ -78,11 +78,9 @@ class LineItemsController < ApplicationController
   end
 
   def set_order
+    attributes = {user: current_user} if current_user
     super
-    if @order.nil?
-      @order = Order.create
-      session[:order_id] = @order.id
-    end
-    update_order_with_user
+    create_order(attributes) if @order.nil?
+    update_order(attributes)
   end
 end

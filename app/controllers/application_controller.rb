@@ -19,16 +19,22 @@ class ApplicationController < ActionController::Base
   def set_order
     if session[:order_id]
       @order = Order.find(session[:order_id])
-    elsif current_user && current_user.orders.pending.exists?
+      update_order(user: current_user) if current_user
+    elsif current_user
       @order = Order.where(user: current_user).pending.last
-      session[:order_id] = @order.id
+      session[:order_id] = @order.id unless @order.blank?
     end
-    update_order_with_user unless @order.nil?
   end
 
-  def update_order_with_user
-    return unless current_user && @order.user.nil?
-    @order.user = current_user
+  def create_order(attributes=nil)
+    @order = Order.create(attributes)
+    session[:order_id] = @order.id
+  end
+
+  def update_order(attributes=nil)
+    return if attributes.nil?
+    @order.user = attributes[:user] if attributes[:user] && @order.user.nil?
+    @order.date = Date.parse(attributes[:date]) if attributes[:date]
     @order.save
   end
 
