@@ -12,6 +12,8 @@ class Order < ApplicationRecord
 
   scope :future, -> { where('created_at >= ?', Date.today) }
 
+  after_commit :destroy_line_items, on: :update
+
   def set_status
     self.status = 0 if self.status.nil?
   end
@@ -42,6 +44,16 @@ class Order < ApplicationRecord
   def full?
     line_items_menu = line_items.select { |li| li.is_a_menu? }
     line_items_menu.all? { |li| li.full? }
+  end
+
+  def destroy_line_items
+    outdated_line_items =
+      line_items.select do |li|
+        li.products.any? { |p| p.date != date }
+      end
+    if outdated_line_items.present?
+      outdated_line_items.each{ |li| li.destroy }
+    end
   end
 
   def send_confirmation_email

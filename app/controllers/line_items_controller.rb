@@ -78,9 +78,13 @@ class LineItemsController < ApplicationController
   end
 
   def set_order
-    attributes = {user: current_user} if current_user
     super
     create_order(attributes) if @order.nil?
-    update_order(attributes)
+  end
+
+  def attributes
+    a = {}
+    a = a.merge( user: current_user ) if current_user
+    return a
   end
 end

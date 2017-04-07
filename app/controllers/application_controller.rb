@@ -17,11 +17,14 @@ class ApplicationController < ActionController::Base
   private
 
   def set_order
+    fetch_order
+  end
+
+  def fetch_order
     if session[:order_id]
       @order = Order.find(session[:order_id])
-      update_order(user: current_user) if current_user
     elsif current_user
-      @order = Order.where(user: current_user).pending.last
+      @order = Order.where(user: current_user).future.pending.last
       session[:order_id] = @order.id unless @order.blank?
     end
   end

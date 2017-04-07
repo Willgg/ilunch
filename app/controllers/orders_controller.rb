@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
 
   def new
     @menus = policy_scope(Menu)
-    @products = Product.category(params[:step]).of_the_day(Date.today)
+    @products = Product.category(params[:step]).of_the_day(@order.date)
     @line_item = @order.line_items.select{ |e| !e.menu_id.nil? }.last
     @menu_item = MenuItem.new
     @line_item = LineItem.new if params[:step] == 'extra' || params[:step] == 'menu'
@@ -34,11 +34,20 @@ class OrdersController < ApplicationController
   private
 
   def set_order
-    attributes = { date: params[:date] } if params[:date]
-    @order = Order.find(params[:id]) if params[:id]
-    super
-    create_order(attributes) if @order.nil?
-    update_order(attributes) unless @order.nil?
+    if params[:id]
+      @order = Order.find(params[:id])
+    else
+      super
+      update_order(attributes) if @order.present? && attributes.present?
+      create_order(attributes) if @order.nil?
+    end
+  end
+
+  def attributes
+    a = {}
+    a = a.merge( date: params[:date] ) if params[:date]
+    a = a.merge( user: current_user ) if current_user
+    return a
   end
 
   def order_params

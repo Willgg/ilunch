@@ -98,7 +98,10 @@
                 </div>
                 <div class="delivery-details">
                   <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                  <p><strong><%= current_user.company.delivery_time %></strong></p>
+                  <p>
+                    <strong><%= l(@order.date, format: '%A %d') %></strong><br />
+                    <%= current_user.company.delivery_time %>
+                  </p>
                 </div>
               </div>
             </div>

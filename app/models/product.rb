@@ -28,4 +28,5 @@ class Product < ApplicationRecord
   def has_stock?
     stock > 0
   end
+
 end
