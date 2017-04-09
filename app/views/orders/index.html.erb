@@ -1,0 +1,26 @@
+<% title "Mes commandes" %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <h2>Mes commandes</h2>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
+      <ul>
+        <% @orders.each do |order| %>
+          <li>
+            <%= link_to order_path(order) do %>
+              <%= l(order.date, format: '%A %d %B') %> -
+              <%= humanized_money(order.total_price) %> <%= currency_symbol %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+

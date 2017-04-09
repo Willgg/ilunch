@@ -29,6 +29,11 @@
           <span class="navbar-wagon-item navbar-wagon-link" class="dropdown-toggle" data-toggle= "dropdown">Mon compte</span>
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
             <li>
+              <%= link_to orders_path do %>
+                <i class="fa fa-credit-card"></i>  <%= t(".orders", default: "Commandes") %>
+              <% end %>
+            </li>
+            <li>
               <%= link_to edit_user_registration_path do %>
                 <i class="fa fa-user"></i>  <%= t(".profile", default: "Profile") %>
               <% end %>

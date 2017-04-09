@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   mount Attachinary::Engine => "/attachinary"
   root to: 'menus#index'
 
-  resources :orders, only: [:show, :new, :create, :update] do
+  resources :orders, only: [:index, :show, :new, :create, :update] do
     resources :payments, only: [:new, :create]
   end
 

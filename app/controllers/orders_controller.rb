@@ -1,8 +1,14 @@
 class OrdersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :new, :update]
 
-  before_action :set_order, only: [:show, :new, :update]
-  after_action :verify_authorized, except: [:show, :new, :update]
+  before_action :set_order, only: [:index, :show, :new, :update]
+
+  after_action :verify_authorized, except: [:index, :show, :new, :update]
+  skip_after_action :verify_policy_scoped, only: :index
+
+  def index
+    @orders = Order.where(user: current_user).done
+  end
 
   def show
     authorize(@order, @order.id, :show?)
