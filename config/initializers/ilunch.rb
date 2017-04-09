@@ -1,5 +1,7 @@
 module Ilunch
 
+  TVA = 0.1
+
   def self.next_active_days(number, start_date=nil)
     week = []
     date = start_date ? start_date : Date.today

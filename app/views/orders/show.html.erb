@@ -51,10 +51,10 @@
         <% end %>
         </tbody>
         <tfoot>
-<!--       <tr>
-            <td colspan="2" class="text-right">TVA</td>
+          <tr class="vat-price">
+            <td colspan="2" class="text-right">dont TVA (<%= "#{(Ilunch::TVA * 100).round}" %>%)</td>
             <td><%= humanized_money_with_symbol(@order.vat) %></td>
-          </tr> -->
+          </tr>
           <tr class="total-price">
             <td colspan="2" class="text-right">Total</td>
             <td><%= humanized_money_with_symbol(@order.total_price) %></td>

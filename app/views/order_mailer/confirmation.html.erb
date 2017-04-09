@@ -93,17 +93,20 @@
               <% end %>
               </tbody>
               <tfoot>
-      <!--           <tr>
-                  <td colspan="2" class="text-right">TVA</td>
-                  <td><%= humanized_money_with_symbol(@order.vat) %></td>
-                </tr> -->
-                <tr>
-                  <td colspan="2" style="padding: 10px; border-top: 1px solid #e5e5e5; text-align: right">
+                <tr style="font-size: 18px">
+                  <td colspan="2" style="padding: 20px 10px 10px 10px; border-top: 1px solid #e5e5e5; text-align: right">
                     <strong>Total</strong>
                   </td>
-                  <td style="border-top: 1px solid #e5e5e5; text-align: right">
+                  <td style="padding: 20px 0px 10px 10px; border-top: 1px solid #e5e5e5; text-align: right">
                     <%= humanized_money_with_symbol(@order.total_price) %>
                   </td>
+                </tr>
+                <tr style="color: #777">
+                  <td colspan="2" style="padding: 0 10px; text-align: right">
+                    dont TVA <%= (Ilunch::TVA * 100).round %>%
+                  </td>
+                  <td style="text-align: right">
+                    <%= humanized_money_with_symbol(@order.vat) %></td>
                 </tr>
               </tfoot>
             </table>

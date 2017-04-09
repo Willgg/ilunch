@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   after_action :verify_authorized, except: [:show, :new, :update]
 
   def show
-    authorize(@order, session[:order_id], :show?)
+    authorize(@order, @order.id, :show?)
   end
 
   def new
@@ -34,12 +34,12 @@ class OrdersController < ApplicationController
   private
 
   def set_order
-    @order = Order.find(params[:id]) if params[:id]
     super
     if @order.nil?
       @order = Order.create
       session[:order_id] = @order.id
     end
+    @order = Order.find(params[:id]) if params[:id]
     update_order_with_user
   end
 

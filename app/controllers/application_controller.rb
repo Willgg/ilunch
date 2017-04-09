@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
   def set_order
     if session[:order_id]
       @order = Order.find(session[:order_id])
-    elsif current_user && current_user.orders.pending.exists?
+    elsif current_user && current_user.orders.future.pending.exists?
       @order = Order.where(user: current_user).pending.last
       session[:order_id] = @order.id
     end
