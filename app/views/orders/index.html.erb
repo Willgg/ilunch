@@ -10,12 +10,23 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <ul>
+      <ul class="orders">
         <% @orders.each do |order| %>
-          <li>
+          <li class="order">
             <%= link_to order_path(order) do %>
+              <strong>Commande #<%= order.id %></strong><br />
               <%= l(order.date, format: '%A %d %B') %> -
               <%= humanized_money(order.total_price) %> <%= currency_symbol %>
+            <% end %>
+            <% order.line_items.each do |li| %>
+              <div class="line-item">
+                <% if li.menu_id.present? %>
+                  <%= li.menu.title %>
+                <% elsif li.product_id.present? %>
+                  <%= li.product.name %>
+                <% end %>
+                - <%= li.quantity %> - <%= li.total_price %>
+              </div>
             <% end %>
           </li>
         <% end %>
@@ -24,3 +35,14 @@
   </div>
 </div>
 
+<% content_for :after_js do %>
+  <script>
+    $('.order a').on('click', function(e){
+      e.preventDefault();
+      console.log('avant');
+
+      $(this).next('.line-item').toggle();
+      console.log('avant');
+    });
+  </script>
+<% end %>
