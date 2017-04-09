@@ -16,6 +16,7 @@
     <thead>
       <tr>
         <th>Created at</th>
+        <th>Nom</th>
         <th>Email</th>
         <th>Phone</th>
         <th>Orders</th>
@@ -26,9 +27,16 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.created_at.strftime('%d/%m/%Y') %></td>
+        <td><%= user.full_name %></td>
         <td><%= user.email %></td>
         <td><%= user.phone.nil? ? 'aucun' : user.phone %></td>
-        <td><%= user.orders.count %> orders</td>
+        <td>
+          <% if user.orders.count > 0 %>
+            <%= link_to "#{user.orders.count} orders", admin_orders_path(user: user.id) %>
+          <% else %>
+            <%= "#{user.orders.count} order" %>
+          <% end %>
+        </td>
         <td><%= user.updated_at.strftime('%d/%m/%Y') %></td>
         <td><%= user.optin? ? true : '-' %></td>
         <td><%= link_to 'supprimer', admin_user_path(user), method: :delete %></td>
