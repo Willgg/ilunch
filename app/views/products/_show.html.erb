@@ -1,6 +1,6 @@
 <div class="card" id="product-<%= product.id %>">
   <div class="card-bg" style="background-image: url(' <%= cl_image_path product.photo.path, height: 250, crop: :fill %>');">
-  <% if Ilunch.closed?(product.date) %>
+  <% if Ilunch.closed? %>
     <p class="no-stock">
       Fin du service<br />
       <small>
