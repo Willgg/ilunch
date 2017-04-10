@@ -1,6 +1,6 @@
 <div class="card" id="product-<%= product.id %>">
   <div class="card-bg" style="background-image: url(' <%= cl_image_path product.photo.path, height: 250, crop: :fill %>');">
-  <% if Ilunch.closed? %>
+  <% if Ilunch.closed?(product.date) %>
     <p class="no-stock">
       Fin du service<br />
       <small>
@@ -53,7 +53,7 @@
           <p><%= product.description.truncate(100) %></p>
         </div>
 
-        <% if Ilunch.open? %>
+        <% if Ilunch.open?(product.date) %>
           <div class="text-center" style="width: 100%">
             <%= link_to 'Je commande',
                         new_order_path(step: 'menu'),
