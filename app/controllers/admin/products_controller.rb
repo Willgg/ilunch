@@ -2,7 +2,7 @@ class Admin::ProductsController < ApplicationController
   before_action :set_product, only: [:edit, :update, :destroy]
 
   def index
-    @products = policy_scope(Product).paginate(:page => params[:page], :per_page => 30)
+    @products = policy_scope(Product).order(date: :desc).paginate(:page => params[:page], :per_page => 30)
   end
 
   def new
