@@ -33,7 +33,12 @@ class Admin::ProductsController < ApplicationController
 
   def destroy
     authorize @product
-    @product.destroy
+    if @product.menu_items.empty? && @product.line_items.empty?
+      @product.destroy
+      flash[:notice] = "Le produit a bien été supprimé"
+    else
+      flash[:alert] = "Le produit ne peut être supprimé car il a été commandé précédemment"
+    end
     redirect_to admin_products_path
   end
 
