@@ -1,19 +1,18 @@
 <div class="card" id="product-<%= product.id %>">
   <div class="card-bg" style="background-image: url(' <%= cl_image_path product.photo.path, height: 250, crop: :fill %>');">
-  <% if Ilunch.closed? %>
-    <p class="no-stock">
-      Fin du service<br />
-      <small>
-        Revenez le <%= l(Ilunch.next_active_days(1, Date.tomorrow).first, format: ('%d %B')) %> avant 12h
-      </small>
-    </p>
-  <% elsif !product.has_stock? %>
-    <p class="no-stock">Victime de son succès<br /><small></small></p>
-  <% end %>
+    <% if Ilunch.closed? %>
+      <p class="no-stock">
+        Fin du service<br />
+        <small>
+          Revenez le <%= l(Ilunch.next_active_days(1, Date.tomorrow).first, format: ('%d %B')) %> avant 12h
+        </small>
+      </p>
+    <% elsif !product.has_stock? %>
+      <p class="no-stock">Victime de son succès<br /><small></small></p>
+    <% end %>
   </div>
 
 
-  <!-- <div class="card-category"><%= humanized_money_with_symbol(product.price) %></div> -->
     <% if !(params[:controller] == 'menus' && params[:action] == 'index') %>
 
       <div class="card-details">
@@ -56,7 +55,7 @@
         <% if Ilunch.open? %>
           <div class="text-center" style="width: 100%">
             <%= link_to 'Je commande',
-                        new_order_path(step: 'menu'),
+                        new_order_path(step: 'menu', date: @date),
                         class: 'btn btn-primary' %>
           </div>
         <% end %>

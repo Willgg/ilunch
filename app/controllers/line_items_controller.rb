@@ -1,18 +1,13 @@
 class LineItemsController < ApplicationController
   skip_before_action :authenticate_user!, only: [:create, :destroy]
 
+  before_action :set_order, only: [:create]
   before_action :set_product, only: [:create]
   before_action :set_menu, only: [:create]
-  before_action :set_order, only: [:create]
   before_action :set_line_item, only: [:destroy]
 
   def create
-    # if @order.line_items.where(menu: @menu).exists?
-    #   @line_item = @order.line_items.where(menu: @menu).first
-    #   @line_item.quantity += params[:line_item][:quantity].to_i
-    # else
     if params[:line_item].has_key?(:product_id)
-
       if @order.line_items.where(product_id: params[:line_item][:product_id]).present?
         @line_item = @order.line_items.find_by(product_id: params[:line_item][:product_id].to_i)
         @line_item.quantity += params[:line_item][:quantity].to_i
@@ -22,6 +17,7 @@ class LineItemsController < ApplicationController
     else
       @line_item = @order.line_items.build(line_item_params.merge(menu: @menu))
     end
+
     authorize @line_item
 
     if @line_item.is_a_product? && @line_item.save

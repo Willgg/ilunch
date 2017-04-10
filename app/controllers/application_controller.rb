@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   def update_order(attributes=nil)
     return if attributes.nil?
     @order.user = attributes[:user] if attributes[:user] && @order.user.nil?
-    @order.date = Date.parse(attributes[:date]) if attributes[:date]
+    @order.date = attributes[:date] if attributes[:date]
     @order.save
   end
 

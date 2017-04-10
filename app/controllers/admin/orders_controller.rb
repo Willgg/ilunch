@@ -5,8 +5,9 @@ class Admin::OrdersController < ApplicationController
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
   def index
-    @orders = policy_scope(Order).future.where('status != ?', 0)
+    @orders = policy_scope(Order).future.done
     @orders = Order.where(user: params[:user]) if params[:user]
+    @orders = @orders.where(status: params[:status]) if params[:status]
     @orders = @orders.paginate(:page => params[:page], :per_page => 30)
   end
 
