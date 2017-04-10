@@ -1,6 +1,6 @@
 <div class="card" id="product-<%= product.id %>">
   <div class="card-bg" style="background-image: url(' <%= cl_image_path product.photo.path, height: 250, crop: :fill %>');">
-  <% if Ilunch.closed? %>
+  <% if Ilunch.closed?(product.date) %>
     <p class="no-stock">
       Fin du service<br />
       <small>
@@ -25,7 +25,7 @@
         <% if params[:step] == 'extra' %>
           <p class="price"><%= humanized_money(product.price) %> <%= currency_symbol %></p>
         <% end %>
-        <% if Ilunch.open? && product.has_stock? && local_assigns[:menu_item] && local_assigns[:line_item] %>
+        <% if Ilunch.open?(product.date) && product.has_stock? && local_assigns[:menu_item] && local_assigns[:line_item] %>
           <% if params[:step] == 'extra' %>
             <%= simple_form_for line_item,
                 url: line_items_path(line_item, step: params[:step]) do |f| %>
