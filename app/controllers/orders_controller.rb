@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   after_action :verify_authorized, except: [:show, :new, :update]
 
   def show
-    authorize(@order, session[:order_id], :show?)
+    authorize(@order, @order.id, :show?)
   end
 
   def new

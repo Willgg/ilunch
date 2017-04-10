@@ -1,8 +1,10 @@
 module Ilunch
 
-  def self.next_active_days(number)
+  TVA = 0.1
+
+  def self.next_active_days(number, start_date=nil)
     week = []
-    date = Date.today
+    date = start_date ? start_date : Date.today
     until week.count == number do
       week << date if ( date.wday != 6 && date.wday != 0 )
       date += 1.day

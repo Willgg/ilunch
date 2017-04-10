@@ -19,7 +19,7 @@ class Order < ApplicationRecord
   end
 
   def subtotal
-    total_price / (1 + 0.2)
+    total_price / (1 + Ilunch::TVA)
   end
 
   def vat
