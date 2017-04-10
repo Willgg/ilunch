@@ -11,6 +11,7 @@ class Order < ApplicationRecord
   validates :status, inclusion: { in: statuses }
 
   scope :future, -> { where('created_at >= ?', Date.today) }
+  scope :done, -> { where('status = 1 OR status = 2 OR status = 3') }
 
   def set_status
     self.status = 0 if self.status.nil?
