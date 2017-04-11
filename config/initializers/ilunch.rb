@@ -18,7 +18,7 @@ module Ilunch
     if date.nil?
       DateTime.current <= DateTime.current.beginning_of_day + 12.hours
     else
-      date == Date.current
+      DateTime.current <= DateTime.current.beginning_of_day + 12.hours && date == Date.current
     end
   end
 
