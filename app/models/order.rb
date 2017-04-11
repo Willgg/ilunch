@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   has_many :products, through: :line_items
 
   validates :status, inclusion: { in: statuses }
+  validates :date, presence: true
 
   scope :future, -> { where('created_at >= ?', Date.today) }
   scope :done , -> { where('status = 1 OR status = 2 OR status = 3') }

@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :new, :update]
 
   before_action :set_order, only: [:show, :new, :update]
+  before_action :set_line_item, only: [:new]
   after_action :verify_authorized, except: [:show, :new, :update]
 
   def show
@@ -11,11 +12,7 @@ class OrdersController < ApplicationController
   def new
     @menus = policy_scope(Menu)
     @products = Product.category(params[:step]).of_the_day(@order.date)
-    #TODO: select the first line_item not full (ajout d'une methode de class)
-    @line_item = @order.line_items.select{ |e| !e.menu_id.nil? }.first
     @menu_item = MenuItem.new
-    @line_item = LineItem.new if params[:step] == 'extra' || params[:step] == 'menu'
-    raise
   end
 
   def update
@@ -43,6 +40,17 @@ class OrdersController < ApplicationController
       update_order(attributes) if @order.present? && attributes.present?
       create_order(attributes) if @order.nil?
     end
+  end
+
+  def set_line_item
+    @line_item =
+      if params[:step] == 'extra' || params[:step] == 'menu'
+        LineItem.new
+      elsif params[:line_item].present?
+        LineItem.find(params[:line_item])
+      else
+        @order.line_items.select{ |li| li.is_a_menu? && li.incomplete? }.first
+      end
   end
 
   def attributes

@@ -54,7 +54,9 @@
               <tr class="menu-item">
                 <td></td>
                 <td colspan="2" class="missing-item">
-                  <%= link_to "Compléter le menu", new_order_path(step: li.next_step), class: 'error-link' %>
+                  <%= link_to "Compléter le menu",
+                        new_order_path(line_item: li.id,step: li.next_step),
+                        class: 'error-link' %>
                 </td>
                 <td></td>
               </tr>

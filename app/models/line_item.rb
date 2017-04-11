@@ -25,12 +25,6 @@ class LineItem < ApplicationRecord
     !menu_id.nil?
   end
 
-  def class.of_incomplete_menu
-    self.all.select do |li|
-      li.is_a_menu?
-    end
-  end
-
   def set_price
     if self.product_id
       self.price = product.price
@@ -41,6 +35,10 @@ class LineItem < ApplicationRecord
 
   def total_price
     price * quantity
+  end
+
+  def incomplete?
+    !full?
   end
 
   def full?
