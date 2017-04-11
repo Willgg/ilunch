@@ -4,7 +4,7 @@ module Ilunch
 
   def self.next_active_days(number, start_date=nil)
     week = []
-    date = start_date ? start_date : Date.today
+    date = start_date ? start_date : Date.current
     until week.count == number do
       week << date if ( date.wday != 6 && date.wday != 0 )
       date += 1.day
