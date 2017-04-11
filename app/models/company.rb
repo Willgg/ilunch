@@ -13,6 +13,6 @@ class Company < ApplicationRecord
   end
 
   def address
-    self.street + ' ' + self.city
+    self.street + ', ' + self.city
   end
 end
