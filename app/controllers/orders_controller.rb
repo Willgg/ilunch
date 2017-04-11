@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
 
   def new
     @menus = policy_scope(Menu)
-    @products = Product.category(params[:step]).of_the_day(Date.today)
+    @products = Product.category(params[:step]).of_the_day(Date.current)
     @line_item = @order.line_items.select{ |e| !e.menu_id.nil? }.last
     @menu_item = MenuItem.new
     @line_item = LineItem.new if params[:step] == 'extra' || params[:step] == 'menu'
