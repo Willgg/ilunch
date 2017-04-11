@@ -12,15 +12,17 @@ module Ilunch
     return week.first(number)
   end
 
-  def self.open?
-    if ENV['RAILS_ENV'] == 'production'
+  def self.open?(date=nil)
+    # return true if ENV['RAILS_ENV'] != 'production'
+    # return true if ENV['HOST'] == 'http://ilunch-staging.herokuapp.com'
+    if date.nil?
       DateTime.current <= DateTime.current.beginning_of_day + 12.hours
     else
-      true
+      DateTime.current <= DateTime.current.beginning_of_day + 12.hours && date == Date.current
     end
   end
 
-  def self.closed?
-    !open?
+  def self.closed?(date=nil)
+    !open?(date)
   end
 end
