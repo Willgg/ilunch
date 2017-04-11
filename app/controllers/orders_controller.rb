@@ -11,9 +11,11 @@ class OrdersController < ApplicationController
   def new
     @menus = policy_scope(Menu)
     @products = Product.category(params[:step]).of_the_day(@order.date)
-    @line_item = @order.line_items.select{ |e| !e.menu_id.nil? }.last
+    #TODO: select the first line_item not full (ajout d'une methode de class)
+    @line_item = @order.line_items.select{ |e| !e.menu_id.nil? }.first
     @menu_item = MenuItem.new
     @line_item = LineItem.new if params[:step] == 'extra' || params[:step] == 'menu'
+    raise
   end
 
   def update
