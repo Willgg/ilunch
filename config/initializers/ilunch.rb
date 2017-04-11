@@ -16,9 +16,9 @@ module Ilunch
     # return true if ENV['RAILS_ENV'] != 'production'
     # return true if ENV['HOST'] == 'http://ilunch-staging.herokuapp.com'
     if date.nil?
-      date == Date.current
-    else
       DateTime.current <= DateTime.current.beginning_of_day + 12.hours
+    else
+      date == Date.current
     end
   end
 
