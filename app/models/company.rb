@@ -11,4 +11,8 @@ class Company < ApplicationRecord
   def full_address
     self.name + ', ' + self.street + ' ' + self.city
   end
+
+  def address
+    self.street + ' ' + self.city
+  end
 end
