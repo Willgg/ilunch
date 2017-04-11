@@ -51,7 +51,7 @@ class Order < ApplicationRecord
   def destroy_line_items
     outdated_line_items =
       line_items.select do |li|
-        li.products.any? { |p| p.date != date }
+        li.products.any? { |p| p.date != date && !p.date.nil? }
       end
     if outdated_line_items.present?
       outdated_line_items.each{ |li| li.destroy }

@@ -11,7 +11,10 @@ class OrdersController < ApplicationController
 
   def new
     @menus = policy_scope(Menu)
-    @products = Product.category(params[:step]).of_the_day(@order.date)
+    @products = Product.category(params[:step])
+    unless params[:step] == 'drink' || params[:step] == 'extra' || params[:step] == 'dessert'
+      @products = @products.of_the_day(@order.date)
+    end
     @menu_item = MenuItem.new
   end
 
