@@ -11,11 +11,9 @@
     <div class="col-xs-12 col-sm-6 col-sm-offset-3">
       <ul class="menu-week">
         <% next_days(5).each_with_index do |d, i| %>
-          <li class="<%= 'selected' if i == 0 %>">
-            <%= link_to menus_path(date: d.strftime('%d-%m-%Y')), remote: true do %>
-              <span class="w-day"><%= l(d, format: '%A').capitalize %></span>
-              <span class="n-day"><%= d.strftime('%d') %></span>
-            <% end %>
+          <li class="<%= 'selected' if i == 0 %>" id="<%= d.strftime('%d-%m-%Y') %>" >
+            <span class="w-day"><%= l(d, format: '%A').capitalize %></span>
+            <span class="n-day"><%= d.strftime('%d') %></span>
           </li>
         <% end %>
       </ul>
@@ -24,7 +22,17 @@
   <div class="row">
     <div class="col-xs-12">
       <div class="row">
-        <%= render 'products/index', products: @products %>
+        <div id="products">
+          <% @products.each do |p| %>
+            <div class="col-xs-12 col-sm-4" data-date="<%= p.date.strftime('%d-%m-%Y') %>">
+              <%= render 'products/show', product: p %>
+            </div>
+          <% end %>
+          <div id="empty-products">
+            <p>Notre chef cuisine et vous prépare de bons petits plats.<br />
+               Revenez demain pour passer commande…</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -39,11 +47,6 @@
     </p>
     <p>
     Une alimentation équilibrée élaborée permet d’être en meilleure santé, d'avoir plein d’énergie et d’être de bonne humeur. i-lunch est la clé de la vie…</p>
-    <!-- <p>
-    Le midi, il est difficile de manger équilibré sans se ruiner.
-    Une alimentation équilibrée élaborée à partir de produits de qualité permet d'être en meilleure santé, d'avoir plus d'énergie et d'être de bonne humeur.
-    </p>
-    <p>80% de notre capital santé étant lié à notre alimentation, i-lunch a pour objectif d'instaurer le bien manger au travail tous les jours.</p> -->
   </div>
 </div>
 
@@ -67,9 +70,22 @@
 
 <% content_for :after_js do %>
   <script>
+    $( '#products' ).children().hide();
+    var date = "<%= next_days(5).first.strftime('%d-%m-%Y') %>";
+    $( '*[data-date="' + date + '"]' ).show();
+
     $( '.menu-week' ).on( 'click','li', function() {
       $('.menu-week li.selected' ).removeClass( 'selected' );
       $( this ).addClass( "selected" );
+      $( '#products' ).children().hide();
+      var date = $(this).attr( "id" );
+      var selected = $( '*[data-date="' + date + '"]' );
+      if (selected.length <= 0) {
+        console.log('nothing');
+        $( '#empty-products' ).show();
+      } else {
+        $( '*[data-date="' + date + '"]' ).show();
+      }
     });
   </script>
 <% end %>
