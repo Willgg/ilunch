@@ -33,6 +33,11 @@ class Order < ApplicationRecord
     (total_price * 100).to_i
   end
 
+  def full?
+    line_items_menu = line_items.select { |li| li.is_a_menu? }
+    line_items_menu.all? { |li| li.full? }
+  end
+
   def substract_products_stocks
     line_items.each do |li|
       li.sub_product_stock if li.product.present?
@@ -40,9 +45,7 @@ class Order < ApplicationRecord
     end
   end
 
-  def full?
-    line_items_menu = line_items.select { |li| li.is_a_menu? }
-    line_items_menu.all? { |li| li.full? }
+  def enough_stock?
   end
 
   def send_confirmation_email
