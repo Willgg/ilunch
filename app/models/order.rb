@@ -45,7 +45,28 @@ class Order < ApplicationRecord
     end
   end
 
-  def enough_stock?
+  def products_out_of_stock
+    products = {}
+    inventory.each do |k, v|
+      products[k] = v - k.stock if k.stock < v
+    end
+    return products
+  end
+
+  def inventory
+    inventory = {}
+    line_items.each do |li|
+      li.products.each do |p|
+        if inventory.key?(p).present?
+          inventory[p] = inventory[p] + li.quantity if li.product_id.present?
+          inventory[p] = inventory[p] + li.menu.send(p.category.to_sym) if li.menu_id.present?
+        else
+          inventory[p] = li.quantity if li.product_id.present?
+          inventory[p] = li.menu.send(p.category.to_sym) if li.menu_id.present?
+        end
+      end
+    end
+    return inventory
   end
 
   def send_confirmation_email
