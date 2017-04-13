@@ -12,7 +12,6 @@ class PaymentsController < ApplicationController
   def create
     if authorize(@order, session[:order_id], :create?)
       if @order.products_out_of_stock.present?
-        flash[:alert] = "Le produit n'est plus en stock"
         redirect_to new_order_payment_path(@order)
       else
         begin
