@@ -10,11 +10,11 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    if @order.products_out_of_stock.present?
-      flash[:alert] = "Le produit n'est plus en stock"
-      redirect_to new_order_payment_path(@order)
-    else
-      if authorize(@order, session[:order_id], :create?)
+    if authorize(@order, session[:order_id], :create?)
+      if @order.products_out_of_stock.present?
+        flash[:alert] = "Le produit n'est plus en stock"
+        redirect_to new_order_payment_path(@order)
+      else
         begin
 
           if current_user.stripe_id.nil?
@@ -50,9 +50,9 @@ class PaymentsController < ApplicationController
           flash[:error] = e.message
           redirect_to new_order_payment_path(@order)
         end
-      else
-        redirect_to products_path
       end
+    else
+      redirect_to products_path
     end
   end
 
