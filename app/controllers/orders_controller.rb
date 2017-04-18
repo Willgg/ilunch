@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   skip_before_action :authenticate_user!, only: [:show, :new, :update]
 
   before_action :set_order, only: [:index, :show, :new, :update]
+  before_action :set_line_item, only: [:new]
 
   after_action :verify_authorized, except: [:index, :show, :new, :update]
   skip_after_action :verify_policy_scoped, only: :index
@@ -16,10 +17,9 @@ class OrdersController < ApplicationController
 
   def new
     @menus = policy_scope(Menu)
-    @products = Product.category(params[:step]).of_the_day(Date.today)
-    @line_item = @order.line_items.select{ |e| !e.menu_id.nil? }.last
+    @products = Product.category(params[:step])
+    @products = @products.of_the_day(@order.date) if params[:step] == 'main'
     @menu_item = MenuItem.new
-    @line_item = LineItem.new if params[:step] == 'extra' || params[:step] == 'menu'
   end
 
   def update
@@ -40,13 +40,31 @@ class OrdersController < ApplicationController
   private
 
   def set_order
-    super
-    if @order.nil?
-      @order = Order.create
-      session[:order_id] = @order.id
+    if params[:id]
+      @order = Order.find(params[:id])
+    else
+      super
+      update_order(attributes) if @order.present? && attributes.present?
+      create_order(attributes) if @order.nil?
     end
-    @order = Order.find(params[:id]) if params[:id]
-    update_order_with_user
+  end
+
+  def set_line_item
+    @line_item =
+      if params[:step] == 'extra' || params[:step] == 'menu'
+        LineItem.new
+      elsif params[:line_item].present?
+        LineItem.find(params[:line_item])
+      else
+        @order.line_items.select{ |li| li.is_a_menu? && li.incomplete? }.first
+      end
+  end
+
+  def attributes
+    a = {}
+    a = a.merge( user: current_user ) if current_user
+    a = a.merge( date: Date.parse(params[:date]) ) if params[:date]
+    return a
   end
 
   def order_params

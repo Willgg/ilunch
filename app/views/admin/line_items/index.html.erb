@@ -14,7 +14,7 @@
     </thead>
     <% @line_items.each do |li| %>
       <tr>
-        <td>#<%= li.order.id %></td>
+        <td><%= link_to "##{li.order.id}", admin_orders_path(id: li.order.id) %></td>
         <% if li.product.present? %>
           <td>
             <% if li.product.photo? %>

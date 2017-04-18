@@ -4,7 +4,7 @@ module Ilunch
 
   def self.next_active_days(number, start_date=nil)
     week = []
-    date = start_date ? start_date : Date.today
+    date = start_date ? start_date : Date.current
     until week.count == number do
       week << date if ( date.wday != 6 && date.wday != 0 )
       date += 1.day
@@ -12,15 +12,19 @@ module Ilunch
     return week.first(number)
   end
 
-  def self.open?
-    if ENV['RAILS_ENV'] == 'production'
-      DateTime.current <= DateTime.current.beginning_of_day + 12.hours
-    else
+  def self.open?(date=nil)
+    # return true if ENV['RAILS_ENV'] != 'production'
+    # return true if ENV['HOST'] == 'http://localhost:3000'
+    # return true if ENV['HOST'] == 'http://ilunch-staging.herokuapp.com'
+    if date.nil?
       true
+      # DateTime.current <= DateTime.current.beginning_of_day + 12.hours
+    else
+      DateTime.current <= DateTime.current.beginning_of_day + 12.hours || date != Date.current
     end
   end
 
-  def self.closed?
-    !open?
+  def self.closed?(date=nil)
+    !open?(date)
   end
 end

@@ -14,6 +14,17 @@
           <strong>Attention!</strong> un menu est incomplet
         </div>
       <% end %>
+
+      <% if @order.products_out_of_stock.present? %>
+        <div class="alert alert-danger" role="alert">
+          Certains produits ne sont plus disponibles:
+          <ul>
+          <% @order.products_out_of_stock.each do |product, quantity| %>
+            <li><%= product.name %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
       <table class="line-items">
         <tbody>
         <% @order.line_items.each do |li| %>
@@ -54,7 +65,9 @@
               <tr class="menu-item">
                 <td></td>
                 <td colspan="2" class="missing-item">
-                  <%= link_to "Compléter le menu", new_order_path(step: li.next_step), class: 'error-link' %>
+                  <%= link_to "Compléter le menu",
+                        new_order_path(line_item: li.id,step: li.next_step),
+                        class: 'error-link' %>
                 </td>
                 <td></td>
               </tr>
@@ -98,11 +111,14 @@
                 </div>
                 <div class="delivery-details">
                   <span><i class="fa fa-clock-o" aria-hidden="true"></i></span>
-                  <p><strong><%= current_user.company.delivery_time %></strong></p>
+                  <p>
+                    <strong><%= l(@order.date, format: '%A %d') %></strong><br />
+                    <%= current_user.company.delivery_time %>
+                  </p>
                 </div>
               </div>
             </div>
-            <% if @order.full? && @order.total_price > 0 %>
+            <% if @order.full? && @order.products_out_of_stock.blank? && @order.total_price > 0 %>
             <div class="col-xs-12 text-right">
               <div class="payment-form">
                 <%= form_tag order_payments_path(@order) do %>

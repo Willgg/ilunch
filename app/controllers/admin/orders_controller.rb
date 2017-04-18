@@ -5,7 +5,15 @@ class Admin::OrdersController < ApplicationController
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
   def index
-    @orders = policy_scope(Order).future.where('status != ?', 0).paginate(:page => params[:page], :per_page => 30)
+    @orders = policy_scope(Order)
+    if any_params?
+      @orders = @orders.where(user: params[:user]) if params[:user]
+      @orders = @orders.where(status: params[:status]) if params[:status]
+      @orders = @orders.where(id: params[:id]) if params[:id]
+    else
+      @orders = @orders.done.order(status: :asc)
+    end
+    @orders = @orders.paginate(:page => params[:page], :per_page => 30)
   end
 
   def show
@@ -27,6 +35,10 @@ class Admin::OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit()
+  end
+
+  def any_params?
+    !(params[:user].nil? && params[:status].nil? && params[:id].nil?)
   end
 
 end

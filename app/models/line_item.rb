@@ -37,6 +37,10 @@ class LineItem < ApplicationRecord
     price * quantity
   end
 
+  def incomplete?
+    !full?
+  end
+
   def full?
     selected_products == menu.components
   end
@@ -64,5 +68,12 @@ class LineItem < ApplicationRecord
       end
     end
     return inventory
+  end
+
+  def products
+    all = []
+    all << product unless product.nil?
+    menu_items.each { |mi| all << mi.product } unless menu_items.nil?
+    return all
   end
 end

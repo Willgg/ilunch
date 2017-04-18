@@ -21,6 +21,11 @@
     list-style-type: none;
     padding: 0;
   }
+  p {
+    strong {
+      text-transform: capitalize;
+    }
+  }
   .fa {
     font-size: 20px;
     color: $brand-color;
