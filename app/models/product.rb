@@ -18,6 +18,7 @@ class Product < ApplicationRecord
   scope :of_the_day, ->(date) { where('date = ?', date) }
   scope :of_the_week, -> { where('date <= ? AND date >= ?', Date.today + 7.days, Date.today) }
   scope :available_for, ->(date) { of_the_day(date).in_stock }
+  scope :available_between, ->(from, to) { where('date >= ? AND date <= ?', from, to) }
 
   scope :category, ->(cat) { where(category: cat) }
 
