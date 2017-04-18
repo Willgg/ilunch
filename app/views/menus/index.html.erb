@@ -28,7 +28,7 @@
               <%= render 'products/show', product: p %>
             </div>
           <% end %>
-          <div id="empty-products">
+          <div id="empty-products" data-date="<%= Date.current.strftime('%d-%m-%Y') %>">
             <p>Notre chef cuisine et vous prépare de bons petits plats.<br />
                Revenez demain pour passer commande…</p>
           </div>
