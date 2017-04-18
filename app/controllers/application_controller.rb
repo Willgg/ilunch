@@ -38,6 +38,7 @@ class ApplicationController < ActionController::Base
     return if attributes.nil?
     @order.user = attributes[:user] if attributes[:user] && @order.user.nil?
     @order.date = attributes[:date] if attributes[:date]
+    @order.destroy_line_items
     @order.save
   end
 

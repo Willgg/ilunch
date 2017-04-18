@@ -14,8 +14,6 @@ class Order < ApplicationRecord
   scope :future, -> { where('created_at >= ?', Date.today) }
   scope :done , -> { where('status = 1 OR status = 2 OR status = 3') }
 
-  after_commit :destroy_line_items, on: :update
-
   def set_status
     self.status = 0 if self.status.nil?
   end
