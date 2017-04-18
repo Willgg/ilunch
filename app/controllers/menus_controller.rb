@@ -4,9 +4,14 @@ class MenusController < ApplicationController
 
   def index
     @menus = policy_scope(Menu)
-    @date = params[:date].nil? ? Ilunch.next_active_days(1).first : Date.parse(params[:date])
-    @products = Product.category('main').available_for(@date)
+    @products = Product.category('main').available_between(days[0], days[-1])
     @products_of_week = Product.category('main').of_the_week.sample(5)
     @line_item = LineItem.new
+  end
+
+  private
+
+  def days
+    Ilunch.next_active_days(5, Date.current)
   end
 end

@@ -96,3 +96,21 @@
     }
   }
 }
+
+#empty-products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 411px;
+  width: 100%;
+  background-image: url('no-product.jpg');
+  background-size: cover;
+  p {
+    position: relative;
+    font-size: 18px;
+    padding: 20px 60px;
+    background: rgba(255, 255, 255, 0.4);
+    text-align: center;
+  }
+}
