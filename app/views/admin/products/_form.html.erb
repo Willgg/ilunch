@@ -2,7 +2,12 @@
   <%= simple_form_for [:admin, @product] do |f| %>
     <%= f.input :name %>
     <%= f.input :category, collection: Product::CATEGORIES %>
-    <%= f.input :date %>
+    <%= f.input :date, order: [:day, :month, :year],
+                       default: Date.current,
+                       as: :string,
+                       placeholder: "jj/mm/aaaa",
+                       required: true,
+                       hint: 'Laisser le champ vide si produit toujours disponible' %>
     <%= f.input :stock %>
     <%= f.input :price %>
     <%= f.input :photo, as: :attachinary %>

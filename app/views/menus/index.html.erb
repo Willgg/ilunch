@@ -75,8 +75,11 @@
   <script>
     $( '#products' ).children().hide();
     var date = "<%= next_days(5).first.strftime('%d-%m-%Y') %>";
-    $( '*[data-date="' + date + '"]' ).show();
-
+    if ($( '*[data-date="' + date + '"]' ).length > 0) {
+      $( '*[data-date="' + date + '"]' ).show();
+    }else{
+      $( '#products #empty-products' ).show();
+    }
     $( '.menu-week' ).on( 'click','li', function() {
       $('.menu-week li.selected' ).removeClass( 'selected' );
       $( this ).addClass( "selected" );
