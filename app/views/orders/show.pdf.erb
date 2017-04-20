@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+     <div class="col-xs-12 col-md-6 col-md-offset-3">
+        <h2>Facture</h2>
+        <% if @order.payed? %>
+<!--         <p>Votre commande a bien &eacute;t&eacute; enregistr&eacute;e et vous serez livr&eacute; le:<br />
+          <%= l(@order.date, format: '%A %d') %> entre <%= current_user.company.delivery_time %></p> -->
+<!--         <p>
+          <strong>Adresse de livraison:</strong><br />
+          <%= current_user.company.name %><br />
+          <%= current_user.company.street %><br />
+        </p> -->
+        <% end %>
+     </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
+      <table class="line-items">
+        <tbody>
+        <% @order.line_items.each do |li| %>
+          <% unless li.product_id.nil? %>
+            <tr class="line-item-product">
+              <td><%= cl_image_tag li.product.photo.path, width: 100, height: 70, crop: :fill %></td>
+              <td><%= li.product.name %>&nbsp;&times;<%= li.quantity %></td>
+              <td><%= humanized_money_with_symbol(li.total_price) %></td>
+            </tr>
+          <% end %>
+          <% unless li.menu_id.nil? %>
+            <tr class="line-item-menu">
+              <td colspan="2"><strong><%= li.menu.title %>&nbsp;&times;<%= li.quantity %></strong></td>
+              <td><%= humanized_money_with_symbol(li.total_price) %></td>
+            </tr>
+            <% li.menu_items.each do |mi| %>
+              <tr class="menu-item">
+                <td colspan="2">
+                  <table>
+                    <tr>
+                      <td><div>
+                          <i class="fa fa-angle-right" aria-hidden="true"></i>
+                          <%= cl_image_tag mi.product.photo.path, width: 100, height: 70, crop: :fill %>
+                      </div></td>
+                      <td><%= mi.product.name %>&nbsp;&times;<%= mi.quantity %></td>
+                    </tr>
+                  </table>
+                </td>
+                <td></td>
+              </tr>
+            <% end %>
+          <% end %>
+        <% end %>
+        </tbody>
+        <tfoot>
+          <tr class="vat-price">
+            <td colspan="2" class="text-right">dont TVA (<%= "#{(Ilunch::TVA * 100).round}" %>%)</td>
+            <td><%= humanized_money_with_symbol(@order.vat) %></td>
+          </tr>
+          <tr>
+            <td colspan="2" class="text-right">Total HT</td>
+            <td><%= humanized_money_with_symbol(@order.subtotal) %></td>
+          </tr>
+          <tr class="total-price">
+            <td colspan="2" class="text-right">Total</td>
+            <td><%= humanized_money_with_symbol(@order.total_price) %></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+

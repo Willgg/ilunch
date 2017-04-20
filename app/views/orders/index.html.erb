@@ -26,6 +26,7 @@
                       <%= l(order.date, format: '%A %d %B') %> -
                       <%= humanized_money(order.total_price) %> <%= currency_symbol %>
                     <% end %>
+                    <p><%= link_to 'factures', order_path(order, format: 'pdf')%></p>
                     <% order.line_items.each do |li| %>
                       <div class="line-item">
                         <% if li.menu_id.present? %>
@@ -49,10 +50,9 @@
 
 <% content_for :after_js do %>
   <script>
-    $('.order a').on('click', function(e){
+    $('.order a:first-child').on('click', function(e){
       e.preventDefault();
       $(this).parent('.order').children('.line-item').toggle();
-      console.log();
     });
   </script>
 <% end %>

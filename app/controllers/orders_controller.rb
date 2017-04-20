@@ -13,6 +13,14 @@ class OrdersController < ApplicationController
 
   def show
     authorize(@order, @order.id, :show?)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "facture-commande-#{@order.id}",
+               template: 'orders/show.pdf.erb',
+               title: "Facture ilunch"
+      end
+    end
   end
 
   def new
