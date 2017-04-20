@@ -17,11 +17,19 @@
 .orders {
   list-style-type: none;
   padding: 0;
+  li.order {
+    padding: 15px 10px;
+    &:hover {
+      background-color: lighten($brand-color, 58%);
+    }
+    &:last-child {
+      border: none;
+    }
+  }
   .order {
     border-bottom: 1px solid #ededed;
     a {
       display: inline-block;
-      padding: 15px 10px;
       width: 100%;
       strong {
         text-transform: uppercase;
@@ -37,9 +45,12 @@
         text-decoration: none;
       }
     }
-  }
-  .line-item {
-    display: none;
+    .line-item {
+      display: none;
+      &:nth-child(2){
+        padding: 20px 0 0 0;
+      }
+    }
   }
 }
 

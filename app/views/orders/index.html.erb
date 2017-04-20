@@ -2,35 +2,47 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <h2>Mes commandes</h2>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-sm-offset-3">
-      <ul class="orders">
-        <% @orders.each do |order| %>
-          <li class="order">
-            <%= link_to order_path(order) do %>
-              <strong>Commande #<%= order.id %></strong><br />
-              <%= l(order.date, format: '%A %d %B') %> -
-              <%= humanized_money(order.total_price) %> <%= currency_symbol %>
-            <% end %>
-            <% order.line_items.each do |li| %>
-              <div class="line-item">
-                <% if li.menu_id.present? %>
-                  <%= li.menu.title %>
-                <% elsif li.product_id.present? %>
-                  <%= li.product.name %>
+    <div class="col-xs-12 col-sm-10 col-sm-offset-1 bg-grey-light">
+      <div class="row">
+        <div class="col-xs-12 col-sm-3 navbar-user">
+          <ul>
+            <li><%= link_to "Mon profil", edit_user_registration_path %></li>
+            <li><%= link_to "Mon commandes", orders_path %></li>
+          </ul>
+        </div>
+        <div class="col-xs-12 col-sm-9 bg-white">
+          <div class="row">
+            <div class="col-xs-12">
+              <h2>Mes commandes</h2>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12">
+              <ul class="orders">
+                <% @orders.each do |order| %>
+                  <li class="order">
+                    <%= link_to order_path(order) do %>
+                      <strong>Commande #<%= order.id %></strong><br />
+                      <%= l(order.date, format: '%A %d %B') %> -
+                      <%= humanized_money(order.total_price) %> <%= currency_symbol %>
+                    <% end %>
+                    <% order.line_items.each do |li| %>
+                      <div class="line-item">
+                        <% if li.menu_id.present? %>
+                          <%= li.menu.title %>
+                        <% elsif li.product_id.present? %>
+                          <%= li.product.name %>
+                        <% end %>
+                        x <%= li.quantity %> - <%= li.total_price %> <%= currency_symbol %>
+                      </div>
+                    <% end %>
+                  </li>
                 <% end %>
-                - <%= li.quantity %> - <%= li.total_price %>
-              </div>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -39,10 +51,8 @@
   <script>
     $('.order a').on('click', function(e){
       e.preventDefault();
-      console.log('avant');
-
-      $(this).next('.line-item').toggle();
-      console.log('avant');
+      $(this).parent('.order').children('.line-item').toggle();
+      console.log();
     });
   </script>
 <% end %>

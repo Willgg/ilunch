@@ -18,6 +18,10 @@ a:hover, a:active, a:focus {
   color: darken($brand-color, 10%);
 }
 
+.orders-index, .devise-registrations-edit {
+  background-color: #efefef;
+}
+
 // Paddings
 .padded {
   padding-top: 5em;
@@ -36,6 +40,12 @@ a:hover, a:active, a:focus {
 }
 .bg-dark-blue {
   background: #3b5998;
+}
+.bg-white {
+  background-color: #fff;
+}
+.bg-grey-light {
+  background-color: #f9f9f9;
 }
 .pagination {
   display: block;
