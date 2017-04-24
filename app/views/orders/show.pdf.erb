@@ -1,20 +1,28 @@
 <div class="container">
   <div class="row">
-     <div class="col-xs-12 col-md-6 col-md-offset-3">
-        <h2>Facture</h2>
-        <% if @order.payed? %>
-<!--         <p>Votre commande a bien &eacute;t&eacute; enregistr&eacute;e et vous serez livr&eacute; le:<br />
-          <%= l(@order.date, format: '%A %d') %> entre <%= current_user.company.delivery_time %></p> -->
-<!--         <p>
-          <strong>Adresse de livraison:</strong><br />
-          <%= current_user.company.name %><br />
-          <%= current_user.company.street %><br />
-        </p> -->
-        <% end %>
+    <div class="col-xs-12">
+      <p style="margin-top: 40px">
+        <strong>i-lunch</strong><br />
+        10 rue Waldeck Rochet<br />
+        93300 Aubervilliers
+      </p>
+    </div>
+    <div class="col-xs-12 text-right">
+      <p>
+        <%= @order.user.full_name %><br />
+        <%= @order.user.company.name %><br />
+        <%= @order.user.company.address %>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+     <div class="col-xs-12">
+        <h3>Facture n°<%= @order.id %><br />
+          <small>commande pour le <%= l(@order.date, format: '%d/%m/%Y')%></small></h3>
      </div>
   </div>
   <div class="row">
-    <div class="col-xs-12 col-md-6 col-md-offset-3">
+    <div class="col-xs-12">
       <table class="line-items">
         <tbody>
         <% @order.line_items.each do |li| %>
@@ -54,12 +62,12 @@
             <td colspan="2" class="text-right">dont TVA (<%= "#{(Ilunch::TVA * 100).round}" %>%)</td>
             <td><%= humanized_money_with_symbol(@order.vat) %></td>
           </tr>
-          <tr>
+          <tr class="vat-price">
             <td colspan="2" class="text-right">Total HT</td>
             <td><%= humanized_money_with_symbol(@order.subtotal) %></td>
           </tr>
           <tr class="total-price">
-            <td colspan="2" class="text-right">Total</td>
+            <td colspan="2" class="text-right">Total TTC</td>
             <td><%= humanized_money_with_symbol(@order.total_price) %></td>
           </tr>
         </tfoot>

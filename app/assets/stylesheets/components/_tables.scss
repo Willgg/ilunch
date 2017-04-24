@@ -25,12 +25,45 @@
     &:last-child {
       border: none;
     }
+    .suborder {
+      display: none;
+    }
+    .suborder-flex {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+      align-items: flex-end;
+      padding: 20px 0 0 0;
+    }
+    .line_items {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+    .invoice-link {
+      width: auto;
+    }
   }
   .order {
     border-bottom: 1px solid #ededed;
-    a {
-      display: inline-block;
+    .details {
+      display: flex;
       width: 100%;
+      align-items: center;
+      cursor: pointer;
+      p {
+        margin: 0;
+        &:first-child {
+          width: 100%;
+        }
+        &:last-child {
+          color: #ccc;
+        }
+      }
+      i.rotate-down {
+        transform: rotate(90deg);
+        transition: transform 0.5s;
+      }
       strong {
         text-transform: uppercase;
         color: #555;
@@ -43,12 +76,6 @@
       }
       &:focus {
         text-decoration: none;
-      }
-    }
-    .line-item {
-      display: none;
-      &:nth-child(2){
-        padding: 20px 0 0 0;
       }
     }
   }

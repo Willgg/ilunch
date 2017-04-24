@@ -21,22 +21,32 @@
               <ul class="orders">
                 <% @orders.each do |order| %>
                   <li class="order">
-                    <%= link_to order_path(order) do %>
-                      <strong>Commande #<%= order.id %></strong><br />
-                      <%= l(order.date, format: '%A %d %B') %> -
-                      <%= humanized_money(order.total_price) %> <%= currency_symbol %>
-                    <% end %>
-                    <p><%= link_to 'factures', order_path(order, format: 'pdf')%></p>
-                    <% order.line_items.each do |li| %>
-                      <div class="line-item">
-                        <% if li.menu_id.present? %>
-                          <%= li.menu.title %>
-                        <% elsif li.product_id.present? %>
-                          <%= li.product.name %>
+                    <div class="details">
+                      <p>
+                        <strong>Commande #<%= order.id %></strong><br />
+                        <%= l(order.date, format: '%A %d %B') %> -
+                        <%= humanized_money(order.total_price) %> <%= currency_symbol %>
+                      </p>
+                      <p>
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                      </p>
+                    </div>
+                    <div class="suborder">
+                      <%= link_to 'Télécharger la facture', order_path(order, format: 'pdf'),
+                            class: 'btn btn-primary', target: '_blank' %>
+                      <div class="line_items">
+                        <% order.line_items.each do |li| %>
+                          <div class="line-item">
+                            <% if li.menu_id.present? %>
+                              <%= li.menu.title %>
+                            <% elsif li.product_id.present? %>
+                              <%= li.product.name %>
+                            <% end %>
+                            x <%= li.quantity %> - <%= li.total_price %> <%= currency_symbol %>
+                          </div>
                         <% end %>
-                        x <%= li.quantity %> - <%= li.total_price %> <%= currency_symbol %>
                       </div>
-                    <% end %>
+                    </div>
                   </li>
                 <% end %>
               </ul>
@@ -50,9 +60,10 @@
 
 <% content_for :after_js do %>
   <script>
-    $('.order a:first-child').on('click', function(e){
+    $('.order').on('click', '.details', function(e){
       e.preventDefault();
-      $(this).parent('.order').children('.line-item').toggle();
+      $(this).parent('.order').children('.suborder').toggleClass('suborder-flex');
+      $(this).find('i').toggleClass('rotate-down');
     });
   </script>
 <% end %>

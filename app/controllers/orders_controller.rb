@@ -17,6 +17,7 @@ class OrdersController < ApplicationController
       format.html
       format.pdf do
         render pdf: "facture-commande-#{@order.id}",
+               layout: 'layouts/pdf',
                template: 'orders/show.pdf.erb',
                title: "Facture ilunch"
       end
