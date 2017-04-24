@@ -58,7 +58,12 @@ class LineItemsController < ApplicationController
   end
 
   def set_menu
-    @menu = Menu.find(params[:menu_id]) if params[:menu_id]
+    begin
+      @menu = Menu.find(params[:menu_id]) if params[:menu_id]
+    rescue
+      flash[:alert] = "Veuillez choisir parmi les menus ci-dessous"
+      redirect_to :back
+    end
   end
 
   def set_line_item
