@@ -3,7 +3,7 @@
     <%= f.input :name %>
     <%= f.input :category, collection: Product::CATEGORIES %>
     <%= f.input :date, order: [:day, :month, :year],
-                       default: Date.current,
+                       input_html: {value: Date.current.strftime('%d/%m/%Y')},
                        as: :string,
                        placeholder: "jj/mm/aaaa",
                        required: true,

@@ -40,9 +40,13 @@ class Order < ApplicationRecord
   end
 
   def substract_products_stocks
-    line_items.each do |li|
-      li.sub_product_stock if li.product.present?
-      li.menu_items.each { |mi| mi.sub_product_stock } if li.menu.present?
+    # line_items.each do |li|
+    #   li.sub_product_stock if li.product.present?
+    #   li.menu_items.each { |mi| mi.sub_product_stock } if li.menu.present?
+    # end
+    inventory.each do |p,v|
+      p.stock -= v
+      p.save
     end
   end
 
