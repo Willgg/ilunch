@@ -17,9 +17,10 @@ module Ilunch
     return true if ENV['HOST'] == 'http://localhost:3000'
     return true if ENV['HOST'] == 'http://ilunch-staging.herokuapp.com'
     if date.nil?
-      DateTime.current <= DateTime.current.beginning_of_day + 12.hours
+      true
+      # DateTime.current <= DateTime.current.beginning_of_day + 12.hours
     else
-      DateTime.current <= DateTime.current.beginning_of_day + 12.hours && date == Date.current
+      DateTime.current <= DateTime.current.beginning_of_day + 12.hours || date != Date.current
     end
   end
 

@@ -38,8 +38,11 @@
           <% end %>
         </td>
         <td><%= user.updated_at.strftime('%d/%m/%Y') %></td>
-        <td><%= user.optin? ? true : '-' %></td>
-        <td><%= link_to 'supprimer', admin_user_path(user), method: :delete %></td>
+        <td><%= user.optin? ? 'oui' : '-' %></td>
+        <td>
+          <%= link_to 'supprimer', admin_user_path(user), method: :delete,
+                data: {confirm: "Êtes vous sur de vouloir supprimer l'utilisateur ?"} %>
+        </td>
       </tr>
     <% end %>
   </table>

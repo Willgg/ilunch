@@ -1,66 +1,64 @@
 <div class="card" id="product-<%= product.id %>">
   <div class="card-bg" style="background-image: url(' <%= cl_image_path product.photo.path, height: 250, crop: :fill %>');">
-  <% if Ilunch.closed?(product.date) %>
-    <p class="no-stock">
-      Fin du service<br />
-      <small>
-        Revenez le <%= l(Ilunch.next_active_days(1, Date.tomorrow).first, format: ('%d %B')) %> avant 12h
-      </small>
-    </p>
-  <% elsif !product.has_stock? %>
-    <p class="no-stock">Victime de son succès<br /><small></small></p>
-  <% end %>
+    <% if Ilunch.closed?(product.date) %>
+      <p class="no-stock">
+        Fin du service<br />
+        <small>
+          Revenez le <%= l(Ilunch.next_active_days(1, Date.tomorrow).first, format: ('%d %B')) %> avant 12h
+        </small>
+      </p>
+    <% elsif !product.has_stock? %>
+      <p class="no-stock">Victime de son succès<br /><small></small></p>
+    <% end %>
   </div>
 
+  <% if !(params[:controller] == 'menus' && params[:action] == 'index') %>
 
-  <!-- <div class="card-category"><%= humanized_money_with_symbol(product.price) %></div> -->
-    <% if !(params[:controller] == 'menus' && params[:action] == 'index') %>
-
-      <div class="card-details">
-        <div class="card-description">
-          <h3><%= product.name %></h3>
-          <p><%= product.description.truncate(100) %></p>
-        </div>
-        <div class="card-cta">
+    <div class="card-details">
+      <div class="card-description">
+        <h3><%= product.name %></h3>
+        <p><%= product.description.truncate(100) %></p>
+      </div>
+      <div class="card-cta">
+      <% if params[:step] == 'extra' %>
+        <p class="price"><%= humanized_money(product.price) %> <%= currency_symbol %></p>
+      <% end %>
+      <% if Ilunch.open?(product.date) && product.has_stock? && local_assigns[:menu_item] && local_assigns[:line_item] %>
         <% if params[:step] == 'extra' %>
-          <p class="price"><%= humanized_money(product.price) %> <%= currency_symbol %></p>
-        <% end %>
-        <% if Ilunch.open?(product.date) && product.has_stock? && local_assigns[:menu_item] && local_assigns[:line_item] %>
-          <% if params[:step] == 'extra' %>
-            <%= simple_form_for line_item,
-                url: line_items_path(line_item, step: params[:step]) do |f| %>
-              <%= f.hidden_field :quantity, value: 1 %>
-              <%= f.hidden_field :product_id, value: product.id %>
-              <%= f.submit 'Choisir', class: 'btn btn-primary' %>
-            <% end %>
-          <% else %>
-            <%= simple_form_for menu_item,
-                url: line_item_menu_items_path(line_item, menu_item, step: params[:step]) do |f| %>
-              <%= f.hidden_field :quantity, value: 1 %>
-              <%= f.hidden_field :product_id, value: product.id %>
-              <%= f.submit 'Choisir', class: 'btn btn-primary' %>
-            <% end %>
+          <%= simple_form_for line_item,
+              url: line_items_path(line_item, step: params[:step]) do |f| %>
+            <%= f.hidden_field :quantity, value: 1 %>
+            <%= f.hidden_field :product_id, value: product.id %>
+            <%= f.submit 'Choisir', class: 'btn btn-primary' %>
+          <% end %>
+        <% else %>
+          <%= simple_form_for menu_item,
+              url: line_item_menu_items_path(line_item, menu_item, step: params[:step]) do |f| %>
+            <%= f.hidden_field :quantity, value: 1 %>
+            <%= f.hidden_field :product_id, value: product.id %>
+            <%= f.submit 'Choisir', class: 'btn btn-primary' %>
           <% end %>
         <% end %>
-        </div>
+      <% end %>
+      </div>
+    </div>
+
+  <% else %>
+
+    <div class="card-details">
+      <div class="card-description">
+        <h3><%= product.name %></h3>
+        <p><%= product.description.truncate(100) %></p>
       </div>
 
-    <% else %>
-
-      <div class="card-details">
-        <div class="card-description">
-          <h3><%= product.name %></h3>
-          <p><%= product.description.truncate(100) %></p>
+      <% if Ilunch.open?(product.date) %>
+        <div class="text-center" style="width: 100%">
+          <%= link_to 'Je commande',
+                      new_order_path(step: 'menu', date: product.date),
+                      class: 'btn btn-primary' %>
         </div>
-
-        <% if Ilunch.open?(product.date) %>
-          <div class="text-center" style="width: 100%">
-            <%= link_to 'Je commande',
-                        new_order_path(step: 'menu'),
-                        class: 'btn btn-primary' %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
+  <% end %>
  <!--  <a class="card-link" href="#" ></a> -->
 </div>

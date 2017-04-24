@@ -9,9 +9,10 @@ class Order < ApplicationRecord
   has_many :products, through: :line_items
 
   validates :status, inclusion: { in: statuses }
+  validates :date, presence: true
 
   scope :future, -> { where('created_at >= ?', Date.today) }
-  scope :done, -> { where('status = 1 OR status = 2 OR status = 3') }
+  scope :done , -> { where('status = 1 OR status = 2 OR status = 3') }
 
   def set_status
     self.status = 0 if self.status.nil?
@@ -71,6 +72,16 @@ class Order < ApplicationRecord
       end
     end
     return inventory
+  end
+
+  def destroy_line_items
+    outdated_line_items =
+      line_items.select do |li|
+        li.products.any? { |p| p.date != date && !p.date.nil? }
+      end
+    if outdated_line_items.present?
+      outdated_line_items.each{ |li| li.destroy }
+    end
   end
 
   def send_confirmation_email

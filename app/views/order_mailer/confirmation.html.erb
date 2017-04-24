@@ -34,7 +34,8 @@
               <p>Bonjour <%= @user.first_name %>,</p>
               <p>Merci d’avoir commandé chez i-lunch.</p>
               <p>
-                Votre repas sera livré entre <%= @user.company.delivery_time %> à :<br />
+                Votre repas sera livré le <%= l(@order.date, format: "%A %d %B") %>
+                entre <%= @user.company.delivery_time %> à :<br />
                 <strong><%= @user.company.name %></strong>, <strong><%= @user.company.street %> à <%= @user.company.city %></strong>
               </p>
               <p>Vous recevrez un SMS au <%= @user.phone %> peu avant l’arrivée de votre commande à votre bureau.</p>

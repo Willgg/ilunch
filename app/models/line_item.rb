@@ -37,6 +37,10 @@ class LineItem < ApplicationRecord
     price * quantity
   end
 
+  def incomplete?
+    !full?
+  end
+
   def full?
     selected_products == menu.components
   end

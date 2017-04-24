@@ -14,7 +14,7 @@
     </thead>
     <% @menu_items.each do |mi| %>
       <tr>
-        <td>#<%= mi.order.id %></td>
+        <td><%= link_to "##{mi.order.id}", admin_orders_path(id: mi.order.id) %></td>
         <td>
           <%= mi.order.user ? mi.order.user.full_name : 'Aucun' %>
         </td>
@@ -25,7 +25,7 @@
         </td>
         <td><%= mi.product.name %></td>
         <td>X&nbsp;<%= mi.quantity %></td>
-        <td><%= l(mi.product.date, format: '%d/%m/%Y') %></td>
+        <td><%= l(mi.order.date, format: '%d/%m/%Y') %></td>
       </tr>
     <% end %>
   </table>

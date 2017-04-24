@@ -29,7 +29,7 @@
         <td><%= t("admin.product.category.#{product.category}").capitalize %></td>
         <td><%= humanized_money_with_symbol(product.price) %></td>
         <td><%= product.stock %></td>
-        <td><%= product.date.strftime('%d/%m/%Y') %></td>
+        <td><%= product.date.nil? ? 'aucune' : product.date.strftime('%d/%m/%Y') %></td>
         <td>
           <% if policy(product).update? %>
             <%= link_to 'modifier', edit_admin_product_path(product) %>

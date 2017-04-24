@@ -11,7 +11,7 @@ class Product < ApplicationRecord
   validates :name, presence: true
   validates :description, presence: true
   validates :price_cents, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :date, :stock, presence: true
+  validates :stock, presence: true
   validates :category, presence: true, inclusion: {in: CATEGORIES}
 
   scope :in_stock, -> { where('stock > 0') }
@@ -29,4 +29,5 @@ class Product < ApplicationRecord
   def has_stock?
     stock > 0
   end
+
 end

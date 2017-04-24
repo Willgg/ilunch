@@ -60,7 +60,7 @@ class PaymentsController < ApplicationController
   def set_order
     begin
       @order = Order.find(params[:order_id])
-      update_order_with_user unless @order.nil?
+      update_order(user: current_user) unless @order.nil? || current_user.nil?
     rescue
       redirect_to root_path
     end
