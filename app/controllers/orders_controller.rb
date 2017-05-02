@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
   end
 
   def new
-    @menus = policy_scope(Menu)
+    @menus = policy_scope(Menu).where(active: true)
     @products = Product.category(params[:step])
     @products = @products.of_the_day(@order.date) if params[:step] == 'main'
     @menu_item = MenuItem.new
