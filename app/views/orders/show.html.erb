@@ -53,7 +53,9 @@
         </tbody>
         <tfoot>
           <tr class="vat-price">
-            <td colspan="2" class="text-right">dont TVA (<%= "#{(Ilunch::TVA * 100).round}" %>%)</td>
+            <td style="text-align:left"><%= link_to 'Télécharger la facture', order_path(@order, format: 'pdf'),
+                    target: '_blank' %></td>
+            <td class="text-right">dont TVA (<%= "#{(Ilunch::TVA * 100).round}" %>%)</td>
             <td><%= humanized_money_with_symbol(@order.vat) %></td>
           </tr>
           <tr class="total-price">
