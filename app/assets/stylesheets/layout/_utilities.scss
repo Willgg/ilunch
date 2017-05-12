@@ -3,11 +3,23 @@
  * These are examples of utilities classes
  * Feel free to change them and create your own
  * ------------------------------------- */
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 a {
   color: $brand-color;
 }
 a:hover, a:active, a:focus {
   color: darken($brand-color, 10%);
+}
+
+.orders-index, .devise-registrations-edit {
+  background-color: #efefef;
 }
 
 // Paddings
@@ -28,6 +40,12 @@ a:hover, a:active, a:focus {
 }
 .bg-dark-blue {
   background: #3b5998;
+}
+.bg-white {
+  background-color: #fff;
+}
+.bg-grey-light {
+  background-color: #f9f9f9;
 }
 .pagination {
   display: block;

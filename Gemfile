@@ -16,6 +16,8 @@ gem "coffee-rails"
 gem 'pundit'
 gem 'rails-i18n', '~> 5.0.0'
 gem 'devise-i18n'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 gem 'sass-rails'
 gem 'jquery-rails'

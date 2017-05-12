@@ -34,6 +34,10 @@ class Order < ApplicationRecord
     (total_price * 100).to_i
   end
 
+  def invoicable?
+    status != 'pending' && !payment.blank?
+  end
+
   def full?
     line_items_menu = line_items.select { |li| li.is_a_menu? }
     line_items_menu.all? { |li| li.full? }
