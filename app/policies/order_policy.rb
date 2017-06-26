@@ -14,7 +14,7 @@ class OrderPolicy < ApplicationPolicy
   def show?
     status = ['payed', 'ready', 'delivered'].include? @record.status
     ownership =  @record.user ? ( @record.user == @user ) : ( @record.id == @session )
-    (status && ownership) || user.admin?
+    (status && ownership) || @user.admin?
   end
 
   def create?
