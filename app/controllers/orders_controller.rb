@@ -8,19 +8,22 @@ class OrdersController < ApplicationController
   skip_after_action :verify_policy_scoped, only: :index
 
   def index
-    @orders = Order.where(user: current_user).done
+    @orders = Order.where(user: current_user).order(id: :desc).done
   end
 
   def show
-    authorize(@order, @order.id, :show?)
-    respond_to do |format|
-      format.html
-      format.pdf do
-        render pdf: "facture-commande-#{@order.id}",
-               layout: 'layouts/pdf',
-               template: 'orders/show.pdf.erb',
-               title: "Facture ilunch n°#{@order.id}"
+    if authorize(@order, @order.id, :show?)
+      respond_to do |format|
+        format.html
+        format.pdf do
+          render pdf: "facture-commande-#{@order.id}",
+                 layout: 'layouts/pdf',
+                 template: 'orders/show.pdf.erb',
+                 title: "Facture ilunch n°#{@order.id}"
+        end
       end
+    else
+      redirect_to menus_path
     end
   end
 
@@ -32,17 +35,20 @@ class OrdersController < ApplicationController
   end
 
   def update
-    authorize(current_user, @order, session[:order_id])
-    if @order.update(order_params)
-      respond_to do |format|
-        format.html { redirect_to new_order_payment_path(@order)}
-        format.js
+    if authorize(current_user, @order, session[:order_id])
+      if @order.update(order_params)
+        respond_to do |format|
+          format.html { redirect_to new_order_payment_path(@order)}
+          format.js
+        end
+      else
+        respond_to do |format|
+          format.html { redirect_to new_order_payment_path(@order)}
+          format.js
+        end
       end
     else
-      respond_to do |format|
-        format.html { redirect_to new_order_payment_path(@order)}
-        format.js
-      end
+      redirect_to menus_path
     end
   end
 
@@ -81,8 +87,6 @@ class OrdersController < ApplicationController
   end
 
   def authorize(record, id, method)
-    unless OrderPolicy.new(current_user, record, id).send(method.to_sym)
-      redirect_to menus_path
-    end
+    OrderPolicy.new(current_user, record, id).send(method.to_sym)
   end
 end

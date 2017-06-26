@@ -35,7 +35,7 @@ class Order < ApplicationRecord
   end
 
   def invoicable?
-    status != 'pending' && !payment.blank?
+    status != 'pending' && status != 'canceled' && status != 'failed' && !payment.blank?
   end
 
   def full?
