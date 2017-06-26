@@ -11,7 +11,7 @@
     <%= t("admin.order.status.#{order.status}") %>
   </td>
   <td>
-    <% if order.invoicable? && OrderPolicy.new(current_user, order, order.id).show? %>
+    <% if order.invoicable? %>
       <%= link_to order_path(order, format: 'pdf') do %>
         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
       <% end %>
