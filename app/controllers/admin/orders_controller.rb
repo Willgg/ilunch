@@ -1,7 +1,7 @@
 class Admin::OrdersController < ApplicationController
   before_action :set_order, only: [:show, :update]
 
-  after_action :verify_authorized, except: [:index,:update], unless: :skip_pundit?
+  after_action :verify_authorized, except: [:index, :show, :update], unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
   def index
