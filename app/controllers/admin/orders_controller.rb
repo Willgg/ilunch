@@ -11,9 +11,9 @@ class Admin::OrdersController < ApplicationController
       @orders = @orders.where(status: params[:status]) if params[:status]
       @orders = @orders.where(id: params[:id]) if params[:id]
     else
-      @orders = @orders.done.order(status: :asc)
+      @orders = @orders.done
     end
-    @orders = @orders.paginate(:page => params[:page], :per_page => 30)
+    @orders = @orders.order(date: :desc).paginate(:page => params[:page], :per_page => 30)
   end
 
   def show

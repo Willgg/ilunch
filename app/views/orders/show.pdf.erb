@@ -4,7 +4,8 @@
       <p style="margin-top: 40px">
         <strong>i-lunch</strong><br />
         10 rue Waldeck Rochet<br />
-        93300 Aubervilliers
+        93300 Aubervilliers<br />
+        le <%= @order.created_at.strftime('%d/%m/%Y') %>
       </p>
     </div>
     <div class="col-xs-12 text-right">
@@ -17,8 +18,8 @@
   </div>
   <div class="row">
      <div class="col-xs-12">
-        <h3>Facture n°<%= @order.id %><br />
-          <small>commande pour le <%= l(@order.date, format: '%d/%m/%Y')%></small></h3>
+        <h3>Facture n°<%= @order.invoice_id %><br />
+          <small>commande pour le <%= l(@order.date, format: '%d %B %Y')%></small></h3>
      </div>
   </div>
   <div class="row">
