@@ -12,7 +12,7 @@
   </td>
   <td>
     <% if order.invoicable? %>
-      <%= link_to order_path(order, format: 'pdf') do %>
+      <%= link_to order_path(order, format: 'pdf'), target: '_blank' do %>
         <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
       <% end %>
     <% end %>
