@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
   before_action :set_order, only: [:index, :show, :new, :update]
   before_action :set_line_item, only: [:new]
 
-  after_action :verify_authorized, except: [:index, :show, :new, :update]
+  after_action :verify_authorized, except: [:index, :show, :new, :update, :all_pdf]
   skip_after_action :verify_policy_scoped, only: :index
 
   def index
@@ -49,6 +49,19 @@ class OrdersController < ApplicationController
       end
     else
       redirect_to menus_path
+    end
+  end
+
+  def all_pdf
+    @orders = Order.done
+    respond_to do |format|
+      format.html
+      format.pdf do
+         render pdf: "factures",
+                 layout: 'layouts/pdf',
+                 template: 'orders/all.pdf.erb',
+                 title: "Ensemble des factures ilunch "
+      end
     end
   end
 

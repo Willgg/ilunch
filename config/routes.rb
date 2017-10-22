@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   mount Attachinary::Engine => "/attachinary"
   root to: 'menus#index'
 
+  get '/all/invoices', to: 'orders#all_pdf'
   resources :orders, only: [:index, :show, :new, :create, :update] do
     resources :payments, only: [:new, :create]
   end
