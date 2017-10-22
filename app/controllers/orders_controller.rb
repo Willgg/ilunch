@@ -57,10 +57,13 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.html
       format.pdf do
-         render pdf: "factures",
-                 layout: 'layouts/pdf',
-                 template: 'orders/all.pdf.erb',
-                 title: "Ensemble des factures ilunch "
+        @pdf = render_to_string pdf: "factures-ilunch",
+                                layout: 'layouts/pdf',
+                                template: 'orders/all.pdf.erb',
+                                title: "Factures ilunch"
+        send_data @pdf, 
+                  filename: "factures-ilunch.pdf",
+                  type: "application/pdf"
       end
     end
   end
